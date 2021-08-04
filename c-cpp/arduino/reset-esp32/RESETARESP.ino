@@ -1,6 +1,7 @@
+#include <IOXhop_FirebaseESP32.h>
 #include <WiFi.h> 
 #include "secrets.h"
-
+String fireStatus = "";  
 void setup() {
 
   Serial.begin(115200);
@@ -10,6 +11,9 @@ void setup() {
   Serial.println();
   Serial.print("conectado");
   Serial.println(WiFi.localIP());
+
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+  Firebase.setString("Morpheuzada/RESET", "OFF");
 }
 
 void loop() { 
