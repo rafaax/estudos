@@ -16,6 +16,10 @@ void setup() {
   Firebase.setString("Morpheuzada/RESET", "OFF");
 }
 
+  
 void loop() { 
   fireStatus = Firebase.getString("Morpheuzada/RESET");
-}
+  if (fireStatus == "true") {
+    Serial.println("REINICIANDO");
+    ESP.restart();
+}}
