@@ -7,6 +7,7 @@ void setup()
 {
   Serial.begin(115200);     //Inicialização da comunicação serial
   rtc.begin();            //Inicialização do RTC DS3231
+  rtc.setDateTime(__DATE__, __TIME__);   //Configurando valores iniciais 
 }
 
 void loop()
