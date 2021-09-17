@@ -1,5 +1,9 @@
+ #include <ArduinoJson.h> 
+ #include <IOXhop_FirebaseESP32.h> 
  #include <WiFi.h>
  #include "secrets.h"
+
+ String fireStatus = "";
 
  int LED_BUILTIN = 13;
 
@@ -16,6 +20,7 @@
     Serial.println("Conectando ao wifi...");
   }
   Serial.print("Conectado");
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH); 
  }
 void loop()
  {
