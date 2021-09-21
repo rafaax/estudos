@@ -24,4 +24,7 @@
  }
 void loop()
  {
+  fireStatus = (Firebase.getString("/Morpheuszada/LED"));
+  Serial.print(Firebase.getString("/Morpheuszada/LED"));
+  Serial.println();
  }
