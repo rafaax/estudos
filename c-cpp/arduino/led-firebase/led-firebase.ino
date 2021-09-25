@@ -27,4 +27,15 @@ void loop()
   fireStatus = (Firebase.getString("/Morpheuszada/LED"));
   Serial.print(Firebase.getString("/Morpheuszada/LED"));
   Serial.println();
+
+  if (fireStatus == "1")
+  {
+  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);       
+  }
+  else (fireStatus == "0");
+  {
+  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+  delay(1000);   
+  }
  }
