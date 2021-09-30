@@ -12,6 +12,15 @@ void setup()
   rtc.setDateTime(__DATE__, __TIME__);   //Configurando valores iniciais 
 
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  Serial.print("conectando");
+  while (WiFi.status() !=WL_CONNECTED) 
+  {
+    Serial.print(".");
+    delay(500);
+  }
+  Serial.println();
+  Serial.print("conectado");
+  Serial.println(WiFi.localIP());
 }
 
 void loop()
