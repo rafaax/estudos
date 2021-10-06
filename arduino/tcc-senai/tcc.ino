@@ -1,5 +1,6 @@
 #include <Wire.h>        //Biblioteca para manipulação do protocolo I2C
 #include <DS3231.h>    //Biblioteca para manipulação do DS3231
+#include <IOXhop_FirebaseESP32.h>
 #include <WiFi.h> 
 #include "secrets.h"
 
@@ -21,6 +22,8 @@ void setup()
   Serial.println();
   Serial.print("conectado");
   Serial.println(WiFi.localIP());
+
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
 }
 
 void loop()
