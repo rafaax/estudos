@@ -4,6 +4,8 @@
 #include <WiFi.h> 
 #include "secrets.h"
 
+int soma = 0;
+
 DS3231 rtc;
 
 void setup()
@@ -26,7 +28,9 @@ void setup()
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
   pinMode(17, INPUT);
 }
-
 void loop()
 {
+if (digitalRead(17) == HIGH)
+  soma = soma + 1;
+  Serial.println(soma);
 }
