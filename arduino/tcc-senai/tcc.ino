@@ -33,4 +33,11 @@ void loop()
 if (digitalRead(17) == HIGH)
   soma = soma + 1;
   Serial.println(soma);
+  {  static unsigned long ult_tempo = 0;
+  int tempo = millis();
+  if((tempo - ult_tempo) >= 1000)
+  {
+  ult_tempo = tempo;
+}
+}
 }
