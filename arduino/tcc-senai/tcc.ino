@@ -6,6 +6,7 @@
 
 int soma = 0;
 
+int horas =0, seg =0, seg2 =0, mn= 0;
 DS3231 rtc;
 
 void setup()
@@ -38,6 +39,7 @@ if (digitalRead(17) == HIGH)
   if((tempo - ult_tempo) >= 1000)
   {
   ult_tempo = tempo;
+  seg++; seg2++;
 }
 }
 }
