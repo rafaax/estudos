@@ -40,6 +40,9 @@ if (digitalRead(17) == HIGH)
   {
   ult_tempo = tempo;
   seg++; seg2++;
+  Firebase.setFloat("Morpheuzada/TEMPO DE USO/segundos", seg2);
+  Firebase.setFloat("Morpheuzada/TEMPO DE USO/minutos", mn);
+  Firebase.setFloat("Morpheuzada/TEMPO DE USO/horas", horas);
 }
 }
 }
