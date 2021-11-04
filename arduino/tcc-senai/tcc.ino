@@ -45,5 +45,20 @@ if (digitalRead(17) == HIGH)
   Firebase.setFloat("Morpheuzada/TEMPO DE USO/horas", horas);
   Firebase.setInt("Morpheuzada/PECAS/PECAS_CONTADAS", soma);
 }
+  if(seg >= 60)
+{
+  seg =0;
+  seg2 =0;
+  horas =0;
+  mn++;
+
+  if(mn >= 60)
+ {
+  seg =0;
+  seg2 =0;
+  mn =0;
+  horas++;
+ }
+}
 }
 }
