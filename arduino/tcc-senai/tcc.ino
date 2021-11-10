@@ -8,7 +8,8 @@ int soma = 0;
 
 int horas =0, seg =0, seg2 =0, mn= 0;
 DS3231 rtc;
-
+RTCDateTime dataehora; 
+  
 void setup()
 {
   Serial.begin(115200);     //Inicialização da comunicação serial
@@ -59,6 +60,6 @@ if (digitalRead(17) == HIGH)
   mn =0;
   horas++;
  }
-}
-}
-}
+}{
+dataehora = rtc.getDateTime();     
+ }}}
