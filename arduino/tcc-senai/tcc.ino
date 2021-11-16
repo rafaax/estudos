@@ -62,4 +62,12 @@ if (digitalRead(17) == HIGH)
  }
 }{
 dataehora = rtc.getDateTime();     
+  Firebase.setInt("Morpheuzada/RTC/minutos", dataehora.minute);
+  Firebase.setInt("Morpheuzada/RTC/horas", dataehora.hour);
+  Firebase.setInt("Morpheuzada/RTC/segundos", dataehora.second);
+  Firebase.setInt("RTC/minutos", dataehora.minute); 
+  Firebase.setInt("RTC/segundos", dataehora.second); 
+  Firebase.setInt("RTC/horas", dataehora.hour); 
+  delay(1000);
  }}}
+ 
