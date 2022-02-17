@@ -13,4 +13,11 @@ void loop()
     trigonometria[i] = random(0,628); //Numero aleatório de 0 até 628
     trigonometria[i] = (trigonometria[i])/100; //Dividir numero anterior por 100
   }
+
+  soma = cos(trigonometria[0]) + sin(trigonometria[1]) + tan(trigonometria[2]);
+
+  Serial.print("Para: COS("); //Comunicar ("")
+  Serial.print(trigonometria[0]); //Comunicar ("")
+  Serial.print("):"); //Comunicar ("")
+  Serial.println(cos(trigonometria[0]));//Comunicar de volta("")
 }
