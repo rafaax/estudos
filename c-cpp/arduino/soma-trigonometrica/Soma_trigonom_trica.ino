@@ -20,4 +20,14 @@ void loop()
   Serial.print(trigonometria[0]); //Comunicar ("")
   Serial.print("):"); //Comunicar ("")
   Serial.println(cos(trigonometria[0]));//Comunicar de volta("")
+
+  Serial.print("SEN(");//Comunicar ("")
+  Serial.print(trigonometria[1]);//Comunicar ("")
+  Serial.print("):");//Comunicar ("")
+  Serial.println(cos(trigonometria[1]));//Comunicar de volta("")
+
+  Serial.print("TG(");//Comunicar ("")
+  Serial.print(trigonometria[2]);//Comunicar ("")
+  Serial.print("):");//Comunicar ("")
+  Serial.println(cos(trigonometria[2]));//Comunicar de volta("")
 }
