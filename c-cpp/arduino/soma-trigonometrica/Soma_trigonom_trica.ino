@@ -30,4 +30,11 @@ void loop()
   Serial.print(trigonometria[2]);//Comunicar ("")
   Serial.print("):");//Comunicar ("")
   Serial.println(cos(trigonometria[2]));//Comunicar de volta("")
+
+  Serial.print("SOMA =");//Comunicar ("")
+  Serial.println(soma);//Comunicar de volta("")
+  Serial.println("");//Comunicar de volta ("")
+  Serial.println("");//Comunicar de volta("")
+  delay(5000); //Espera de 5 segundos
 }
+
