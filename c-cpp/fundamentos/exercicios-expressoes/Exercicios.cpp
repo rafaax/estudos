@@ -25,4 +25,26 @@ printf ("1) 100 * q / p + r = %f \n", resultado);
 resto = r % 5;
 resultado2 = p * resto - q / 2;
 printf ("2) p * r % 5  - q / 2 = %f  \n", resultado2);
+resultado3 = q * q - r / 4 * p - 3;
+printf ("3) q * q - r/4 * p - 3 = %f \n", resultado3);
+resultado4 = s + r * (3 - 2 * p) / 5 + 5 * q;
+printf ("5) s + r * (3 - 2 * p) / 5 = 5 * q = %f \n", resultado4);
+
+
+//=============================//
+
+// contas aleatorias 
+
+//=====================// 
+
+printf("Contas que nao fazem parte das questoes: \n");
+printf("O resultado de sua conta aleatoria(27 * p / 6 - r + 4 * 12) é igual a = %f \n", contarandom1);
+
+
+
+
+
+
+
+
 }
