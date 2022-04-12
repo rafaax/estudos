@@ -29,4 +29,36 @@ main()
 	printf("Digite a sua idade = \n");
 	scanf("%d", &idade);
 	printf("Como vai %s, a sua idade e %d \n", nome, idade);
+	
+	
+	int nota1, nota2;
+	printf("Quanto voce tirou na primeira prova? \n");
+	scanf("%d", &nota1);
+	printf("Quanto voce tirou na segunda prova? \n");
+	scanf("%d", &nota2);
+	
+	int media = (nota1 + nota2)/2;
+	printf("Sua media foi igual a %d \n", media);
+	
+	if(media > 6)
+		printf("vc passou");
+	else 
+		printf(" \a voce reprovou!");
+	
+	/*==========================
+	06/04/2022
+	=======================*/
+	
+		
+			
+		
+	
+	
+	
+	
+	
+	
+	
+	
 }
+
