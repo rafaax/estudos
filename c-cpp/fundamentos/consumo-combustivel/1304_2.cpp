@@ -16,4 +16,9 @@ consumo = (km/10)*gasolina;
 consumo2 = (km/8)*alcool;		
 printf("Voce gastou %f reais de gasolina ou %f de alcool tendo em vista que a gasolina custa %f e o alcool %f \n", consumo, consumo2, gasolina, alcool);
 printf("\n");
+
+milhas = km * 0.62137;
+metros = km / 0.001;
+centimetros = km / 0.00001;
+printf("%d km e igual a %f milhas %f metros e %f centimentros", km, milhas, metros, centimetros);
 }
