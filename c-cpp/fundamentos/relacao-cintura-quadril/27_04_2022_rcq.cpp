@@ -98,4 +98,41 @@ if(sexo == 1) {
 						printf("Seu risco de saúde é muito alto \n");
 						}}
 }
+
+if(sexo == 2) { 
+        printf("Qual é o tamanho da  sua cintura?(em cm) \n");
+        scanf("%f", &cintura);
+        printf("Qual é o tamanho do seu quadril? \n");
+        scanf("%f", &quadril);
+        rcq = cintura / quadril;
+        printf("Seu Rcq é de = %f \n", rcq);
+        if((idade >= 0)&&(idade <= 29)){
+        	if((rcq >= 0)&&(rcq <= 0.71)){
+        		printf("Seu risco de saúde é baixo \n");
+			}
+				else if((rcq >= 0.72)&&(rcq <= 0.77)){
+					printf("Seu risco de saúde é mediano \n");
+				}
+					else if((rcq >= 0.78)&&(rcq <= 0.82)){
+					printf("Seu risco de saúde é alto \n");
+					}
+						else{
+						printf("Seu risco de saúde é muito alto \n");
+						}	
+							
+		}
+		if((idade >= 30)&&(idade <= 39)){
+		 	if((rcq >= 0)&&(rcq <= 0.72)){
+        		printf("Seu risco de saúde é baixo \n");
+			}
+				else if((rcq >= 0.73)&&(rcq <= 0.78)){
+					printf("Seu risco de saúde é mediano \n");
+				}
+					else if((rcq >= 0.79)&&(rcq <= 0.84)){
+					printf("Seu risco de saúde é alto \n");
+					}
+						else{
+						printf("Seu risco de saúde é muito alto \n");
+						}}
+}
 }
