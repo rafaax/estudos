@@ -162,5 +162,22 @@ if(sexo == 2) {
 						else{
 						printf("Seu risco de saúde é muito alto \n");
 						}}	
+						
+		if((idade >= 59)){
+		 	if((rcq >= 0)&&(rcq <= 0.76)){
+        		printf("Seu risco de saúde é baixo \n");
+			}
+				else if((rcq >= 0.77)&&(rcq <= 0.83)){
+					printf("Seu risco de saúde é mediano \n");
+				}
+					else if((rcq >= 0.84)&&(rcq <= 0.90)){
+					printf("Seu risco de saúde é alto \n");
+					}
+						else{
+						printf("Seu risco de saúde é muito alto \n");
+						}}
 }
+
 }
+
+
