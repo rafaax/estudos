@@ -77,6 +77,24 @@ rafaax.carrd.co<br>
         document.getElementById('resultados').innerHTML = "";
     }
 
+    function back()
+    {
+        var resultado = document.getElementById('resultados').innerHTML;
+        document.getElementById('resultados').innerHTML = resultado.substring(0, resultado.length -1);
+    }
+
+    
+    function calcular()
+    {
+
+        var resultado = document.getElementById('resultados').innerHTML;
+        if(resultado)
+        {
+
+            document.getElementById('resultados').innerHTML = eval(resultado)
+        }
+    }
+
 </script>
 
 
