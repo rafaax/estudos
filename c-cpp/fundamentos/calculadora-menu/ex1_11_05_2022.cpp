@@ -32,6 +32,37 @@ do
 {
 	soma = num1 + num2;
 	printf("A soma dos numeros %d e %d e igual a %d \n \n", num1, num2, soma );
-}
+}	else 
+		if(escolha == 2)
+		{
+			sub = num1 - num2;
+			printf("A subtraçao dos numeros %d e %d e igual a %d \n \n", num1, num2, sub);
+			
+		}else
+			if(escolha == 3)
+			{
+				multi = num1 * num2;
+				printf("A multiplicacao dos numeros %d e %d e igual a %d \n \n", num1, num2, multi);
+			}
+				else
+					if(escolha == 4)
+					{
+						div = num1 / num2;
+						printf("A divisao dos numeros %d e %d e igual a %d \n \n", num1, num2, div);
+					}
+
+
+	
+	
 }while(escolha < 5);
+
+
+
+//printf("A soma dos numeros %d e %d e igual a %d \n", num1, num2, soma );
+//printf("A subtraçao dos numeros %d e %d e igual a %d \n", num1, num2, sub);
+//printf("A divisao dos numeros %d e %d e igual a %d \n", num1, num2, div);
+//printf("A multiplicacao dos numeros %d e %d e igual a %d \n", num1, num2, multi);
+
+
 }
+
