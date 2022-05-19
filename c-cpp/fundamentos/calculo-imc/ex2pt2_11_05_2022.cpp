@@ -23,4 +23,25 @@ int pessoas;
 int i;
 printf("Quantas pessoas voce quer calcular? \n");
 scanf("%d", &pessoas);
+for(i = 1; i <= pessoas; i++)
+{
+	printf("Iremos calcular seu IMC! \n");
+
+printf("Voce é homem ou mulher? Digite 1 para homem 2 para mulher! \n");
+scanf("%d", &sexo);
+printf("Quantos anos você tem? \n");
+scanf("%d", &idade);
+
+printf("Digite seu peso: \n");
+scanf("%d", &peso);
+printf("Seu peso é de: %d kg \n", peso);
+
+printf("Digite sua altura em metros \n");
+scanf("%f", &altura3);
+// printf("%.2f", altura3);
+
+printf("A fórmula para achar o IMC é == IMC = Peso ÷ (Altura × Altura) então: \n");
+imc = peso / (altura3*altura3);; 
+printf("Seu imc é de %d kg/m² \n", imc);
+}
 }
