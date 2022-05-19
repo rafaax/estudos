@@ -43,5 +43,27 @@ scanf("%f", &altura3);
 printf("A fórmula para achar o IMC é == IMC = Peso ÷ (Altura × Altura) então: \n");
 imc = peso / (altura3*altura3);; 
 printf("Seu imc é de %d kg/m² \n", imc);
+if((imc >= 0) && (imc <= 18))
+{
+	printf("Voce está classificado com Magreza. \n");
 }
-}
+	else if((imc >=18)&&(imc <= 24))
+	{
+	 	printf("Voce está classificado como Normal. \n");
+	} else if((imc >= 25)&&(imc <= 29))
+		{
+			printf("Voce esta classificado como Sobrepeso \n");
+		}
+			else if((imc >= 30)&& (imc <= 35))
+			{
+				printf("Voce esta classificada com Obesidade de grau 1");
+			}
+				else if((imc >= 36)&& (imc <= 40))
+				{
+					printf("Voce esta classificada com Obesidade de grau 2");
+				}
+					else 
+					{
+						printf("Voce esta classificada com Obesidade de grau 3");
+					}
+}}
