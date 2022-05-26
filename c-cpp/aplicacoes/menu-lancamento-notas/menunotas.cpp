@@ -10,4 +10,8 @@ GUILHERME HENRIQUE MACHADO RIBEIRO
 ====================================================*/
 main()
 {
+	setlocale(LC_ALL,"portuguese");
+	int qtalunos;
+	printf("Digite quantos alunos você deseja cadastrar. \n");
+	scanf("%d",&qtalunos);
 }
