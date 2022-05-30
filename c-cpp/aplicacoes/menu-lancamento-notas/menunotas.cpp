@@ -24,4 +24,11 @@ main()
 	float media[qtalunos];
 	float mediatotal, mediasala;
 	char nomeescolhido[20];
+	
+	do
+	{
+		printf("Digite: \n 1 para cadastrar os alunos \n 2 para lançar notas  \n 3 para consultar o boletim de um aluno específico \n 4 para consultar o boletim de todos alunos  \n 5 para calcular média geral da turma \n e 6 para sair! \n");
+		scanf("%d", &decisao);
+		system("cls");
+	}while(decisao < 6);
 }
