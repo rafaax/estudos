@@ -38,6 +38,16 @@ main()
 				printf("Digite o(s) nome(s) do(s) aluno(s). \n");
 				scanf("%s", &nome[i]);
 			}			
+		}else
+			if(decisao == 2)
+			{
+				for(i = 1; i <= qtalunos; i++)
+				{
+					printf("Digite a nota 1 do aluno %s ",&nome[i]);
+					scanf("%f",&nota1[i]);
+					printf("Digite a nota 2 do aluno %s ",&nome[i]);
+					scanf("%f",&nota2[i]);
+}
 }
 	}while(decisao < 6);
 }
