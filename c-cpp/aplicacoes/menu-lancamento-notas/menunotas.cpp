@@ -47,7 +47,15 @@ main()
 					scanf("%f",&nota1[i]);
 					printf("Digite a nota 2 do aluno %s ",&nome[i]);
 					scanf("%f",&nota2[i]);
-}
+					printf("Digite a trab 1 do aluno %s ",&nome[i]);
+					scanf("%f",&trab1[i]);
+					printf("Digite a trab 2 do aluno %s ",&nome[i]);
+					scanf("%f",&trab2[i]);
+					printf("Digite a pi do aluno %s ",&nome[i]);
+					scanf("%f",&pi[i]);
+					media[i] = ((nota1[i] * 0.15) + (nota2[i] * 0.15) + (trab1[i] * 0.1) + (trab2[i] * 0.1) + (pi[i] * 0.5));
+				
+				}
 }
 	}while(decisao < 6);
 }
