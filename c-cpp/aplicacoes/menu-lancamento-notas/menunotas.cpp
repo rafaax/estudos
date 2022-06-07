@@ -69,8 +69,10 @@ main()
 					printf("==========================================\n");
 					printf("        BOLETIM ALUNO %s               \n",&nome[i]);
 					printf("==========================================\n");
-}
-}
+					printf("Prova 1    | Prova 2    | Trab 1    | Trab 2    | PI       | MÉDIA \n");
+					printf("%.2f       | %.2f       | %.2f      | %.2f      | %.2f     | %.2f \n ",(nota1[i]),(nota2[i] ),(trab1[i]),(trab2[i]),(pi[i]),(media[i]));								system("pause");
+					}	
+					}
 }
 	}while(decisao < 6);
 }
