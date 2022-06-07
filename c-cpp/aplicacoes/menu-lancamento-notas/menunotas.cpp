@@ -56,6 +56,21 @@ main()
 					media[i] = ((nota1[i] * 0.15) + (nota2[i] * 0.15) + (trab1[i] * 0.1) + (trab2[i] * 0.1) + (pi[i] * 0.5));
 				
 				}
+			}else
+				if(decisao == 3)
+				{	
+					printf("Qual aluno você deseja consultar o boletim? \n");
+					scanf("%s", &nomeescolhido);
+					for(i=1; i<=qtalunos; i++)
+					{
+						if(strcmp(nomeescolhido,nome[i])==0)
+					{	
+					printf("A boletim do aluno %s é de: ", &nome[i]);
+					printf("==========================================\n");
+					printf("        BOLETIM ALUNO %s               \n",&nome[i]);
+					printf("==========================================\n");
+}
+}
 }
 	}while(decisao < 6);
 }
