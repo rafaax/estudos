@@ -73,6 +73,17 @@ main()
 					printf("%.2f       | %.2f       | %.2f      | %.2f      | %.2f     | %.2f \n ",(nota1[i]),(nota2[i] ),(trab1[i]),(trab2[i]),(pi[i]),(media[i]));								system("pause");
 					}	
 					}
+				}else
+					if(decisao == 4)
+					{					
+						for(i=1; i<=qtalunos; i++)
+						{
+							printf("================================\n");
+							printf("        BOLETIM ALUNO %s               \n",&nome[i]);
+							printf("================================\n");
+							printf("Prova 1    | Prova 2    | Trab 1    | Trab 2    | PI       | MÉDIA \n");
+							printf("%.2f       | %.2f       | %.2f      | %.2f      | %.2f     | %.2f \n ",(nota1[i]),(nota2[i] ),(trab1[i]),(trab2[i]),(pi[i]),(media[i]));																								
+						}
 }
 	}while(decisao < 6);
 }
