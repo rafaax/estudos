@@ -84,6 +84,20 @@ main()
 							printf("Prova 1    | Prova 2    | Trab 1    | Trab 2    | PI       | MÉDIA \n");
 							printf("%.2f       | %.2f       | %.2f      | %.2f      | %.2f     | %.2f \n ",(nota1[i]),(nota2[i] ),(trab1[i]),(trab2[i]),(pi[i]),(media[i]));																								
 						}
-}
+					}else 
+						if(decisao == 5)
+						{
+							mediasala == 0;
+							for (i=1;i <= qtalunos; i++) 
+								{
+									mediasala = mediasala + media[i];
+									mediatotal = mediasala / qtalunos;
+								}
+							printf("A média de todos alunos é de %.2f \n", mediatotal);
+						}	
+							
 	}while(decisao < 6);
+	
+	
+	
 }
