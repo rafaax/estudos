@@ -20,5 +20,16 @@ public class matrizes {
                 A[linha][coluna] = entrada.nextInt();
             }
         }
+    // ex 2 
+    	for(int linha = 0; linha < 10; linha++)
+	{
+                col1 = col1 + A[linha][0];
+		col2 = col2 + A[linha][1];
+                col3 = col3 + A[linha][2];
+                
+	}
+	System.out.printf("SOMA DA COLUNA 1 = %d \n", col1);
+        System.out.printf("SOMA DA COLUNA 2 = %d \n", col2);
+        System.out.printf("SOMA DA COLUNA 3 = %d \n", col3);
 }
 }
