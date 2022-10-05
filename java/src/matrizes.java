@@ -31,5 +31,21 @@ public class matrizes {
 	System.out.printf("SOMA DA COLUNA 1 = %d \n", col1);
         System.out.printf("SOMA DA COLUNA 2 = %d \n", col2);
         System.out.printf("SOMA DA COLUNA 3 = %d \n", col3);
+ 
+    // ex 3
+    
+    for(int linha = 0; linha < 10; linha++)
+        {
+            soma = 0;
+            for(int coluna = 0; coluna <3; coluna++){
+            soma = soma + A[linha][coluna];         
+            }
+            vetorlinha[linha] = soma;
+        }
+    for(int linha = 0; linha < 10; linha++){
+        
+    
+    System.out.printf("LINHA 1 = %d \n", vetorlinha[linha]);
+    }
 }
 }
