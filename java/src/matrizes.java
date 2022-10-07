@@ -47,5 +47,25 @@ public class matrizes {
     
     System.out.printf("LINHA 1 = %d \n", vetorlinha[linha]);
     }
+    // ex 4 
+    
+    
+    for(int linha = 0; linha < 10; linha++)
+        {
+            for(int coluna = 0; coluna <3; coluna++)
+            {
+
+                B[linha][coluna] = A[linha][coluna];
+                if(linha % 2 != 0){
+                    B[linha][coluna] = 0;   
+                }
+            }
+        }
+    for(int linha = 0; linha < 10; linha++)
+    {
+        for(int coluna = 0; coluna < 3; coluna++){
+            System.out.printf("B[%d][%d] = %d \n", linha, coluna, B[linha][coluna]);
+        }
+    }
 }
 }
