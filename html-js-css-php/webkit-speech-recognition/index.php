@@ -14,5 +14,21 @@
             <li>SEJA BEM VINDO ALUNO DO SSECTOR7<?php ?><li>
         </ul>
     </header>
+    <div class="form">
+    <div class="form-name">
+        <form method="post" action="form.php">
+        <h2>QUAL SEU NOME???<h2>
+        <input type="text" name="nome">
+        <h2>QUAL A SUA TURMA???</h2>
+        <select name="turma">
+            <option value="a">Turma A</option>
+            <option value="b">Turma B</option>
+            <option value="c">Turma C</option>
+            <option value="d">Turma D</option>
+            <option value="e">Turma E</option>
+        </select>
+        </div>
+</form>
+</div>
 </body>
 </html>
