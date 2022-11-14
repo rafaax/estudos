@@ -28,7 +28,15 @@
             <option value="e">Turma E</option>
         </select>
         </div>
+        <div class="form-text">
+        <h1>CONTE SUAS FÉRIAS!!!</h1>
+        <br> 
+        <textarea name="texto" id="convert_text" class="text-input"></textarea>
+        <br>
+        <br>
+        <input type="submit" value="ENVIAR">
 </form>
+</div>
 </div>
 </body>
 </html>
