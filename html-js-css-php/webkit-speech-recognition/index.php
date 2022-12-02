@@ -35,8 +35,10 @@
         <br>
         <br>
         <input type="submit" value="ENVIAR">
-</form>
-</div>
-</div>
+        </form>
+        <input type="submit" id="click_to_record" value="VOZ">
+    </div>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
