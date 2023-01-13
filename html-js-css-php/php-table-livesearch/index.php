@@ -8,6 +8,28 @@ integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG
  <!--  -->
 
 <title>Livesearch</title>
+<style>
+
+/* css */
+.secundaria2
+{
+    margin-left: 38%;
+
+}
+
+.principal
+{
+    width: 100%;
+    display: flex;
+}
+
+.secundaria1
+{
+    width: 50%;
+    align-self: start;
+}
+/*  */
+</style>
 <body>
 </body>
 </html>
