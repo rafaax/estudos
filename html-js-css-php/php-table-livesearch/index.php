@@ -30,6 +30,18 @@ integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG
 }
 /*  */
 </style>
-<body>
+<body class="p-3 mb-2 bg-light text-dark">
+  <div style="padding:1px 0" class="container-fluid">
+        <h3>Livesearch</h3> 
+        <div class="principal"> 
+        <div class="secundaria1">
+        </select>
+        </div>
+        <div class="secundaria2">
+        <input type="text" name="search_text" id="search_text" class="form-control" placeholder="Pesquisar">
+        </div>
+        </div>
+        <br>
+    </div>
 </body>
 </html>
