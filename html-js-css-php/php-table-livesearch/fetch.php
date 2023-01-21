@@ -25,4 +25,18 @@ else
     // query for show data if the user dont search anything
 	$query = "SELECT * FROM estoque ORDER BY DataCompra desc";
 }
+$result = mysqli_query($connect, $query);
+if(mysqli_num_rows($result) > 0)
+{
+    // table columns
+	echo 
+    '<table class="table table-bordered table-sm table-striped table-hover">
+    <thead>
+    <tr> 
+        <th class="fixed" scope="col">Nome</th>
+        <th class="fixed" scope="col">Quantidade</th>
+        <th class="fixed" scope="col">Categoria</th>
+    </tr>
+    </thead>';
+}
 ?>
