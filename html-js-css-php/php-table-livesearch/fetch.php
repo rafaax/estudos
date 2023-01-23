@@ -38,5 +38,23 @@ if(mysqli_num_rows($result) > 0)
         <th class="fixed" scope="col">Categoria</th>
     </tr>
     </thead>';
+
+
+while ($array = mysqli_fetch_array($result)) {
+    // variables
+    $nome = $array['Nome']; // $array['Name from DB Column'];
+    $quantidade = $array['Quantidade'];
+    $categoria = $array['Categoria'];
+
+    // table lines
+    echo '<tr>';
+    echo '<td>'.$nome.'</td>';
+    echo '<td>'.$quantidade.'</td>';
+    echo '<td>'.$categoria.'</td>';
+    echo '</td>';
+    }
+    echo '</tr>';
+    echo '</tbody>';
+    echo '</table>'; // ends table
 }
 ?>
