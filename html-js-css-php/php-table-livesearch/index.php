@@ -43,5 +43,9 @@ integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG
         </div>
         <br>
     </div>
+    <div id="result"> 
+    <table class="table table-bordered table-sm table-striped table-hover">
+    </div>
+    </div>
 </body>
 </html>
