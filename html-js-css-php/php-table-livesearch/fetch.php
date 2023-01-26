@@ -57,4 +57,14 @@ while ($array = mysqli_fetch_array($result)) {
     echo '</tbody>';
     echo '</table>'; // ends table
 }
+// if not search = 
+else
+{
+	echo 
+    '<div id="alerta" class="alert alert-danger" role="alert">
+        <b>No data found!!!</b>
+    </div>';
+}
+?>
+<?php 
 ?>
