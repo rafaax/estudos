@@ -47,5 +47,26 @@ integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG
     <table class="table table-bordered table-sm table-striped table-hover">
     </div>
     </div>
+<script type="text/javascript">
+
+    $(document).ready(function()
+{
+	load_data();
+	function load_data(query)
+	{
+		// input value post 
+		$.ajax({
+			url:"fetch.php",
+			method:"post",
+			data:{query:query},
+			success:function(data)
+			{
+                // switch result DIV from HTML to the newest from fetch.php post data
+				$('#result').html(data);
+			}
+		});
+	}
+});
+</script>
 </body>
 </html>
