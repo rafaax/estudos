@@ -66,7 +66,21 @@ integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG
 			}
 		});
 	}
+	// search input value sending value to function load_data
+	$('#search_text').keyup(function(){
+		var search = $(this).val();
+		if(search != '')
+		{
+            
+			load_data(search);
+		}
+		else
+		{
+			load_data();			
+		}
+	});
 });
 </script>
 </body>
+
 </html>
