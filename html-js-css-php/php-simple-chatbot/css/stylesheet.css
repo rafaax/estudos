@@ -1,0 +1,107 @@
+@import url('https://fonts.cdnfonts.com/css/montserrat');
+.flex {
+    display: flex;
+    width: 22%;
+}
+.iconeChat{
+    display: flex;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    text-align: center;
+    background-image: url('perfil.png');
+    background-size: cover;
+}
+
+.iconeChat:hover{
+    cursor: pointer;
+}
+.textoChat{
+    display:flex;
+    width: 80%;
+    height: 40px;
+    background-color: #018786;
+    margin-left: -30px;
+    align-self: center;
+    justify-content: center;
+    
+}
+.fontOpitions{
+    display: none;
+    align-self: center;
+    font-size: 15px;
+    font-family: "Arial";
+    color: white;
+}
+.chatBot{
+    display: flex;
+    width: 18.1%;
+    height: 85px;
+    margin-left:40px;
+    margin-bottom: -63px;
+    background-color: #03dac530;
+    border-width: 3px;
+    border-style: dotted;
+    border-color:#03dac5;
+}
+.chatBotAberto{
+    display: none;
+    width: 18.1%;
+    height: 450px;
+    margin-left:40px;
+    margin-bottom: -63px;
+    /* background-color: #03dac530; */
+    border-width: 3px;
+    border-color:#03dac5;
+    flex-direction: column;
+}
+.imagemVetorian{
+    width: 75%;
+    height: 35px;
+    margin-left: 30px;
+    margin-top: 3px;
+}
+.logoChat{
+    width: 100% ;
+    height: 50px;
+    background-color: #01878747;
+    border-bottom-left-radius: 15%;
+    border-bottom-right-radius: 15%;
+}
+.chatEspacoMensagens{
+    width: 100% ;
+    height: 20%;
+    /* background-color: #03dac530; */
+    margin-top: 10px;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+::selection{
+    color: #fff;
+    background: #007bff;
+}
+
+::-webkit-scrollbar{
+    width: 3px;
+    border-radius: 25px;
+}
+
+::-webkit-scrollbar-track{
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb{
+    background: #ddd;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background: #ccc;
+}
+
