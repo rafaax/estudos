@@ -18,6 +18,27 @@ void inicia(no *P)
 	
 }
 
+no* insereInicio(no *P)
+{
+	// criando novo ponteiro que aponta pra um no
+	no *novo = (no*) malloc(sizeof(no));
+	printf("informe o valor que sera armazenado em info:");
+	scanf("%d", &novo->info);
+	novo->prox = NULL;
+	
+	if(P->info == 0 && P->prox == NULL)
+	{
+		P->info = novo->info;
+	}else
+	{
+		novo -> prox = P;
+		P = novo;
+	}
+	//free(novo);
+	
+	return P;
+}
+
 int main() 
 {
 	//alocar no ponteiro P o registro(no)	
