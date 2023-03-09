@@ -46,5 +46,31 @@ int main()
 	
 	//inicializar
 	inicia(P);
+	
+	int op;
+	do
+	{
+		system("cls");
+		printf("Menu de opcoes \n \n");
+		printf("1 - Inserir no inicio da lista: \n");
+		printf("2 - Inserir no final da lista: \n");
+		printf("3 - exibir a lista: \n");
+		printf("0 - Sair: \n");
+		scanf("%d", &op);
+		
+		switch(op)
+		{
+			case 0:
+				printf("Finalizando o programa!!");
+				break;
+			case 1:
+				//inserir o inicio
+				P = insereInicio(P);
+				break;
+		}
+	}while(op != 0);
+	
+	free(P);
+	P = NULL;
 	return 0;
 }
