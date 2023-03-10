@@ -39,6 +39,18 @@ no* insereInicio(no *P)
 	return P;
 }
 
+void exibe(no *P)
+{
+	no* T = P;
+	do{
+	
+	printf("%d,", T->info);
+	T = T->prox;	//O T aponta para o endereco do proximo elem
+	}while(T != NULL);
+	printf("\n \n");
+	system("pause");
+}
+
 int main() 
 {
 	//alocar no ponteiro P o registro(no)	
@@ -67,6 +79,10 @@ int main()
 				//inserir o inicio
 				P = insereInicio(P);
 				break;
+			case 3:
+				//exibir
+				exibe(P);
+				break;	
 		}
 	}while(op != 0);
 	
