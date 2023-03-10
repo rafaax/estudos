@@ -54,5 +54,27 @@
                 });
             });
         });
+
+          function callResposta($value){
+            $msg = '<div class="user-inbox inbox"><div class="msg-header"><p>'+ $value +'</p></div></div>';
+            $(".form").append($msg);
+            $.ajax({
+                url: 'message.php',
+                type: 'POST',
+                data: 'texto='+$value,
+                success: function(result){
+                    $replay = '<div class="bot-inbox inbox"><div class="msg-header"><p>'+ result +'</p></div></div>';
+                    $(".form").append($replay);
+                    $(".form").scrollTop($(".form")[0].scrollHeight);
+                }
+            });
+        };
+
+        $(document).keypress(function(evento) {
+
+            if(evento.which === 13 ) {
+                $('#send-btn').click();
+            }
+        });
 </script>
 </body>
