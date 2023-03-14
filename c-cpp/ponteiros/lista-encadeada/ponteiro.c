@@ -39,6 +39,32 @@ no* insereInicio(no *P)
 	return P;
 }
 
+
+no* insereFinal(no *P)
+{
+	no *novo = (no*) malloc(sizeof(no));
+	printf("Insira o valor que será armazenado no fim: ");
+	scanf("%d", &novo->info);
+	novo->prox = NULL;
+	
+	
+	if(P->info == 0 && P->prox == NULL)
+	{
+		P->info = novo->info;
+	}else
+	{
+		
+		no *T = P->prox;
+		while(T->prox != NULL){
+			T = T->prox;
+		}
+		
+		T->prox = novo;
+	}
+	
+	return P;
+}
+
 void exibe(no *P)
 {
 	no* T = P;
@@ -78,6 +104,10 @@ int main()
 			case 1:
 				//inserir o inicio
 				P = insereInicio(P);
+				break;
+			case 2: 
+				//inserir o final
+				insereFinal(P);
 				break;
 			case 3:
 				//exibir
