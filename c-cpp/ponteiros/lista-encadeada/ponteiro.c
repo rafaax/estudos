@@ -113,6 +113,9 @@ int main()
 				//exibir
 				exibe(P);
 				break;	
+			default:
+				printf("opcao invalida!!\n");
+				system("pause");	
 		}
 	}while(op != 0);
 	
