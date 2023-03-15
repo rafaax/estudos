@@ -60,6 +60,44 @@ if($pergunta == 'nao esta funcionando'){
     echo '18 - É possível bloquear meu veiculo?<br>';
     echo 'Digite o número ou digite a pergunta!<br>'; 
 
+}else if($perguntafinal == "1"){
+
+    $retorno = 'Sim, se clicar no nome da coluna “placa” por exemplo, será ordenado por ordem alfabética ou se clicar na coluna “atualização “ será ordenado por ordem de atualização.';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('1', '$retorno');";  
+    mysqli_query($conexao, $sql);
+
+}else if($perguntafinal == "2"){
+
+    $retorno =  'O grid de informações é simples de editar, se colocarmos o mouse entre as colunas, a seta do mouse será alterado por uma linha com duas setas que é o momento de clicar e segurar para aumentar o tamanho da linha, para trocar o posicionamento das colunas é só clicar segurar em cima da coluna desejada e arrastar para onde deseja colocar e no canto direito abaixo do mapa, tem uma coluna que contem os nomes das colunas, se não quiser deixar uma coluna no grid é só desmarcar para sumir do grid.';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('2', '$retorno');";  
+    mysqli_query($conexao, $sql);
+
+}else if($perguntafinal == "3"){
+
+    $retorno =  'A substituição do mapa é feita pela pagina “tempo real”  no canto inferior esquerdo do mapa tem um quadrado com um ícone amarelo, é só clicar nesse botão que aparecerá os mapas disponível, clique em alguma opção e veja qual é a  sua preferida';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('3', '$retorno');";  
+    mysqli_query($conexao, $sql);
+
+}else if($perguntafinal == "4"){
+    $retorno = 'Para fazer a alteração da placa do seu veículo pelo sistema Vetorian vá em configurações>veículos> na janela que vai abrir, é só clicar em editar que tem um ícone de lápis e alterar a palca na janela que abrir, após feito a troca da placa é só clicar em salvar. ';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('4', '$retorno');";  
+    mysqli_query($conexao, $sql);
+}else if($perguntafinal == "5"){
+    $retorno = 'No site temos as informações completa do seu veiculo como rota percorrica, histórico de posições, excesso de velocidade, tempo de paradas, já no aplicativo só informações mais básicas como localização em tempo real e ancoragem do veículo.';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('5', '$retorno');";  
+    mysqli_query($conexao, $sql);
+
+}else if($perguntafinal == "6"){
+    $retorno = 'Visualizar em tempo real e ancorar seu veiculo para receber uma notificação assim que o veiculo sair do local';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('6', '$retorno');";  
+    mysqli_query($conexao, $sql);
+
 }
 function tirarAcentos($string){
     return 
