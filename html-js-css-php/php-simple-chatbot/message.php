@@ -98,6 +98,70 @@ if($pergunta == 'nao esta funcionando'){
     $sql = "INSERT into audit(msg,resposta) values ('6', '$retorno');";  
     mysqli_query($conexao, $sql);
 
+}else if($perguntafinal == "7"){
+    $retorno = 'Assista o tutorial: <inserirlink>';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('7', '$retorno');";  
+    mysqli_query($conexao, $sql);
+
+}else if($perguntafinal == "8"){
+    $retorno = 'Solicitar suporte.';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('8', '$retorno');";  
+    mysqli_query($conexao, $sql);
+
+}else if($perguntafinal == "9"){
+    $retorno = 'Sim, se clicar no nome da coluna “placa” por exemplo, será ordenado por ordem alfabética ou se clicar na coluna “atualização “ será ordenado por ordem de atualização.';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('9', '$retorno');";  
+    mysqli_query($conexao, $sql);
+
+}else if($perguntafinal == "10"){
+    $retorno = 'Os ícones da coluna informação é onde sabemos se o GPS,GPRS ou bateria estão ok';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('10', '$retorno');";  
+    mysqli_query($conexao, $sql);
+
+}else if($perguntafinal == "11"){
+    $retorno = 'Para utilizar a rota percorrida temos mais de uma maneira para realizar a visualização, clicando no ícone do seu carro no mapa ele abrirá uma tela pequena com algumas informações e alguns ícones, o terceiro ícone com uma rota desenhada se você colocar o mouse em cima irá mostar abaixo um texto “ver rota percorrida” nesse momento tendo certeza que é o ícone certo, é só clicar e será aberto o mapa com a rota percorrida. ';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('11', '$retorno');";  
+    mysqli_query($conexao, $sql);
+}else if($perguntafinal == "12"){
+    $retorno = 'Na rota percorrida temos a visualização vista pelo mapa para localizarmos onde o carro passou pelo dia, as paradas, atualizações e velocidades excedidas. No histórico de posições temos apenas um histórico em escrita por tabelas igual a do excel, mostrando a rota percorrida de cada atualização no dia. ';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('12', '$retorno');";  
+    mysqli_query($conexao, $sql);
+}else if($perguntafinal == "13"){
+    $retorno = 'Para ver as posições detalhadas no dia, pode ser vista no menu histórico, selecione a data desejada e clique em ver no mapa para visualizar o trajeto realizado na data realizada.';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('13', '$retorno');";  
+    mysqli_query($conexao, $sql);
+}else if($perguntafinal == "14"){
+    $retorno = 'Para exportar os dados desejados de qualquer tela do sistema Vetorian, no topo da pagina ao lado do campo buscar, temos uma engrenagem com uma seta, clicando na seta, temos as opções de exportação de dados em Excel, word e csv.';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('14', '$retorno');";  
+    mysqli_query($conexao, $sql);
+}else if($perguntafinal == "15"){
+    $retorno = 'Para trocar sua senha, tem que clicar no canto superior no seu nome de usuário e clicar no campo trocar senha para atualizar sua senha.';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('15', '$retorno');";  
+    mysqli_query($conexao, $sql);
+}else if($perguntafinal == "16"){
+    $retorno = 'Para criar um usuário com apenas alguns ou um dos veículos da sua frota, temos que ir no menu configurações> permições e criar um usuário com um grupo de placas limitado. ( veja também o tutorial no Vetorian.com/tutorialdecomofazercriaçãodeusuario)';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('16', '$retorno');";  
+    mysqli_query($conexao, $sql);
+}else if($perguntafinal == "17"){
+    $retorno = 'Para alterar as informações de hodômetro e horimetro, tem que ser solicitado por email para nosso suporte.';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('17', '$retorno');";  
+    mysqli_query($conexao, $sql);
+}else if($perguntafinal == "18"){
+    $retorno = 'Para bloquear os veículos, primeiramente tem que ser solicitado na instalação do equipamento, se já contem a opção de bloqueio do veículo em seu pacote será disponibilizado essa opção.';
+    echo $retorno;
+    $sql = "INSERT into audit(msg,resposta) values ('18', '$retorno');";  
+    mysqli_query($conexao, $sql);
 }
 function tirarAcentos($string){
     return 
