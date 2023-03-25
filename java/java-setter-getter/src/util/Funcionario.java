@@ -27,4 +27,25 @@ public class Funcionario {
     public void setSalario(double salario) {
         this.salario = salario;
     }
+
+    public void setBonus(double bonus) {
+        this.bonus = bonus;
+    }
+
+    public double getBonus() {
+        return bonus;
+    }
+
+
+    public double aplicarBonus(double bonus){
+        setBonus(bonus);
+        return bonus;
+    }
+
+    public void atualizarSalario(){
+        getSalario();
+        getBonus();
+        double salarioFinal = getSalario() + getBonus();
+        System.out.printf("O salário com bonus é %f", salarioFinal);
+    }
 }
