@@ -14,5 +14,12 @@ public class Main {
             funcionario01.setSalario(2000);
 
             System.out.printf("O funcionário %s agora ganha %f \n", funcionario01.getNome(), funcionario01.getSalario());
+
+            funcionario01.aplicarBonus(200);
+
+            System.out.printf("O bonus agora é %f \n", funcionario01.getBonus());
+
+
+            funcionario01.atualizarSalario();
         }
     }
