@@ -163,6 +163,23 @@ if($pergunta == 'nao esta funcionando'){
     $sql = "INSERT into audit(msg,resposta) values ('18', '$retorno');";  
     mysqli_query($conexao, $sql);
 }
+else if($rows > 0){
+    $query = "SELECT queries, replies from chatbot where queries like '%$perguntafinal%'";
+    $execquery = mysqli_query($conexao,$query);
+    if($rows == 1){
+        while($data = mysqli_fetch_assoc($execquery)){
+            echo $data['replies'];
+            $insertaudit = "INSERT INTO audit(msg, resposta) values ('$perguntafinal', '".$data['replies']."');";
+            mysqli_query($conexao, $insertaudit);
+        }
+    }else{
+        echo 'Voce quis dizer: <Br>';
+        while($data = mysqli_fetch_assoc($execquery)){
+            echo '<a href="javascript:callResposta('."'". $data['queries'] ."'". ');">' . $data['queries']  . '</a>?<br>';
+        }
+}   
+      
+}
 function tirarAcentos($string){
     return 
     preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),
