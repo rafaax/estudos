@@ -76,5 +76,12 @@
                 $('#send-btn').click();
             }
         });
-</script>
-</body>
+
+        $('.iconeChat').on("click", function() {
+            $('.chatBotAberto').slideToggle();
+            $('.fontOpitions').slideToggle();
+            $('.digi').slideToggle();
+        });
+
+    </script>
+    </body>
