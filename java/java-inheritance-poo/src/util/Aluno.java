@@ -8,4 +8,15 @@ public class Aluno extends Pessoa {
         super(nome, email, anoNascimento);
         this.rgm = rgm;
     }
+
+    public String getRgm() {
+        return rgm;
+    }
+
+    public void setRgm(String rgm) {
+        this.rgm = rgm;
+    }
+
+
 }
+
