@@ -6,6 +6,9 @@ void insert_sort(int vetor[], int tamanho){
 	
 	for(i = 1; i< tamanho; i++){
 		int proximo = i;
+		
+		while((proximo != 0) && (vetor[proximo] < vetor[proximo - 1])){
+		}
 	}
 }
 
