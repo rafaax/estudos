@@ -10,6 +10,7 @@ void insert_sort(int vetor[], int tamanho){
 		while((proximo != 0) && (vetor[proximo] < vetor[proximo - 1])){
 			 
 			vetor[proximo] = vetor[proximo - 1];
+			vetor[proximo - 1] = troca;
 			proximo--;
 		}
 	}
