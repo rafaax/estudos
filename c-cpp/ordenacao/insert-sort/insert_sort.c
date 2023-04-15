@@ -25,4 +25,14 @@ int main(){
 		printf("%d \n", vet[i]);
 		
 	}
+	
+	insert_sort(vet,6);
+	
+	printf("vetor ordenado \n");
+
+	for(i = 0; i < 6; i++){ 
+		printf("%d \n", vet[i]);
+	}
+	
+	return 0;
 }
