@@ -16,6 +16,18 @@ void insert_sort(int vetor[], int tamanho){
 	}
 }
 
+
+
+// [7,5] proximo i =  1 1 < 0 = true
+// [5, 7, 13] i = 2 [2] < [1] = false
+// [5,7, 3, 13] i = 3 [3] < [2] = true -> troca 
+// [5,3, 7,13] i = 2 [2] < [1] = true -> troca
+// [3, 5,7,13] i = 1 [1] < [0] = true -> troca 
+// i nao pode ser menor que 0 entao passa pro proximo indice 
+// [3,5,7,13,15] i = 4 [4] < [3] = false
+ 
+
+ 
 int main(){
 	int vet[6] = {7,5,13,3,15,10};
 	
