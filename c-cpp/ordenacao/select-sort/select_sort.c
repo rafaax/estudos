@@ -6,6 +6,9 @@ void select_sort(int vet[], int i){ // retorna void [int vet[], int numero de di
 	int x, y, menor, troca; // declara x para o primeiro for, y para o segundo for, 
 	//menor para armazenar o valor menor após fazer a verificação do if, troca para armazenar e fazer a troca dos valores 
 	
+	for(x = 0; x < (i - 1); x++){ // for para percorrer variavel x 
+		menor = x;  // declara menor para x e ela muda ao decorrer do for 
+	}
 }
 
 int main(){
