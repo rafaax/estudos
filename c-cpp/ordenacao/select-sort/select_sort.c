@@ -8,6 +8,11 @@ void select_sort(int vet[], int i){ // retorna void [int vet[], int numero de di
 	
 	for(x = 0; x < (i - 1); x++){ // for para percorrer variavel x 
 		menor = x;  // declara menor para x e ela muda ao decorrer do for 
+		for(y = (x+1); y < i; y++){ // for para percorrer variavel y e fazer a verificacao com os digitos a seguir para fazer a comparacao
+			if(vet[y] < vet[menor])	{ // se o vetor[2] = 3 for menor que o vetor[1] = 4 por exemplo, a variavel menor recebe o valor do y, menor = 3; 
+				menor = y; // menor recebe 3 no nosso exemplo
+			} 
+		}
 	}
 }
 
