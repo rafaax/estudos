@@ -13,7 +13,12 @@ void select_sort(int vet[], int i){ // retorna void [int vet[], int numero de di
 				menor = y; // menor recebe 3 no nosso exemplo
 			} 
 		}
-	}
+		if(x != menor){ // se o nosso x = valor do primeiro for, menor que a variavel menor fará a condicao da troca
+			troca = vet[x]; // variavel troca recebe o vetor maior vet[1] = 4;
+			vet[x] = vet[menor]; // vet[1] 4 = vet[2] = 3 // ela vira: vet[2] = 4
+			vet[menor] = troca; // vet[1] = 3
+		}
+	}	
 }
 
 int main(){
