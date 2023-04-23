@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+//subrotina para ordenar 
+
+
 void select_sort(int vet[], int i){ // retorna void [int vet[], int numero de digitos para ordenar
 	
 	int x, y, menor, troca; // declara x para o primeiro for, y para o segundo for, 
@@ -30,4 +34,15 @@ int main(){
 		printf("%d \n", vet[i]);
 		
 	}
+	
+	select_sort(vet,6);
+	
+	printf("vetor ordenado \n");
+
+	for(i = 0; i < 6; i++){ 
+		printf("%d \n", vet[i]);
+	}
+	
+	return 0;
 }
+
