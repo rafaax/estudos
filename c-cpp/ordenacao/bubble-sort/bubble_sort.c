@@ -14,6 +14,11 @@ void bubble_sort(int arr[], int length){
 				verifica = 1;
 			}
 		}
+		if(verifica == 1){
+			printf("nao troca \n") ;
+			break;
+			
+		}
 	}
 }
 int main() {
