@@ -7,3 +7,13 @@ let mesh, renderer, scene, camera, controls, helper, clock;
 init();
 animate();
 
+function init() {
+
+    // renderer
+    renderer = new THREE.WebGLRenderer( { antialias: true } );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.autoClear = false;
+    document.body.appendChild( renderer.domElement );
+
+}
