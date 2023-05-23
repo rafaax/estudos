@@ -16,4 +16,11 @@ function init() {
     renderer.autoClear = false;
     document.body.appendChild( renderer.domElement );
 
+    // scene
+    scene = new THREE.Scene();
+    
+    // camera
+    camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
+    camera.position.set( 20, 20, 20 );
+
 }
