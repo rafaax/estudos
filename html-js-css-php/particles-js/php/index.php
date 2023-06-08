@@ -8,5 +8,7 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+<div id="particles-js">
+</div>
 </body>
 </html>
