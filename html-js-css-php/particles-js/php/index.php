@@ -9,6 +9,25 @@
 </head>
 <body>
 <div id="particles-js">
-</div>
+  <div class="container tamanho-largura">
+      <div class="d-flex justify-content-center">
+          <img src="../assets/logo.png" width="125px" height="125px" alt="">
+      </div>
+      <form action="login.php" method="POST">
+          <div class="form-group">
+              <label>Login</label>
+              <input class="form-control" type="text" name="usuario" placeholder="Digite o e-mail ou login do usuário"
+                  autocomplete="off" />
+          </div>
+
+          <div class="form-group">
+              <label>Senha</label>
+              <input class="form-control" type="password" name="senha" placeholder="Digite a senha do usuário" autocomplete="off" />
+          </div>
+          <button type="submit" class="btn btn-success btn-sm btn-block">Entrar</button>
+          <br>
+           </form>
+    </div>
+</div> 
 </body>
 </html>
