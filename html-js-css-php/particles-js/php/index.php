@@ -26,6 +26,28 @@
           </div>
           <button type="submit" class="btn btn-success btn-sm btn-block">Entrar</button>
           <br>
+          <?php 
+          if (isset($_GET['semCadastro'])) 
+          {
+              echo '<div id="alerta" class="alert alert-danger" role="alert">
+              Usuario <b>' . $_GET['semCadastro'] . '</b>  sem cadastro!.
+              </div>';
+          }
+          
+          if (isset($_GET['dadosInvalidos'])) 
+          {
+              echo '<div id="alerta" class="alert alert-danger" role="alert">
+              Senha <b>' . $_GET['dadosInvalidos'] . '</b>  inválida!.
+              </div>';
+          }
+
+          if (isset($_GET['emailCadastrado'])) 
+          {
+              echo '<div id="alerta" class="alert alert-danger" role="alert">
+              Email <b>' . $_GET['emailCadastrado'] . '</b>  duplicado, pedir a central para recuperá-lo!.
+              </div>';
+          }
+          ?>
            </form>
     </div>
 </div> 
