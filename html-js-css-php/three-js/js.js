@@ -37,4 +37,7 @@ function init() {
     light.position.set( 20,20, 0 );
     scene.add( light );
     
+    // axes
+    scene.add( new THREE.AxesHelper( 20 ) );
+
 }
