@@ -11,3 +11,14 @@ $params = array(
     'param2' => 'gKndZaSxe',
     'param3' => 'kZmHwSfHk'
 );
+
+// criptografa as variaveis que vao ser passadas via get
+foreach($params as $key => $value) {
+    $params[$key] = base64_encode($value);
+}
+
+// print_r($params);
+
+$query = http_build_query($params); # $querystring = param1=RFdCREVqbUdH&param2=Z0tuZFphU3hl&param3=a1ptSHdTZkhr
+
+$url = 'http://192.168.0.38/estudos-rapha/criptografia/index.php?type=base64&' . $query;
