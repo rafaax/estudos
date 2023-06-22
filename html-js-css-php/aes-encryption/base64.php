@@ -22,3 +22,8 @@ foreach($params as $key => $value) {
 $query = http_build_query($params); # $querystring = param1=RFdCREVqbUdH&param2=Z0tuZFphU3hl&param3=a1ptSHdTZkhr
 
 $url = 'http://192.168.0.38/estudos-rapha/criptografia/index.php?type=base64&' . $query;
+# http://192.168.0.38/estudos-rapha/criptografia/index.php?param1=RFdCREVqbUdH¶m2=Z0tuZFphU3hl¶m3=a1ptSHdTZkhr
+
+
+// redireciona para o index passando os parametros
+header('Location:'. $url); 
