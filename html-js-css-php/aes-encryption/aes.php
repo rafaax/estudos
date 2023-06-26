@@ -29,3 +29,10 @@ foreach ($params as $secret_key => $value) {
 // print_r($params);
 
 $query = http_build_query($params);
+// $query = param1=bTozOBLTQQofU7MFrjU2uQ%3D%3D&param2=yUjcH6n4koI22dzjLvsQAQ%3D%3D&param3=4Ybd7UhQu%2FmhmSCo4vVjaw%3D%3D
+
+$url = 'http://192.168.0.38/estudos-rapha/criptografia/index.php?type=aes&' . $query;
+// index.php?type=aes&param1=bTozOBLTQQofU7MFrjU2uQ%3D%3D&param2=yUjcH6n4koI22dzjLvsQAQ%3D%3D&param3=4Ybd7UhQu%2FmhmSCo4vVjaw%3D%3D
+
+// redireciona para o index
+header('Location:'.$url);
