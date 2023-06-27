@@ -75,5 +75,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') { // valida se a requisicao é get
 
         // escreve a resposta em um txt
         file_put_contents('response_aes.txt', $decodedparam . PHP_EOL . $decodedparam2 . PHP_EOL . $decodedparam3);
+
+
+    }else{
+        echo 'type precisa ser base64 ou aes';
     }
+}else{
+    echo 'requisicao precisa ser GET';
 }
