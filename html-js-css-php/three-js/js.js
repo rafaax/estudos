@@ -40,4 +40,20 @@ function init() {
     // axes
     scene.add( new THREE.AxesHelper( 20 ) );
 
+    // geometry
+    const geometry = new THREE.SphereGeometry( 5, 12, 8 );
+    
+    // material
+    const material = new THREE.MeshPhongMaterial( {
+        color: 0x00ffff, 
+        flatShading: true,
+        transparent: true,
+        opacity: 0.7,
+    } );
+    
+    // mesh
+    mesh = new THREE.Mesh( geometry, material );
+    scene.add( mesh );
+    
+    
 }
