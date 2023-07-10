@@ -56,4 +56,9 @@ function init() {
     scene.add( mesh );
     
     
+    // helper
+    helper = new ViewHelper( camera, renderer.domElement );
+    helper.controls = controls;
+    helper.controls.center = controls.target;
+    
 }
