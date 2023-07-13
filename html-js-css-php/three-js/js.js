@@ -61,4 +61,16 @@ function init() {
     helper.controls = controls;
     helper.controls.center = controls.target;
     
+    const div = document.createElement( 'div' );
+    div.id = 'viewHelper';
+    div.style.position = 'absolute';
+    div.style.right = 0;
+    div.style.bottom = 0;
+    div.style.height = '128px';
+    div.style.width = '128px';
+    
+    document.body.appendChild( div );
+    
+    div.addEventListener( 'pointerup', (event) => helper.handleClick( event ) );
+
 }
