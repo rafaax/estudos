@@ -74,3 +74,19 @@ function init() {
     div.addEventListener( 'pointerup', (event) => helper.handleClick( event ) );
 
 }
+
+function animate() {
+
+    requestAnimationFrame( animate );
+    
+    const delta = clock.getDelta();
+    
+    if ( helper.animating ) helper.update( delta );
+    
+    renderer.clear();
+    
+    renderer.render( scene, camera );
+    
+   	helper.render( renderer );
+
+}
