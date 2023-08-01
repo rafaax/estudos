@@ -15,3 +15,6 @@ class Cronometro:
     
     def incremento(self):
         self.segundos = self.segundos + 1
+        if(self.segundos >= 60):
+            self.segundos = 0
+            self.minutos = self.minutos + 1
