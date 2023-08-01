@@ -22,3 +22,10 @@ class Cronometro:
         if(self.minutos >= 60):
             self.minutos = 0
             self.horas = self.horas + 1
+
+    def start(self):
+        while True:
+            os.system('cls')
+            print(self)
+            self.incremento()
+            time.sleep(1)
