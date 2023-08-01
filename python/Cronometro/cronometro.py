@@ -18,3 +18,7 @@ class Cronometro:
         if(self.segundos >= 60):
             self.segundos = 0
             self.minutos = self.minutos + 1
+        
+        if(self.minutos >= 60):
+            self.minutos = 0
+            self.horas = self.horas + 1
