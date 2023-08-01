@@ -11,3 +11,7 @@ class Cronometro:
 
     def __repr__(self):
         return (f'{self.horas:02d}:{self.minutos:02d}:{self.segundos:02d}')
+
+    
+    def incremento(self):
+        self.segundos = self.segundos + 1
