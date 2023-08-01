@@ -7,3 +7,7 @@ class Cronometro:
         self.segundos = segundos
         self.minutos = minutos
         self.horas = horas
+
+
+    def __repr__(self):
+        return (f'{self.horas:02d}:{self.minutos:02d}:{self.segundos:02d}')
