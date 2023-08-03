@@ -111,3 +111,21 @@ async function getPhp(url){
 function quebraGrafico(atuador){
     geraGrafico(null, null, atuador)
 }
+
+const divElement = document.getElementById('chart');
+const toggleButton = document.getElementById('grafico_barra');
+
+toggleButton.addEventListener('click', function() {
+    if (divElement.style.display === 'none') {
+        if (!isFetching) {
+            isFetching = true;
+            getPhp('fetch.php?type=barra').then(() => {
+                isFetching = false;
+            });    
+            divElement.style.display = 'block';
+        }   
+    }else{
+        divElement.style.display = 'none';
+        quebraGrafico(true);
+    }
+});
