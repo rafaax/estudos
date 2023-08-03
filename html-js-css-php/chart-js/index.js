@@ -78,3 +78,36 @@ function geraGrafico(data, data2, func){
         });
     }
 }
+async function getPhp(url){
+     try { 
+        fetch(url, 
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then((response) => response.json())
+        .then((response) => {
+            // console.log(response);
+            if(response.count1 && response.count2){
+                const data1 = response.count1;
+                const data2 = response.count2;
+                geraGrafico(data1, data2, false);
+            }else if(response.countArray){
+                const count = response.countArray;
+                geraGrafico2(count, false)
+            }
+            
+
+            return response;
+        });
+    }
+    catch (error) {
+        console.error("Erro na requisição:", error);
+    }
+}
+
+function quebraGrafico(atuador){
+    geraGrafico(null, null, atuador)
+}
