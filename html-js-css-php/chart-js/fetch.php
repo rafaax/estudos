@@ -67,5 +67,41 @@ if($_GET['type'] == 'barra'){
         )
     );
 
+}else if($_GET['type'] == 'linha'){
+    $sql = "SELECT formato, month(start) as mes from calendario.events ORDER BY START desc";
+    $query = mysqli_query($conexao, $sql);
+
+    $array1 = array();
+    $array2 = array();
+    $countArray = array();
+
+
+
+    while ($row = mysqli_fetch_assoc($query)) {
+        
+        $array1[] = array(
+            'mes' => $row['mes'],
+            'formato' =>$row['formato']
+        );
+    }
+
+    foreach($array1 as $arr){
+        $mes = $arr['mes'];
+        $formato = $arr['formato'];
+        if(isset($countArray[$mes])){
+            $countArray[$mes]++;
+        }else{
+            $countArray[$mes] = 1;
+        }
+    }
+    echo json_encode(
+        array(
+            'countArray' => $countArray
+        )
+    );
+
+
 }
+
+
 ?>
