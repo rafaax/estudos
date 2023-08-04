@@ -202,9 +202,14 @@ async function getPhp(url){
 function quebraGrafico(atuador){
     geraGrafico(null, null, atuador)
 }
+function quebraGrafico2(atuador){
+    geraGrafico2(null,  atuador)
+}
 
 const divElement = document.getElementById('chart');
+const divElement2 = document.getElementById('chart-line');
 const toggleButton = document.getElementById('grafico_barra');
+const toggleButton2 = document.getElementById('grafico_linha');
 
 toggleButton.addEventListener('click', function() {
     if (divElement.style.display === 'none') {
