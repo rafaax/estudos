@@ -169,6 +169,7 @@ function geraGrafico2(data, func){
 
         
 }
+
 async function getPhp(url){
      try { 
         fetch(url, 
@@ -223,5 +224,20 @@ toggleButton.addEventListener('click', function() {
     }else{
         divElement.style.display = 'none';
         quebraGrafico(true);
+    }
+});
+
+toggleButton2.addEventListener('click', function() {
+    if (divElement2.style.display === 'none') {
+        if (!isFetching) {
+            isFetching = true;
+            getPhp('fetch.php?type=linha').then(() => {
+                isFetching = false;
+            });    
+            divElement2.style.display = 'block';
+        }   
+    }else{
+        divElement2.style.display = 'none';
+        quebraGrafico2(true);
     }
 });
