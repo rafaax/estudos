@@ -18,3 +18,11 @@ class Televisor:
             self.volume = self.volume - valor
         else: 
             self.volume = 0
+
+    def trocaCanal(self, canal):
+        if canal in self.lista_canais:
+            self.canal_atual = canal
+
+    def sintonizaCanal(self, canal):
+        if canal not in self.lista_canais:
+            self.lista_canais.append(canal)
