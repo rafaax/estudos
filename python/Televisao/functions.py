@@ -13,3 +13,12 @@ def especificacoesTv(tv):
 def verificarVolume(tv):
     volumeAtual = tv.volume 
     print(f'O volume da televisão está em: {volumeAtual} %')
+
+def comandosControle(controle):
+    comandos = {
+        'aumentaVolume': 'aumenta o volume do objeto tv',
+        'diminuiVolume': 'diminui o volume da tv',
+        'trocaCanal': 'troca o canal atual',
+        'sintonizaCanal': 'adiciona um canal novo a lista de canais'        
+    }
+    print(comandos) ## printa o dict comandos
