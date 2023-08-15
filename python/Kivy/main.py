@@ -9,3 +9,8 @@ class Main(App):
         pos_hint={'center_x':.5, 'center_y':.5})
 
         return img
+
+
+if __name__ == '__main__':
+    app = Main()
+    app.run()
