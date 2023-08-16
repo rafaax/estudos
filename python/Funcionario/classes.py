@@ -13,3 +13,10 @@ class Funcionario:
     def cadastro_salario_hora(self, mes, valor):
         if(mes not in self.salario_hora):
             self.salario_hora[mes] = valor
+
+    def calcula_salario(self, mes):
+        if (mes not in self.horas) or (mes not in self.salario_hora):
+            print('Mês Inexistente')
+        else:
+            salario = float(self.horas[mes]) * float(self.salario_hora[mes])
+            return salario
