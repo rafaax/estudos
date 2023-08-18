@@ -20,3 +20,6 @@ class Funcionario:
         else:
             salario = float(self.horas[mes]) * float(self.salario_hora[mes])
             return salario
+
+    def __repr__(self):
+        return f"Funcionario: {self.nome} \n email: {self.email} \nhoras/mes: {self.horas} \nsalario/hora: {self.salario_hora}" 
