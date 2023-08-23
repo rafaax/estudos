@@ -28,3 +28,8 @@ funcionario.cadastro_hora('123', 'Novembro')
 funcionario.cadastro_salario_hora('Novembro', 17)
 funcionario.cadastro_hora('103', 'Dezembro')
 funcionario.cadastro_salario_hora('Dezembro', 17)
+
+infoFuncionario(funcionario)
+mes = input('Digite o mês que você deseja consultar o seu salário: ')
+
+calculaSalario(funcionario, mes)
