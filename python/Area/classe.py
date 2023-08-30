@@ -8,3 +8,11 @@ class Retangulo:
         
         self.a = novo_a
         self.b = novo_b
+    
+    def retorna_lado(self):
+        
+        print(f'O retângulo possui dimensões {self.a}m x {self.b}m')
+
+    def area(self):
+
+        return float(self.a) * float(self.b)
