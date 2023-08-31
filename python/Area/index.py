@@ -15,3 +15,11 @@ while True:
 
     area_piso = piso.area()
     area_azl = azl.area()
+
+    quantidade_az = area_piso / area_azl
+
+    if (area_piso % area_azl) == 0:
+        print(f"A quantidade exata de azulejos para preencher o piso é de {quantidade_az}")
+
+    else:
+        print(f"A quantidade mínima de azulejos para preencher o piso é de {math.ceil(quantidade_az)}")
