@@ -14,3 +14,7 @@ struct st_arvore{
 // abreviacao da struct
 typedef struct st_arvore arvore;
 //
+
+arvore* criarArvore(){
+    return NULL;
+}
