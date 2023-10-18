@@ -54,3 +54,16 @@ void imprimirArvore(arvore* no){
         imprimirArvore(no->dir);
     }
 }
+
+
+int main(){
+    
+    arvore* arvore;
+    arvore = criarArvore(); // == NULL
+    printf("Digite o valor do no a ser inserido 1 \n");
+    int valor;
+    scanf("%d", &valor);
+    arvore = insereNoArvore(valor, arvore);
+    imprimirArvore(arvore);
+    return 0;
+};
