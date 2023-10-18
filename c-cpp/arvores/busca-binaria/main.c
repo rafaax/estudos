@@ -38,3 +38,19 @@ arvore* insereNoArvore(int value, arvore* no){
         return no;
     }
 }
+
+
+void imprimirArvore(arvore* no){
+
+    if(no->esq == NULL){
+        printf(" NULL ");
+    }else{
+        imprimirArvore(no->esq);
+    }
+        printf("%d",no->valor);
+    if(no->dir == NULL){
+        printf(" NULL ");
+    }else{
+        imprimirArvore(no->dir);
+    }
+}
