@@ -105,6 +105,20 @@ int main(){
     arvore = insereNoArvore(valor, arvore);
     
     
+    printf("Digite o valor que deseja procurar \n");
+    int valor_procurar;
+    scanf("%d", &valor_procurar);
+    
+    // arvore* valorEncontrado;
+    // valorEncontrado = criarArvore(); // == NULL
+    
+    
+    if (buscaNaArvore(valor_procurar, arvore) == NULL) {
+        printf("Valor %d não foi encontrado na árvore.\n", valor_procurar);
+    } else {
+        printf("Valor %d foi encontrado na arvore no endereço de memoria %p \n", valor_procurar, buscaNaArvore(valor_procurar, arvore));
+    }
+    
     imprimirArvore(arvore);
     
     
