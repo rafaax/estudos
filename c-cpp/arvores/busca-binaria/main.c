@@ -19,6 +19,20 @@ arvore* criarArvore(){
     return NULL;
 }
 
+arvore* buscaNaArvore(int value, arvore* no){
+    if (no == NULL) {
+        // printf("Valor %d nao encontrado na árvore.\n", value);
+        return NULL; 
+    }
+    if(value < no->valor){
+        no = buscaNaArvore(value, no->esq );
+        return no;
+    }else if(value > no->valor){
+        no = buscaNaArvore(value, no->dir);
+        return no;
+    }
+}
+
 arvore* insereNoArvore(int value, arvore* no){
     if(no == NULL){
         no = (arvore*)malloc(sizeof(arvore));
@@ -89,6 +103,10 @@ int main(){
     printf("Digite o valor do no a ser inserido 9 \n");
     scanf("%d", &valor);
     arvore = insereNoArvore(valor, arvore);
+    
+    
     imprimirArvore(arvore);
+    
+    
     return 0;
 };
