@@ -10,3 +10,12 @@ print numero_y
 ## interpolacao de string
 puts "o numero x é #{numero_x}" 
 puts "o numero y é #{numero_y}"
+
+## TESTE DE VARIAVEL COM STRIP PARA REMOVER ESPAÇOS
+puts "   TEST   ".strip
+
+
+string = "TTTTeste"
+
+string[0..2] = ""
+print string
