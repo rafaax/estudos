@@ -47,22 +47,29 @@ puts hash_via_object
 
 ### validacao de dados
 
-
+puts "Hash has value 'Raphael'?"
 puts hash.has_value?('Raphael')
+puts "Hash has key 'Rapha'?"
 puts hash.has_value?('Rapha')
 
 #########
 
 ######## validacao de chaves
-
+puts "Hash has key 'nome'?"
 puts hash.has_key?(:nome) ## simbolo nome
+puts "Hash has key 'sobrenome'?"
 puts hash.has_key?(:sobrenome) ## simbolo sobrenome
 
 ######
 
 
 ### recuperando todas chaves da hash
-
+puts "Hash Keys"
 puts hash.keys
 
 ##########
+
+## recuperando size/length do hash
+puts "Hash size"
+puts hash.length
+puts hash.size
