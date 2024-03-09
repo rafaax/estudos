@@ -23,3 +23,13 @@ puts hash_via_object
 
 # comparação de hash
 puts hash == hash_via_object  # comparando se as hashes sao iguais
+
+###############
+
+#deletando campo da hash
+
+hash_via_object.delete(:idade)
+
+puts hash_via_object
+
+##############
