@@ -46,3 +46,16 @@ puts hash_via_object
 ##########
 
 ### validacao de dados
+
+
+puts hash.has_value?('Raphael')
+puts hash.has_value?('Rapha')
+
+#########
+
+######## validacao de chaves
+
+puts hash.has_key?(:nome) ## simbolo nome
+puts hash.has_key?(:sobrenome) ## simbolo sobrenome
+
+######
