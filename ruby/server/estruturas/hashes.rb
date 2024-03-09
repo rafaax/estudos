@@ -33,3 +33,16 @@ hash_via_object.delete(:idade)
 puts hash_via_object
 
 ##############
+
+
+
+## limpando hashe = zerando ela
+
+
+hash_via_object.clear() ## ou .clear sem o parenteses
+
+puts hash_via_object
+
+##########
+
+### validacao de dados
