@@ -1,13 +1,16 @@
-## dicionarios
+## hashes == dicionarios
 
+
+## iniciando uma hashe
 hash = {}
 hash_via_object = Hash.new ## outra forma de inicializar uma hashe
 
 puts hash
+#####################################
 
-
+############ atribuindo valores numa hash
 hash = {nome: "Rapha", peso: 66.1, idade: 19}
-hash[:altura] = 1.71
+hash[:altura] = 1.71 ## adicionando um campo novo
 
 puts hash
 
@@ -16,4 +19,7 @@ hash_via_object[:altura] = 1.80
 
 puts hash_via_object
 
+############################
+
+# comparação de hash
 puts hash == hash_via_object  # comparando se as hashes sao iguais
