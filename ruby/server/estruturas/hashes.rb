@@ -59,3 +59,10 @@ puts hash.has_key?(:nome) ## simbolo nome
 puts hash.has_key?(:sobrenome) ## simbolo sobrenome
 
 ######
+
+
+### recuperando todas chaves da hash
+
+puts hash.keys
+
+##########
