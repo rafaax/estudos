@@ -1,4 +1,4 @@
-<h2>Kanban desenvolvido com dracula Js e Babel, frontend com Jquery e serverside desenvolvido em php, integrado de modo empresarial com diversas funcionabilidades </h2>
+<h2>Kanban desenvolvido com dracula Js e Babel, frontend com Jquery e serverside desenvolvido em php, integrado de modo empresarial com diversas funcionalidades </h2>
 
 ![image](https://github.com/rafaax/jkanban/assets/37984884/7ec68ad0-b8b6-42aa-b599-97913e14ce4f)
 
