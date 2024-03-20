@@ -28,3 +28,30 @@ def main():
             creds = flow.run_local_server(port=0)
             with open("token.json", "w") as token:
                 token.write(creds.to_json())
+            
+
+  
+  #
+    if os.path.exists("token.json"):
+        creds = Credentials.from_authorized_user_file("token.json", SCOPES)
+
+
+    try:
+        service = build("sheets", "v4", credentials=creds)
+        spreadsheet = {"properties": {"title": 'sheet criada com google api'}}
+        spreadsheet = (service.spreadsheets().create(body=spreadsheet, fields="spreadsheetId").execute())
+
+        print(f"Spreadsheet ID: {(spreadsheet.get('spreadsheetId'))}")
+
+        # sheet = service.spreadsheets()
+        
+        # result = (sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID, range=SAMPLE_RANGE_NAME).execute())
+        # values = result.get("values", [])
+    
+        
+    except HttpError as err:
+        print(err)
+
+
+if __name__ == "__main__":
+  main()
