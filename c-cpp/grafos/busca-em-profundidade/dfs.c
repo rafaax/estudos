@@ -8,3 +8,16 @@ typedef struct {
     int items[MAX_VERTICES];
     int topo;
 } Pilha;
+
+
+void inicializandoPilha(Pilha *p) {
+    p->topo = -1;
+}
+
+bool pilhaVazia(Pilha *p) {
+    return p->topo == -1;
+}
+
+bool pilhaCheia(Pilha *p) {
+    return p->topo == MAX_VERTICES - 1;
+}
