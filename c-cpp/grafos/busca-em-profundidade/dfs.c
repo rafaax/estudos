@@ -47,5 +47,20 @@ void DFS(int grafo[][MAX_VERTICES], int visitado[], int v_inicio, int vertices) 
     
     visitado[v_inicio] = 1;
     push(&pilha, v_inicio);
+
     printf("Resultado da busca em profundidade (DFS):\n");
+
+    while (!pilhaVazia(&pilha)){
+        int valorCorrente = pop(&pilha);
+        printf("%d ", valorCorrente);
+        
+		
+		int adj;
+        for (adj = 0; adj < vertices; adj++) {
+            if (grafo[valorCorrente][adj] && !visitado[adj]) {
+                visitado[adj] = 1;
+                push(&pilha, adj);
+            }
+        }
+    }
 }
