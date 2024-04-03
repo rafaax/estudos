@@ -64,3 +64,15 @@ void DFS(int grafo[][MAX_VERTICES], int visitado[], int v_inicio, int vertices) 
         }
     }
 }
+int main() {
+    int grafo[MAX_VERTICES][MAX_VERTICES] = {
+        {0, 1, 1, 0, 0},
+        {1, 0, 0, 1, 1},
+        {1, 0, 0, 0, 1},
+        {0, 1, 0, 0, 0},
+        {0, 1, 1, 0, 0}
+    };
+    
+    int vertices = 5;
+    return 0;
+}
