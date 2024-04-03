@@ -74,5 +74,11 @@ int main() {
     };
     
     int vertices = 5;
+    int verticesVisitados[vertices]; 
+
+    int i;
+    for (i = 0; i < vertices; i++) { // atribuindo ao array verticesVisitados 0 em todos campos para deixar claro que nenhum vértice foi ainda visitado.
+        verticesVisitados[i] = 0;
+    } 
     return 0;
 }
