@@ -39,3 +39,13 @@ int pop(Pilha *p) {
     }
     return p->items[(p->topo)--];
 }
+
+void DFS(int grafo[][MAX_VERTICES], int visitado[], int v_inicio, int vertices) {
+	
+    Pilha pilha;
+    inicializandoPilha(&pilha);
+    
+    visitado[v_inicio] = 1;
+    push(&pilha, v_inicio);
+    printf("Resultado da busca em profundidade (DFS):\n");
+}
