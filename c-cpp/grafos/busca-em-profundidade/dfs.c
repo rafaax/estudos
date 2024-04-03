@@ -31,3 +31,11 @@ void push(Pilha *p, int vertex) {
     p->items[++(p->topo)] = vertex;
     printf("\n-- %d",p->topo);
 }
+
+int pop(Pilha *p) {
+    if (pilhaVazia(p)) {
+        printf("pilha underflow\n");
+        exit(EXIT_FAILURE);
+    }
+    return p->items[(p->topo)--];
+}
