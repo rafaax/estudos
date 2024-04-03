@@ -64,6 +64,7 @@ void DFS(int grafo[][MAX_VERTICES], int visitado[], int v_inicio, int vertices) 
         }
     }
 }
+
 int main() {
     int grafo[MAX_VERTICES][MAX_VERTICES] = {
         {0, 1, 1, 0, 0},
@@ -80,5 +81,9 @@ int main() {
     for (i = 0; i < vertices; i++) { // atribuindo ao array verticesVisitados 0 em todos campos para deixar claro que nenhum vértice foi ainda visitado.
         verticesVisitados[i] = 0;
     } 
+	
+
+    DFS(grafo, verticesVisitados, 0, vertices);
+
     return 0;
 }
