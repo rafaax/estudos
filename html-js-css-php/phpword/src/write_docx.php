@@ -16,5 +16,21 @@ $section->addText(
         . '(Napoleon Hill)',
     array('name' => 'Tahoma', 'size' => 10)
 );
+
+
+$fontStyleName = 'oneUserDefinedStyle';
+
+$phpWord->addFontStyle(
+    $fontStyleName,
+    array('name' => 'Tahoma', 'size' => 10, 'color' => '1B2232', 'bold' => true)
+);
+
+$section->addText(
+    '"The greatest accomplishment is not in never falling, '
+        . 'but in rising again after you fall." '
+        . '(Vince Lombardi)',
+    $fontStyleName
+);
+
 $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
 $objWriter->save('phrases.docx');
