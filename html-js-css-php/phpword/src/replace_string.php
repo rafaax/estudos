@@ -15,4 +15,17 @@ foreach ($data_post as $chave => $valor) {
     // echo "('$chave' => '$valor')";
     $template->setValue($chave, $valor);
 }
+
+$section = (new PhpWord())->addSection();
+
+Html::addHtml($section, '', false, false);
+
+$containers = $section->getElements();
+
+$template->cloneBlock('htmlblock', count($containers), true, true);
+
+for($i = 0; $i < count($containers); $i++) {
+    $template->setComplexBlock('html#' . ($i+1), $containers[$i]);
+}
+
 $template->saveAs('template_replaced.docx');
