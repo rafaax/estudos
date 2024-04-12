@@ -1,6 +1,9 @@
 <?php 
+require 'vendor/autoload.php';
 
-DB::$user = 'my_database_user';
-DB::$password = 'my_database_password';
-DB::$dbName = 'my_database_name';
 
+DB::$user = 'root';
+DB::$password = '';
+DB::$dbName = 'raphael';
+
+$result = DB::query("SELECT * FROM users");
