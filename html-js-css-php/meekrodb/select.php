@@ -35,3 +35,9 @@ $first_field = DB::queryFirstField('SELECT quantidade from quantidade order by i
 echo 'Quantidade do Ultimo ID: ' . $first_field  . PHP_EOL;
 
 list($id, $quantidade) = DB::queryFirstList('select id, quantidade from quantidade order by id desc');
+
+
+
+
+$quantidades = DB::queryFirstColumn('SELECT quantidade from quantidade');
+
