@@ -56,6 +56,9 @@ switch($escolha){
     case 11: 
         $funcoes->queryBasica();
         break;
+    case 12: 
+        $funcoes->queryBasica2();
+        break;
     default:
         echo 'Escolha um numero de uma função existente...';
         break;
