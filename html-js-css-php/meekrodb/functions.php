@@ -88,7 +88,7 @@ class rafaax {
 
     }
 
-    public function insert6(){
+    public function insert6(){ // exemplo passando um segundo array associativo
         DB::insertUpdate('users', ['id' => 1],
         [
             'nome' => 'raphael2',
@@ -101,6 +101,11 @@ class rafaax {
     }
 
     public function insert7(){
+        DB::insertUpdate('users', [
+            'id' => 5,
+            'nome' => 'Joe',
+            'sobrenome' => 'Rogan'
+        ]);
 
         echo DB::affectedRows();
     }
