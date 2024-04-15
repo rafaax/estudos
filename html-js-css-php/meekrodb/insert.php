@@ -58,7 +58,7 @@ function insert3(){
 
 function insert4(){
     DB::insert('quantidade', array(
-        'quantidade' => 200
+        'quantidade' => readline("Digite uma quantidade para inserir no db: ")
     ));
 
     echo 'Inserted ID: '.  DB::insertId();
