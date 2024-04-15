@@ -47,6 +47,11 @@ class rafaax {
         print_r($quantidade);
     }
 
+    public function queryFirstColumn(){
+        $quantidades = DB::queryFirstColumn('SELECT quantidade from quantidade');
+        print_r($quantidades);
+    }
+
 
     public function insert1(){
         DB::insert('quantidade', ['quantidade' => 99]);
