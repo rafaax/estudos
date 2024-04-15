@@ -141,4 +141,9 @@ class rafaax {
         
     }
 
+    public function delete($id){
+        $delete = DB::delete('users', "id=%i", $id);
+        echo $delete;
+    }
+
 }
