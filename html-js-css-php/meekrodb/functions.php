@@ -21,13 +21,13 @@ class rafaax {
         foreach($users as $user){
             $array_users[] = $user['nome'];
         }
-        echo json_encode($array_users) . PHP_EOL;
+        echo json_encode($array_users);
     }
 
     public function queryBasica2(){
         $quantidade = DB::query('SELECT * from quantidade where quantidade <=  "%i_quantidade" ', $this->buscar);
         foreach($quantidade as $quantidade_value){
-            echo 'ID: ' . $quantidade_value['id'] . ' ---- Quantidade:' . $quantidade_value['quantidade'] . PHP_EOL;
+            echo 'ID: ' . $quantidade_value['id'] . ' ---- Quantidade:' . $quantidade_value['quantidade'];
         }
     }
 
@@ -35,7 +35,12 @@ class rafaax {
         $one_row = DB::queryFirstRow('SELECT * from quantidade where quantidade <= %i_first_row', $this->buscar);
         print_r($one_row);
     }
-    
+
+    public function queryFirstField(){
+        $first_field = DB::queryFirstField('SELECT quantidade from quantidade order by id desc');
+        echo 'Quantidade do Ultimo ID: ' . $first_field;
+    }
+
 
     public function insert1(){
         DB::insert('quantidade', ['quantidade' => 99]);
