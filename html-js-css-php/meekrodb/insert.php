@@ -44,6 +44,9 @@ switch($escolha){
     case 8: 
         $funcoes->replace();
         break;
+    case 9: 
+        $funcoes->update(readline('Passe um nome para substituir os dados:'));
+        break;
     default:
         echo 'Escolha um numero de uma função existente...';
         break;
