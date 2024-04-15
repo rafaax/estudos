@@ -41,6 +41,12 @@ class rafaax {
         echo 'Quantidade do Ultimo ID: ' . $first_field;
     }
 
+    public function queryFirstList(){
+        list($id, $quantidade) = DB::queryFirstList('select id, quantidade from quantidade order by id desc');
+        print_r($id);
+        print_r($quantidade);
+    }
+
 
     public function insert1(){
         DB::insert('quantidade', ['quantidade' => 99]);
