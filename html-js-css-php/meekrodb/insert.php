@@ -67,14 +67,31 @@ function insert4(){
     echo 'Inserted ID: '.  DB::insertId();
 }
 
+function insert5(){
+    DB::insertIgnore('users', array(
+        'id' => 1, 
+        'nome' => 'Não retornará erro',
+    ));
+    
+    if(DB::affectedRows() == 1){
+        echo 'Foi inserido';    
+    }else{
+        echo 'Nao foi inserido';
+    }
+    
+
+}
+
 
 // main
 print('Estudo de MeekroDB - RAPHAEL G. MEIRELES') . PHP_EOL;
 print('Escolha uma função para executar e visualizar os resultados:') . PHP_EOL . PHP_EOL;
-print('Função 1 -> Faz o insert e retorna se a função foi um sucesso ou não.') . PHP_EOL;
-print('Função 2 -> Faz o insert de um array de dados e retorna se foi sucesso ou não.') . PHP_EOL;
-print('Função 3 -> Define 2 arrays, e insere-os no banco de dados, retornando se foi sucesso ou não.') . PHP_EOL;
-print('Função 4 -> Pede para o usuario digitar uma quantidade e ele usa esse valor para inserir no db, e retorna o valor do inserted id no banco de dados.') . PHP_EOL;
+print('Função 1 (insert) -> Faz o insert e retorna se a função foi um sucesso ou não.') . PHP_EOL;
+print('Função 2 (insert) -> Faz o insert de um array de dados e retorna se foi sucesso ou não.') . PHP_EOL;
+print('Função 3 (insert) -> Define 2 arrays, e insere-os no banco de dados, retornando se foi sucesso ou não.') . PHP_EOL;
+print('Função 4 (insert) -> Pede para o usuario digitar uma quantidade e ele usa esse valor para inserir no db, e retorna o valor do inserted id no banco de dados.') . PHP_EOL;
+print('Função 5 (insertIgnore) ->  Se o id inserido ja existe, ele nao retorna erro'). PHP_EOL;
+
 
 print('Escolha uma funcao para executar:');
 $escolha = readline();
@@ -93,6 +110,9 @@ switch($escolha){
         break;
     case 4:
         insert4();
+        break;
+    case 5: 
+        insert5();
         break;
     default:
         echo 'Escolha um numero de uma função existente...';
