@@ -113,7 +113,7 @@ class rafaax {
         echo DB::affectedRows();
     }
 
-    public function replace(){ // exemplo passando um array associativo simples
+    public function replace(){ 
         $replace = DB::replace('users', [
             'id' => 5,
             'nome' => 'Raphael',
@@ -121,6 +121,19 @@ class rafaax {
         ]);
 
         echo $replace;
+    }
+
+    public function update($nome){ 
+        $update = DB::update('users', 
+            [
+                'email' => 'poo@gmail.com',
+                'telefone' => '98833390',
+                'cpf' => '999999'
+            ],
+            "nome=%s", $nome
+        );
+
+        echo $update;
     }
 
 }
