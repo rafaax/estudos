@@ -113,4 +113,14 @@ class rafaax {
         echo DB::affectedRows();
     }
 
+    public function replace(){ // exemplo passando um array associativo simples
+        $replace = DB::replace('users', [
+            'id' => 5,
+            'nome' => 'Raphael',
+            'sobrenome' => 'Meireles'
+        ]);
+
+        echo $replace;
+    }
+
 }
