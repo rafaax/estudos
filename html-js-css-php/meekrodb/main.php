@@ -16,6 +16,7 @@ print('Função 8 (replace) ->  Usando o replace para substituir os dados do id 
 print('Função 9 (update) -> Usando a função update'). PHP_EOL;
 print('Função 10 (delete) -> Usando a função delete'). PHP_EOL;
 print('Função 11 -> Query basica e retornando os dados'). PHP_EOL;
+print('Função 12 -> Query basica e retornando os dados parte 2'). PHP_EOL;
 
 
 $escolha = readline('Escolha uma funcao para executar:');
