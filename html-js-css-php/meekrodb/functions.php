@@ -133,7 +133,12 @@ class rafaax {
             "nome=%s", $nome
         );
 
-        echo $update;
+        if($update == 0){
+            echo 'Nao foi encontrado registros com o nome: ' . $nome;
+        }else{
+            echo 'Alterações feitas!';
+        }
+        
     }
 
 }
