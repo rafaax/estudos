@@ -12,6 +12,8 @@ print('Função 4 (insert) -> Pede para o usuario digitar uma quantidade e ele u
 print('Função 5 (insertIgnore) ->  Se o id inserido ja existe, ele nao retorna erro'). PHP_EOL;
 print('Função 6 (insertUpdate) ->  Usando o insertupdate para fazer o update no id 1 ou fazer o insert caso nao exista'). PHP_EOL;
 print('Função 7 (insertUpdate) ->  Usando o insertupdate passando apenas um array associativo primário'). PHP_EOL;
+print('Função 8 (replace) ->  Usando o replace para substituir os dados do id 5'). PHP_EOL;
+print('Função 9 (update) -> '). PHP_EOL;
 
 $escolha = readline('Escolha uma funcao para executar:');
 
@@ -38,6 +40,9 @@ switch($escolha){
         break;
     case 7: 
         $funcoes->insert7();
+        break;
+    case 8: 
+        $funcoes->replace();
         break;
     default:
         echo 'Escolha um numero de uma função existente...';
