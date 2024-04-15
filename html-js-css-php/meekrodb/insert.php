@@ -55,12 +55,16 @@ function insert3(){
 
 }
 
-insert3();
 
+function insert4(){
+    DB::insert('quantidade', array(
+        'quantidade' => 200
+    ));
 
+    echo 'Inserted ID: '.  DB::insertId();
+}
 
-
-
+insert4();
 
 
 ?>
