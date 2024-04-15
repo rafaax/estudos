@@ -6,12 +6,6 @@ require 'connection.php';
 
 
 
-
-
-$quantidades = DB::queryFirstColumn('SELECT quantidade from quantidade');
-print_r($quantidades);
-
-
 $full_columns = DB::queryFullColumns('SELECT * from users');
 print_r($full_columns);
 
