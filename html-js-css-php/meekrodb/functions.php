@@ -52,6 +52,19 @@ class rafaax {
         print_r($quantidades);
     }
 
+    public function queryFullColumns(){
+        $full_columns = DB::queryFullColumns('SELECT * from users');
+        print_r($full_columns);
+    }
+
+    public function queryWalk(){
+        $Walk = DB::queryWalk("SELECT * FROM users");
+        while ($row = $Walk->next()) {
+            print_r($row);
+        }
+    }
+    
+
 
     public function insert1(){
         DB::insert('quantidade', ['quantidade' => 99]);
