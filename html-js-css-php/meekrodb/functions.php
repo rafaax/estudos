@@ -8,6 +8,16 @@ class rafaax {
         DB::$dbName = 'raphael';
     }
 
+    public function queryBasica(){
+        $users = DB::query("SELECT * from users where nome = %s ", 'raphael' );
+
+        $array_users = [];
+        foreach($users as $user){
+            $array_users[] = $user['nome'];
+        }
+        echo json_encode($array_users) . PHP_EOL;
+    }
+
     public function insert1(){
         DB::insert('quantidade', ['quantidade' => 99]);
         echo DB::affectedRows();

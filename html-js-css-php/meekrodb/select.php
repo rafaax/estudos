@@ -4,13 +4,7 @@ require 'connection.php';
 
 
 // query com string basica
-$users = DB::query("SELECT * from users where nome = %s ", 'raphael' );
 
-$array_users = [];
-foreach($users as $user){
-    $array_users[] = $user['nome'];
-}
-echo json_encode($array_users) . PHP_EOL;
 
 // query com array 
 $buscar = array(
