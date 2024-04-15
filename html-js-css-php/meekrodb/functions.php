@@ -88,8 +88,21 @@ class rafaax {
 
     }
 
+    public function insert6(){
+        DB::insertUpdate('users', ['id' => 1],
+        [
+            'nome' => 'raphael2',
+            'sobrenome' => 'update'
+        ]
+        );
+        // caso exista um valor no id = 1 ele faz o update na coluna nome e na coluna sobrenome
+
+        echo DB::affectedRows();
+    }
+
+    public function insert7(){
+
+        echo DB::affectedRows();
+    }
+
 }
-
-
-
-

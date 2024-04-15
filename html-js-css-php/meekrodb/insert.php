@@ -10,10 +10,10 @@ print('Função 2 (insert) -> Faz o insert de um array de dados e retorna se foi
 print('Função 3 (insert) -> Define 2 arrays, e insere-os no banco de dados, retornando se foi sucesso ou não.') . PHP_EOL;
 print('Função 4 (insert) -> Pede para o usuario digitar uma quantidade e ele usa esse valor para inserir no db, e retorna o valor do inserted id no banco de dados.') . PHP_EOL;
 print('Função 5 (insertIgnore) ->  Se o id inserido ja existe, ele nao retorna erro'). PHP_EOL;
+print('Função 6 (insertUpdate) ->  '). PHP_EOL;
 
 $escolha = readline('Escolha uma funcao para executar:');
 
-// $funcoes =  new rafaax();
 
 switch($escolha){
 
@@ -31,6 +31,12 @@ switch($escolha){
         break;
     case 5: 
         $funcoes->insert5();
+        break;
+    case 6: 
+        $funcoes->insert6();
+        break;
+    case 7: 
+        $funcoes->insert7();
         break;
     default:
         echo 'Escolha um numero de uma função existente...';
