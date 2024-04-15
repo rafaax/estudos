@@ -15,6 +15,8 @@ print('Função 7 (insertUpdate) ->  Usando o insertupdate passando apenas um ar
 print('Função 8 (replace) ->  Usando o replace para substituir os dados do id 5'). PHP_EOL;
 print('Função 9 (update) -> Usando a função update'). PHP_EOL;
 print('Função 10 (delete) -> Usando a função delete'). PHP_EOL;
+print('Função 11 -> Query basica e retornando os dados'). PHP_EOL;
+
 
 $escolha = readline('Escolha uma funcao para executar:');
 
@@ -50,6 +52,9 @@ switch($escolha){
         break;
     case 10: 
         $funcoes->delete(readline('Informe um id para deletar:'));
+        break;
+    case 11: 
+        $funcoes->queryBasica();
         break;
     default:
         echo 'Escolha um numero de uma função existente...';
