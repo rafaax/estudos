@@ -6,7 +6,7 @@ require 'connection.php';
 
 
 
-list($id, $quantidade) = DB::queryFirstList('select id, quantidade from quantidade order by id desc');
+
 
 $quantidades = DB::queryFirstColumn('SELECT quantidade from quantidade');
 print_r($quantidades);
