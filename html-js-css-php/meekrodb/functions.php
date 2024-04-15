@@ -2,6 +2,12 @@
 
 class rafaax {
     
+    public $buscar = array(
+        'quantidade' => 60,
+        'first_row' => 100  
+    );
+
+
     public function connection(){
         DB::$user = 'root';
         DB::$password = '';
@@ -16,6 +22,13 @@ class rafaax {
             $array_users[] = $user['nome'];
         }
         echo json_encode($array_users) . PHP_EOL;
+    }
+
+    public function queryBasica2(){
+        $quantidade = DB::query('SELECT * from quantidade where quantidade <=  "%i_quantidade" ', $this->buscar);
+        foreach($quantidade as $quantidade_value){
+            echo 'ID: ' . $quantidade_value['id'] . ' ---- Quantidade:' . $quantidade_value['quantidade'] . PHP_EOL;
+        }
     }
 
     public function insert1(){
