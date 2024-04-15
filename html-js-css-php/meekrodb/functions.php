@@ -64,8 +64,6 @@ class rafaax {
         }
     }
     
-
-
     public function insert1(){
         DB::insert('quantidade', ['quantidade' => 99]);
         echo DB::affectedRows();

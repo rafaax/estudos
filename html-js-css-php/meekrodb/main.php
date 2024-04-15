@@ -17,8 +17,10 @@ print('Função 9 (update) -> Usando a função update'). PHP_EOL;
 print('Função 10 (delete) -> Usando a função delete'). PHP_EOL;
 print('Função 11 -> Query basica e retornando os dados'). PHP_EOL;
 print('Função 12 -> Query basica e retornando os dados parte 2'). PHP_EOL;
+print('Função 13 -> Query FirstRow -> Retorna primeiros valores da tabela'). PHP_EOL;
+print('Função 14 -> Query FirstField -> Retorna primeiro valor de uma coluna em especifico'). PHP_EOL;
 
-
+echo PHP_EOL;
 $escolha = readline('Escolha uma funcao para executar:');
 
 
@@ -59,6 +61,12 @@ switch($escolha){
         break;
     case 12: 
         $funcoes->queryBasica2();
+        break;
+    case 13: 
+        $funcoes->queryFirstRow();
+        break;
+    case 14: 
+        $funcoes->queryFirstField();
         break;
     default:
         echo 'Escolha um numero de uma função existente...';
