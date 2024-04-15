@@ -31,6 +31,12 @@ class rafaax {
         }
     }
 
+    public function queryFirstRow(){
+        $one_row = DB::queryFirstRow('SELECT * from quantidade where quantidade <= %i_first_row', $this->buscar);
+        print_r($one_row);
+    }
+    
+
     public function insert1(){
         DB::insert('quantidade', ['quantidade' => 99]);
         echo DB::affectedRows();
