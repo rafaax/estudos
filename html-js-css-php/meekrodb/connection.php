@@ -1,6 +1,6 @@
 <?php 
 require 'vendor/autoload.php';
+require 'functions.php';
 
-DB::$user = 'root';
-DB::$password = '';
-DB::$dbName = 'raphael';
+$funcoes =  new rafaax();
+$funcoes->connection();

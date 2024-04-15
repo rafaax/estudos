@@ -1,7 +1,7 @@
 <?php 
 
 require 'connection.php';
-require 'functions.php';
+
 // main
 print('Estudo de MeekroDB - RAPHAEL G. MEIRELES') . PHP_EOL;
 print('Escolha uma função para executar e visualizar os resultados:') . PHP_EOL . PHP_EOL;
@@ -13,7 +13,7 @@ print('Função 5 (insertIgnore) ->  Se o id inserido ja existe, ele nao retorna
 
 $escolha = readline('Escolha uma funcao para executar:');
 
-$funcoes =  new rafaax();
+// $funcoes =  new rafaax();
 
 switch($escolha){
 

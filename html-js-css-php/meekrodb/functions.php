@@ -1,6 +1,12 @@
 <?php
 
 class rafaax {
+    
+    public function connection(){
+        DB::$user = 'root';
+        DB::$password = '';
+        DB::$dbName = 'raphael';
+    }
 
     public function insert1(){
         DB::insert('quantidade', ['quantidade' => 99]);
