@@ -22,6 +22,7 @@ print('Função 14 -> Query FirstField -> Retorna primeiro valor de uma coluna e
 print('Função 15 -> Query FirstList -> Separando os resultados da query em variaveis atraves do list'). PHP_EOL;
 print('Função 16 -> Query FirstColumn -> Printando todos os valores de uma coluna '). PHP_EOL;
 print('Função 17 -> Query FullColumns -> Printando todos os valores de uma tabela '). PHP_EOL;
+print('Função 18 -> Query Walk -> Fazendo a query para printar um por um sem processar todos os dados de uma vez'). PHP_EOL;
 
 echo PHP_EOL;
 $escolha = readline('Escolha uma funcao para executar:');
@@ -79,6 +80,9 @@ switch($escolha){
         break;
     case 17: 
         $funcoes->queryFullColumns();
+        break;
+    case 18:
+        $funcoes->queryWalk();
         break;
     default:
         echo 'Escolha um numero de uma função existente...';
