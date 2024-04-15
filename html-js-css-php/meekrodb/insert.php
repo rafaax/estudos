@@ -57,12 +57,20 @@ function insert3(){
 
 
 function insert4(){
+    // mysqli_last_inserted_id
     DB::insert('quantidade', array(
         'quantidade' => readline("Digite uma quantidade para inserir no db: ")
     ));
 
     echo 'Inserted ID: '.  DB::insertId();
 }
+
+
+// main
+print('Estudo de MeekroDB - RAPHAEL G. MEIRELES') . PHP_EOL;
+print('Escolha uma função para executar e visualizar os resultados:') . PHP_EOL;
+print('Função 1 -> Faz o insert e retorna se a função foi um sucesso ou não.') . PHP_EOL;
+print('Função 2 -> Faz o insert de um array de dados e retorna se foi sucesso ou não.') . PHP_EOL;
 
 insert4();
 
