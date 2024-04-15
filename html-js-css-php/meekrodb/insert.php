@@ -4,7 +4,7 @@ require 'connection.php';
 
 function insert1(){
     DB::insert('quantidade', ['quantidade' => 99]);
-    return DB::affectedRows();
+    echo DB::affectedRows();
 }
 
 function insert2(){
@@ -17,7 +17,7 @@ function insert2(){
         'cpf' => '0951098722'
     ));
     
-    return DB::affectedRows();
+    echo DB::affectedRows();
 }
 
 function insert3(){
@@ -53,6 +53,8 @@ function insert3(){
         ));
     }
 
+    echo DB::affectedRows();
+
 }
 
 
@@ -68,11 +70,36 @@ function insert4(){
 
 // main
 print('Estudo de MeekroDB - RAPHAEL G. MEIRELES') . PHP_EOL;
-print('Escolha uma função para executar e visualizar os resultados:') . PHP_EOL;
+print('Escolha uma função para executar e visualizar os resultados:') . PHP_EOL . PHP_EOL;
 print('Função 1 -> Faz o insert e retorna se a função foi um sucesso ou não.') . PHP_EOL;
 print('Função 2 -> Faz o insert de um array de dados e retorna se foi sucesso ou não.') . PHP_EOL;
+print('Função 3 -> Define 2 arrays, e insere-os no banco de dados, retornando se foi sucesso ou não.') . PHP_EOL;
+print('Função 4 -> Pede para o usuario digitar uma quantidade e ele usa esse valor para inserir no db, e retorna o valor do inserted id no banco de dados.') . PHP_EOL;
 
-insert4();
+print('Escolha uma funcao para executar:');
+$escolha = readline();
+echo PHP_EOL;
+
+switch($escolha){
+
+    case 1:
+        insert1();
+        break;
+    case 2:
+        insert2();
+        break;
+    case 3:
+        insert3();
+        break;
+    case 4:
+        insert4();
+        break;
+    default:
+        echo 'Escolha um numero de uma função existente...';
+        break;
+}
+
+
 
 
 ?>
