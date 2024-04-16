@@ -43,6 +43,8 @@ class rafaax {
 
     public function queryFirstList(){
         list($id, $quantidade) = DB::queryFirstList('select id, quantidade from quantidade order by id desc');
+        echo "ID: $id \n";
+        echo "Quantidade: $quantidade";
     }
 
     public function queryFirstColumn(){
