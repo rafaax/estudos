@@ -6,7 +6,7 @@ import axios from "axios"
 
 export const Home = () => {
     
-    const [pokemons, setPokemons] = useState([])
+    const [pokemons, setPokemons] = useState<any[]>([]);
 
     useEffect(() => {
         getUrl()
@@ -14,9 +14,10 @@ export const Home = () => {
 
     const getUrl = () => {
 
-        var endpoints = [];
-        var quantidadeItensTela = 50; 
-        for (var i = 1; i < quantidadeItensTela; i++){
+        const endpoints: string[] = [];
+        const quantidadeItensTela: number = 200; 
+        
+        for (let i = 1; i < quantidadeItensTela; i++){
             endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}/`);
         }
 
@@ -32,8 +33,8 @@ export const Home = () => {
         )
     }
 
-    const filterUrl = (name) => {
-        var filteredData = [];
+    const filterUrl = (name: string): void => {
+        const filteredData: any[] = [];
 
         if(name === ""){
             getUrl();
