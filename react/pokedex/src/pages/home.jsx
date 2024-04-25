@@ -26,19 +26,22 @@ export const Home = () => {
             )
         ).then(
             (res) => {
+                
                 setPokemons(res)
             } 
         )
     }
+
+    console.log(pokemons);
     
     return( 
         <div>
             <NavBar></NavBar>
-            <Container maxWidth={false}>
-                <Grid container>
+            <Container maxWidth={false} >
+                <Grid container spacing={3}>
                     {pokemons.map((pokemon, key) => (
-                        <Grid item xs={3} key={key}>
-                            <PokemonCard name={pokemon.data.name}></PokemonCard>
+                        <Grid item xs={2} key={key}>
+                            <PokemonCard name={pokemon.data.name} photo={pokemon.data.sprites.front_default}></PokemonCard>
                         </Grid>
                     ))}
                 </Grid>
