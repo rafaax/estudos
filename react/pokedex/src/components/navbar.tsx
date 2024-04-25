@@ -51,7 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function NavBar() {
+export default function NavBar({filterUrl}) {
   return (
     <Box sx={{ flexGrow: 1, marginBottom: '1em'}}>
       <AppBar position="static" sx={{backgroundColor:'black'}}>
@@ -60,7 +60,10 @@ export default function NavBar() {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
             POKEDEX by Rapha
           </Typography>
-          <Search>
+          <Search onChange={(e) => {
+            const filterValue = (e.target as HTMLInputElement).value;
+            filterUrl(filterValue)
+          }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>

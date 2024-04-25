@@ -15,8 +15,8 @@ export const Home = () => {
     const getUrl = () => {
 
         var endpoints = [];
-
-        for (var i = 1; i < 10; i++){
+        var quantidadeItensTela = 50; 
+        for (var i = 1; i < quantidadeItensTela; i++){
             endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}/`);
         }
 
@@ -32,11 +32,25 @@ export const Home = () => {
         )
     }
 
-    console.log(pokemons);
+    const filterUrl = (name) => {
+        var filteredData = [];
+
+        if(name === ""){
+            getUrl();
+        }
+        for (var i in pokemons){
+            if(pokemons[i].data.name.includes(name)){
+                filteredData.push(pokemons[i]);
+            }
+
+            setPokemons(filteredData);
+        }
+    }
+
     
     return( 
         <div>
-            <NavBar></NavBar>
+            <NavBar filterUrl={filterUrl}></NavBar>
             <Container maxWidth={false} >
                 <Grid container spacing={3}>
                     {pokemons.map((pokemon, key) => (
