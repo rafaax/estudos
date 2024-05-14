@@ -4,6 +4,17 @@
 
 #define INT_MAX 2147483647
 
+void informacoes_sistema(){
+	printf("====================== \n");
+	printf("O sistema consiste em um algoritmo em Dijkstra \n");
+	printf("para analisar o melhor caminho para o motorista de onibus chegar de um ponto inicial ao ponto final \n");
+	printf("utilizando o menor tempo possivel! \n");
+	printf("Temos as funcoes de registrar o tempo medio de ponto a ponto que seria o peso das arestas do grafo \n");
+	printf("a funcao de visualizar todos os pontos da rota do motorista \n");
+	printf("e a funcao de gerar a rota menos custosa para o motorista, a rota mais rapida, usando como base o algoritmo dijkstra \n");
+	printf("======================\n");
+}
+
 int main(){
 	int op;
 	
