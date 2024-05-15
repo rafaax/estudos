@@ -11,3 +11,6 @@ def main():
         return("Conversão concluída com sucesso!")
     except Exception as e:
         return("Erro durante a conversão:", str(e))
+
+if __name__ == "__main__":
+    main()
