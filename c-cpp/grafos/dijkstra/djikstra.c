@@ -27,6 +27,23 @@ void representacao_grafo(){
 	printf("\n");
 }
 
+int inserirPeso(int linha, int coluna,int grafo[linha][coluna]){
+	int i, k;
+	
+	for(i = 0; i <= linha; i++){
+		for(k = 0; k <= coluna; k ++){
+ 			if(i == 0 && k == 1){ // A - B
+				printf("Digite o tempo em minutos que o motorista demora para ir do ponto a -> b \n ");
+				scanf("%d", &grafo[i][k]);
+			}
+			if(i == 0 && k == 3){ // A - D
+				printf("Digite o tempo em minutos que o motorista demora para ir do ponto a -> d \n");
+				scanf("%d", &grafo[i][k]);
+			}
+		}
+	}
+}
+
 int main(){
 	int op;
 	
