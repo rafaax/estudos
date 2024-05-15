@@ -15,6 +15,18 @@ void informacoes_sistema(){
 	printf("======================\n");
 }
 
+void representacao_grafo(){
+	system("cls");
+	printf("                   |------e----| \n");
+	printf("      |--------d---|           |----| \n");
+	printf("      |            |---------|      | \n");
+	printf("      |                      |------f \n");
+	printf("A ----|                             |\n");
+	printf("      |                             |\n");
+	printf("      |-----b----------------c------|\n");
+	printf("\n");
+}
+
 int main(){
 	int op;
 	
