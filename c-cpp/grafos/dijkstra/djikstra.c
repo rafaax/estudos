@@ -40,8 +40,32 @@ int inserirPeso(int linha, int coluna,int grafo[linha][coluna]){
 				printf("Digite o tempo em minutos que o motorista demora para ir do ponto a -> d \n");
 				scanf("%d", &grafo[i][k]);
 			}
+			if(i == 1 && k == 2){ // B - C 
+				printf("Digite o tempo em minutos que o motorista demora para ir do ponto b -> c \n");
+				scanf("%d", &grafo[i][k]);
+			}
+			if(i == 2 && k == 5){ // C - F
+				printf("Digite o tempo em minutos que o motorista demora para ir do ponto c -> f \n");
+				scanf("%d", &grafo[i][k]);
+			}
+			if( i == 3  && k == 4 ){ // D - E 
+				printf("Digite o tempo em minutos que o motorista demora para ir do ponto d -> e \n");
+				scanf("%d", &grafo[i][k]);
+			}
+			if( i == 3 && k == 5){ // D - F
+				printf("Digite o tempo em minutos que o motorista demora para ir do ponto d -> f \n "); 
+				scanf("%d", &grafo[i][k]);
+			}
+			if( i == 4 && k == 5){ // E - F
+				printf("Digite o tempo em minutos que o motorista demora para ir do ponto e -> f \n");
+				scanf("%d", &grafo[i][k]);
+			}
 		}
+		printf("\n");
 	}
+	
+	return grafo;
+	
 }
 
 int main(){
