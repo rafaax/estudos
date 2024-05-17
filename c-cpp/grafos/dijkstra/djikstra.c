@@ -68,6 +68,19 @@ int inserirPeso(int linha, int coluna,int grafo[linha][coluna]){
 	
 }
 
+void representarGrafoPesos(int grafo[6][6]){
+	system("cls");
+	printf("                   |----%d-e----| \n", grafo[3][4]);
+	printf("      |---%d---d---|            |--%d---| \n", grafo[0][3], grafo[4][5]);
+	printf("      |            |------%d----|       | \n", grafo[3][5]);
+	printf("      |                         |-------------f \n");
+	printf("A ----|                                 |\n");
+	printf("      |                                 |\n");
+	printf("      |---%d----b------%d-----c---%d----|\n", grafo[0][1], grafo[1][2], grafo[2][5]);
+	printf("\n");
+}
+
+
 int main(){
 	int op;
 	
