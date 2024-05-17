@@ -32,11 +32,28 @@ void teoria_grafos(){
 				// explicando algoritmo djikstra
 				printf("A funcao do algoritmo de Dijkstra eh encontrar o caminho de um vertice de origem para todos demais vertices em grafos com custos positivos nas arestas \n em outras palavras o algoritmo consiste em encontrar um caminho inimo de um vertice fonte para todos os outros vertices \n");
 				break;
+			case 2:
+				printf("O grafo para aplicacao de Dijkstra deve ser: \n ");
+				printf(" 	- Conexo \n ");
+				printf(" 	- Direcionado \n ");
+				printf(" 	- Ponderado \n ");
+				printf(" 	- Aciclico \n ");
+				break;
+			case 3:
+				printf("Para a aplicação de um algoritmo de Dijkstra utilizamos a estrutura de dados em heap");
+				break;
+			case 4: 
+				return;
+				break;
+			default:
+				printf("Opcao invalida!!");
+				break;
+		
 		}
 		system("pause");
 	}while(opcao != 0 );
+	
 }
-
 
 
 void representacao_grafo(){
