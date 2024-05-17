@@ -15,6 +15,30 @@ void informacoes_sistema(){
 	printf("======================\n");
 }
 
+void teoria_grafos(){
+	int opcao;
+
+	do{
+		
+		system("cls");
+		printf("[1] - Saiba mais sobre o algoritmo de Dijkstra \n");
+		printf("[2] - Saiba sobre as características do grafo para aplicar o algoritmo \n");
+		printf("[3] - Saiba sobre a estrutura para o algoritmo  \n");
+		printf("[4] - Voltar \n");
+		scanf("%d", &opcao);
+		// 
+		switch(opcao){
+			case 1:
+				// explicando algoritmo djikstra
+				printf("A funcao do algoritmo de Dijkstra eh encontrar o caminho de um vertice de origem para todos demais vertices em grafos com custos positivos nas arestas \n em outras palavras o algoritmo consiste em encontrar um caminho inimo de um vertice fonte para todos os outros vertices \n");
+				break;
+		}
+		system("pause");
+	}while(opcao != 0 );
+}
+
+
+
 void representacao_grafo(){
 	system("cls");
 	printf("                   |------e----| \n");
