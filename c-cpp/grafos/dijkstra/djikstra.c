@@ -122,6 +122,22 @@ void representarGrafoPesos(int grafo[6][6]){
 }
 
 
+int indiceMinimo(int peso[], int visitados[], int total_vertices){
+	int min = INT_MAX;
+	int i; 
+	int indice_minimo = -1;
+	
+	for(i = 0; i < total_vertices; i++){
+		if(visitados[i] == 0 && peso[i] <= min){
+			min = peso[i];
+			indice_minimo = i;
+		}
+	}
+	
+	return indice_minimo;
+}
+
+
 int main(){
 	int op;
 	
