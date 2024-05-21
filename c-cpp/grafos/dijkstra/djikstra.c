@@ -230,6 +230,28 @@ int main(){
 		printf("Opcao: ");
 		scanf("%d", &op);
 		
+		switch(op){
+			case 1:
+				representacao_grafo();
+				grafo[6][6] = inserirPeso(6,6, grafo);
+				break;
+			case 2:
+				representarGrafoPesos(grafo);
+				break;
+			case 3:
+				dijkstra(grafo);
+				break;
+			case 4:
+				informacoes_sistema();
+				break;
+			case 5:
+				teoria_grafos();
+				break;
+			default:
+				printf("Opcao invalida!! \n");
+				break;
+		}
+		system("pause");
 	}while(op != 0);
 	return 0;	
 }
