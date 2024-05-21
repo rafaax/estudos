@@ -157,6 +157,21 @@ void dijkstra(int grafo[6][6]){
 	
 	
 	peso[ponto_inicial] = 0;
+	
+	for(k = 0; k < total_vertices; k++){
+		int indice_encontrado = indiceMinimo(peso, vertices_visitados, total_vertices);
+		
+		vertices_visitados[indice_encontrado] = 1;
+		
+		int z; 
+		
+		for(z = 0; z < total_vertices; z++){
+			if(vertices_visitados[z] == 0 && grafo[indice_encontrado][z] && peso[indice_encontrado] != INT_MAX && peso[indice_encontrado] + grafo[indice_encontrado][z] < peso[z]){
+				peso[z] = peso[indice_encontrado] + grafo[indice_encontrado][z];
+				caminho_anterior[z] = indice_encontrado;
+			}
+		}
+	}
 }
 
 int main(){
