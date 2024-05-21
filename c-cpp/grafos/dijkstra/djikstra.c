@@ -206,5 +206,30 @@ int main(){
 	printf("================ \n\n");
 	sleep(1);
 	
+	int grafo[6][6];
+
+//		# A B C D E F
+//	# A  0 4 0 5 0 0 
+//	# B 0 0 4 0 0 0 
+//	# C 0 0 0 0 0 3
+//	# D 0 0 0 0 2 4 
+//	# E 0 0 0 0 0 3
+//	# F 0 0 0 0 0 0 
+	
+	
+	
+	
+	do{
+		system("cls");
+		printf("[1] - Registre o tempo em media do motorista entre os pontos \n");
+		printf("[2] - Visualize os pontos e seu tempo medio \n");
+		printf("[3] - Saiba a rota mais rapida para o motorista \n");
+		printf("[4] - INFORMACOES DO SISTEMA \n");
+		printf("[5] - Saiba mais sobre TEORIA DOS GRAFOS \n");
+		printf("[0] - Sair: \n");
+		printf("Opcao: ");
+		scanf("%d", &op);
+		
+	}while(op != 0);
 	return 0;	
 }
