@@ -172,6 +172,26 @@ void dijkstra(int grafo[6][6]){
 			}
 		}
 	}
+	
+	printf("Caminho minimo de A para F: ");
+	
+	int caminho[total_vertices];
+	int contador = 0;
+	
+    while (destino != -1) {
+        caminho[contador++] = destino;
+        destino = caminho_anterior[destino];
+    }
+
+    for (i = contador - 1; i >= 0; i--) {
+        printf("%c", 'A' + caminho[i]);
+        if (i != 0){
+        	printf(" - ");	
+		} 
+    }
+    printf("\n");
+	
+	printf("Sendo o valor: %d \n", peso[5]);
 }
 
 int main(){
