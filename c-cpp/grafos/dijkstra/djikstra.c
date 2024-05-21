@@ -138,6 +138,27 @@ int indiceMinimo(int peso[], int visitados[], int total_vertices){
 }
 
 
+void dijkstra(int grafo[6][6]){
+	
+	int total_vertices = 6;
+	int ponto_inicial = 0;
+	int destino = 5;
+	int soma_trajeto; 
+	int vertices_visitados[total_vertices];
+	int peso[total_vertices];
+	int caminho_anterior[total_vertices];
+	int i,k,y,x;
+	
+	for(i = 0; i < total_vertices; i++ ){
+		peso[i] = INT_MAX;
+		vertices_visitados[i] = 0;
+		caminho_anterior[i] = -1;
+	}
+	
+	
+	peso[ponto_inicial] = 0;
+}
+
 int main(){
 	int op;
 	
