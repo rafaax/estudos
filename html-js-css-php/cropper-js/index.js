@@ -6,3 +6,10 @@ const inputHtml = `
         <img id="cropperjs" class="display-img">
     </div>
 `;
+
+$('#fileInput').on('change', function() {
+    Swal.fire({
+        html: inputHtml,
+        confirmButtonText: 'SALVAR',
+    });
+});
