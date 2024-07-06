@@ -30,5 +30,20 @@ $('#fileInput').on('change', function() {
                 reader.readAsDataURL(file);
             }
         },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            cropper.getCroppedCanvas({fillColor: '#fff'}).toBlob(blob => {
+                cropper.clear();
+                var pngFile = URL.createObjectURL(blob);
+                URL.revokeObjectURL(pngFile);
+                // console.dir(pngFile);
+                var reader = new FileReader();
+                reader.onloadend = function(e) {
+                    // console.log(reader.result);
+                    $('#result').attr("src", reader.result);
+                };
+                reader.readAsDataURL(blob);
+            })
+        }
     });
 });
