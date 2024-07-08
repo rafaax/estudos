@@ -10,6 +10,8 @@ const inputHtml = `
 $('#fileInput').on('change', function() {
     Swal.fire({
         html: inputHtml,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
         confirmButtonText: 'SALVAR',
         willOpen: () => {
             const cropperImage = Swal.getPopup().querySelector('#cropperjs');
