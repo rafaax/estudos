@@ -1,5 +1,7 @@
-import {Controller, Post, Body, Get, Param, Put, Patch, Delete} from "@nestjs/common"
+import {Controller, Post, Body, Get, Param, Put, Patch, Delete, ParseIntPipe} from "@nestjs/common"
 import { CreateUserDTO } from "./dto/create-user.dto"
+import { UpdateUserDTO } from "./dto/update-put-user.dto"
+import { UpdatePatchUserDTO } from "./dto/update-patch.dto"
 
 @Controller('users')
 export class UserController {
@@ -20,23 +22,18 @@ export class UserController {
     }
 
     @Put(':email')
-    async update_user(@Body() body, @Param() params){
-        return {
-
-        }
+    async update_user(@Body() body: UpdateUserDTO, @Param() params){
+        return body
     }
 
     @Patch(':email')
-    async update_ignore_user(@Body() body, @Param() params ){
-        return {
-            
-        }
+    async update_ignore_user(@Body() body: UpdatePatchUserDTO, @Param() params ){
+        return body
     }
 
-    @Delete(':email')
-    async delete(@Param() params){
-        console.log(params)
-        var email:string  = params.email
-        return email
+    @Delete(':id')
+    async delete(@Param('id', ParseIntPipe) id: number){
+        console.log(id)
+        return {id:id}
     }
 } 

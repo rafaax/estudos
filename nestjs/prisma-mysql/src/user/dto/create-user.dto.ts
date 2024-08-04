@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from "class-validator";
+import { IsEmail, IsNumber, IsString } from "class-validator";
 
 export class CreateUserDTO {
     
@@ -13,5 +13,4 @@ export class CreateUserDTO {
 
     @IsString()
     cep: number;
-
 }
