@@ -1,4 +1,4 @@
-import {Controller, Post, Body, Get, Param} from "@nestjs/common"
+import {Controller, Post, Body, Get, Param, Put, Patch} from "@nestjs/common"
 
 @Controller('users')
 export class UserController {
@@ -10,12 +10,26 @@ export class UserController {
     }
     
     @Get()
-    async list_users(){
+    async get_users_list(){
         return []
     }
 
     @Get(':email') 
-    async list_user(@Param() params){
+    async get_user(@Param() params){
         return {user: {}, params}
+    }
+
+    @Put(':email')
+    async update_user(@Body() body, @Param() params){
+        return {
+
+        }
+    }
+
+    @Patch(':email')
+    async update_ignore_user(@Body() body, @Param() params ){
+        return {
+            
+        }
     }
 } 
