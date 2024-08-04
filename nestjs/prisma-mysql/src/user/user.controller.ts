@@ -11,8 +11,8 @@ export class UserController {
 
     @Post()
     async create_user(@Body() body: CreateUserDTO){
-        console.log(body)
-        // return this.userService.create(body)
+        // console.log(body)
+        return this.userService.create(body)
     }
     
     @Get()

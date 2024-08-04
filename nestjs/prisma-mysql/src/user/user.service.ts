@@ -12,7 +12,7 @@ export class UserService {
                 data: {
                     email: email,
                     name: name,
-                    birthdate: dob,
+                    birthdate: new Date(dob), // passando um campo de Date valido para o SQL
                     cep: cep
                 }
             })

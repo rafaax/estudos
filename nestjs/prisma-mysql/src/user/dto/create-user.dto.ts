@@ -1,3 +1,4 @@
+import { Transform } from "class-transformer";
 import { IsDate, IsDateString, IsEmail, IsNumber, IsString } from "class-validator";
 
 export class CreateUserDTO {
@@ -8,7 +9,7 @@ export class CreateUserDTO {
     @IsEmail()    
     email: string;
 
-    @IsDateString()
+    @IsString()
     dob: string;
 
     @IsString()
