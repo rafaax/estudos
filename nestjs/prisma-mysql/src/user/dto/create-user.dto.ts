@@ -1,4 +1,4 @@
-import { IsEmail, IsNumber, IsString } from "class-validator";
+import { IsDate, IsDateString, IsEmail, IsNumber, IsString } from "class-validator";
 
 export class CreateUserDTO {
     
@@ -8,9 +8,9 @@ export class CreateUserDTO {
     @IsEmail()    
     email: string;
 
-    @IsString()
+    @IsDateString()
     dob: string;
 
     @IsString()
-    cep: number;
+    cep: string;
 }

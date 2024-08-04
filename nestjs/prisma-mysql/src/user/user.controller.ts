@@ -2,13 +2,17 @@ import {Controller, Post, Body, Get, Param, Put, Patch, Delete, ParseIntPipe} fr
 import { CreateUserDTO } from "./dto/create-user.dto"
 import { UpdateUserDTO } from "./dto/update-put-user.dto"
 import { UpdatePatchUserDTO } from "./dto/update-patch.dto"
+import { UserService } from "./user.service"
 
 @Controller('users')
 export class UserController {
 
+    constructor(private readonly userService: UserService){ }
+
     @Post()
     async create_user(@Body() body: CreateUserDTO){
-        return {body}
+        console.log(body)
+        // return this.userService.create(body)
     }
     
     @Get()
