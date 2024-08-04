@@ -21,13 +21,13 @@ export class UserController {
         return {user: {}, params}
     }
 
-    @Put(':email')
-    async update_user(@Body() body: UpdateUserDTO, @Param() params){
+    @Put(':id')
+    async update_user(@Body() body: UpdateUserDTO, @Param('id', ParseIntPipe) id: number){
         return body
     }
 
-    @Patch(':email')
-    async update_ignore_user(@Body() body: UpdatePatchUserDTO, @Param() params ){
+    @Patch(':id')
+    async update_ignore_user(@Body() body: UpdatePatchUserDTO, @Param('id', ParseIntPipe) id: number ){
         return body
     }
 
