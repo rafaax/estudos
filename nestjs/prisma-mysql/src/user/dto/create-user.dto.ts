@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsDate, IsDateString, IsEmail, IsNumber, IsString } from "class-validator";
+import { IsDate, IsDateString, IsEmail, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateUserDTO {
     
@@ -14,4 +14,8 @@ export class CreateUserDTO {
 
     @IsString()
     cep: string;
+
+    @IsOptional()
+    @IsString()
+    cnpj: string;
 }

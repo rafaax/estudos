@@ -9,15 +9,16 @@ export class UserService {
 
     constructor(private readonly prisma: PrismaService) {}
     
-    async create({name,  email, dob, cep}: CreateUserDTO) {
+    async create({name,  email, dob, cep, cnpj}: CreateUserDTO) {
             return await this.prisma.users.create({
                 data: {
                     email: email,
                     name: name,
                     birthdate: new Date(dob), // passando um campo de Date valido para o SQL
-                    cep: cep
+                    cep: cep, 
+                    cnpj: cnpj ? cnpj : null
                 }
-            })
+            });
     }
 
     async read_all_users() {
@@ -31,8 +32,6 @@ export class UserService {
     }
 
     async update_user({name,  email, dob, cep} : UpdateUserDTO, id: number) {
-        // console.log({name})
-        // console.log(id)
         return await this.prisma.users.update({
             data: {
                 name: name,
@@ -47,7 +46,6 @@ export class UserService {
     }
     
     async patch_user(params : UpdatePatchUserDTO, id: number) {
-        console.log({params})
         return await this.prisma.users.update({
             data: params, 
             where: {
