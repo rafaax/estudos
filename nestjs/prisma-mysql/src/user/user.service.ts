@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { PrismaService } from "src/prisma/prisma.service";
+import { UpdatePatchUserDTO } from "./dto/update-patch.dto";
+import { UpdateUserDTO } from "./dto/update-put-user.dto";
 
 @Injectable()
 export class UserService {
@@ -24,9 +26,35 @@ export class UserService {
 
     async read_user({email}: CreateUserDTO){
         return await this.prisma.users.findFirst({
+            where: {email: email}
+        })
+    }
+
+    async update_user({name,  email, dob, cep} : UpdateUserDTO, id: number) {
+        console.log({name})
+        console.log(id)
+        return await this.prisma.users.update({
+            data: {
+                name: name,
+                email: email,
+                birthdate: new Date(dob),
+                cep: cep
+            }, 
             where: {
-                email: email
+                id: id
             }
         })
+    }
+
+    async patch_user(params) {
+        console.log({params})
+        // return await this.prisma.users.update({
+        //     data: {
+
+        //     }, 
+        //     where: {
+        //         id: params.id
+        //     }
+        // })
     }
 }

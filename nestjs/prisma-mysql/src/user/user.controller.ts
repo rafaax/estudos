@@ -27,7 +27,7 @@ export class UserController {
 
     @Put(':id')
     async update_user(@Body() body: UpdateUserDTO, @Param('id', ParseIntPipe) id: number){
-        return body
+        return this.userService.update_user(body, id)
     }
 
     @Patch(':id')
