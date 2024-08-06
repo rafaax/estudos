@@ -31,8 +31,8 @@ export class UserService {
     }
 
     async update_user({name,  email, dob, cep} : UpdateUserDTO, id: number) {
-        console.log({name})
-        console.log(id)
+        // console.log({name})
+        // console.log(id)
         return await this.prisma.users.update({
             data: {
                 name: name,
@@ -45,16 +45,14 @@ export class UserService {
             }
         })
     }
-
-    async patch_user(params) {
+    
+    async patch_user(params : UpdatePatchUserDTO, id: number) {
         console.log({params})
-        // return await this.prisma.users.update({
-        //     data: {
-
-        //     }, 
-        //     where: {
-        //         id: params.id
-        //     }
-        // })
+        return await this.prisma.users.update({
+            data: params, 
+            where: {
+                id: id
+            }
+        })
     }
 }

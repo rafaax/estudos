@@ -32,7 +32,7 @@ export class UserController {
 
     @Patch(':id')
     async update_ignore_user(@Body() body: UpdatePatchUserDTO, @Param('id', ParseIntPipe) id: number ){
-        return body
+        return this.userService.patch_user(body, id);
     }
 
     @Delete(':id')
