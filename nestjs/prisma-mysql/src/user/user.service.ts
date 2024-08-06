@@ -55,10 +55,24 @@ export class UserService {
     }
 
     async delete_user(id: number){
-        return await this.prisma.users.delete({
+        
+        const user : any = await this.prisma.users.findFirst({
             where: {
                 id: id
             }
         })
+
+        if(user !== null){
+            return await this.prisma.users.delete({
+                where: {
+                    id: id
+                }
+            })
+        }else{
+            return {erro: 'usuário não existe'}
+        }
+        
+
+        
     }
 }
