@@ -17,4 +17,16 @@ export class UserService {
                 }
             })
     }
+
+    async read_all_users() {
+        return await this.prisma.users.findMany();
+    }
+
+    async read_user({email}: CreateUserDTO){
+        return await this.prisma.users.findFirst({
+            where: {
+                email: email
+            }
+        })
+    }
 }

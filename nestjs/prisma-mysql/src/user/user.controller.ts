@@ -17,12 +17,12 @@ export class UserController {
     
     @Get()
     async get_users_list(){
-        return []
+        return this.userService.read_all_users();
     }
 
     @Get(':email') 
     async get_user(@Param() params){
-        return {user: {}, params}
+        return this.userService.read_user(params)
     }
 
     @Put(':id')
