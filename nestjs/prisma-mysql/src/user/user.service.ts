@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { PrismaService } from "src/prisma/prisma.service";
 import { UpdatePatchUserDTO } from "./dto/update-patch.dto";
@@ -31,6 +31,9 @@ export class UserService {
     }
 
     async update_user({name,  email, dob, cep, cnpj} : CreateUserDTO, id: number) {
+
+        await this.isset(id);
+
         return await this.prisma.users.update({
             data: {
                 name: name,
@@ -46,6 +49,9 @@ export class UserService {
     }
     
     async patch_user(params : UpdatePatchUserDTO, id: number) {
+        
+        await this.isset(id);
+
         return await this.prisma.users.update({
             data: params, 
             where: {
@@ -56,23 +62,27 @@ export class UserService {
 
     async delete_user(id: number){
         
-        const user : any = await this.prisma.users.findFirst({
+        await this.isset(id);
+
+        return await this.prisma.users.delete({
             where: {
                 id: id
             }
         })
+            
+    }
 
-        if(user !== null){
-            return await this.prisma.users.delete({
-                where: {
-                    id: id
-                }
-            })
-        }else{
-            return {erro: 'usuário não existe'}
+    async find_user_by_id(id: number){
+        return await this.prisma.users.findFirst({
+            where: {
+                id: id
+            }
+        })
+    }
+
+    async isset(id : number){
+        if(await this.find_user_by_id(id) === null){
+            throw new NotFoundException('Registro não existe!')    
         }
-        
-
-        
     }
 }
