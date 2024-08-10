@@ -2,15 +2,12 @@ import {Controller, Post, Body, Get, Param, Put, Patch, Delete, ParseIntPipe, Us
 import { CreateUserDTO } from "./dto/create-user.dto"
 import { UpdatePatchUserDTO } from "./dto/update-patch.dto"
 import { UserService } from "./user.service"
-import { LogInterceptor } from "src/interceptors/log.interceptor"
 
 @Controller('users')
 export class UserController {
 
     constructor(private readonly userService: UserService){ }
 
-
-    @UseInterceptors(LogInterceptor)
     @Post()
     async create_user(@Body() body: CreateUserDTO){
         return this.userService.create(body)
