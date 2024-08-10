@@ -2,6 +2,7 @@ import {Controller, Post, Body, Get, Param, Put, Patch, Delete, ParseIntPipe, Us
 import { CreateUserDTO } from "./dto/create-user.dto"
 import { UpdatePatchUserDTO } from "./dto/update-patch.dto"
 import { UserService } from "./user.service"
+import { ParamId } from "src/decorators/param-id.decorator"
 
 @Controller('users')
 export class UserController {
@@ -34,7 +35,8 @@ export class UserController {
     }
 
     @Delete(':id')
-    async delete(@Param('id', ParseIntPipe) id: number){
+    async delete(@ParamId() id: number){
+        console.log(id)
         return this.userService.delete_user(id)
     }
 } 
