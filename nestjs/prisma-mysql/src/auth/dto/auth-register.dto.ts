@@ -1,5 +1,15 @@
-import { CreateUserDTO } from "src/user/dto/create-user.dto";
+import { IsEmail, IsString, IsStrongPassword } from "class-validator";
 
-export class AuthRegisterDTO extends CreateUserDTO {
+export class AuthRegisterDTO {
+
+    @IsEmail()
+    email:string
+
+    @IsString()
+    login:string
+
+
+    @IsStrongPassword()
+    password: string
 
 }
