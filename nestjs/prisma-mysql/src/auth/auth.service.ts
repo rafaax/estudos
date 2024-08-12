@@ -68,5 +68,13 @@ export class AuthService {
         return true;
     }
 
-    async register(){}
+    async register(email: string, login: string, password: string){
+        return await this.prisma.users_auth.create({
+            data: {
+                email: email,
+                pass: password, 
+                login: login
+            }
+        });
+    }
 }
