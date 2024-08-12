@@ -7,21 +7,29 @@ export class AuthGuard implements CanActivate {
 
     constructor(private readonly authService: AuthService){}
 
-    canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+    async canActivate(context: ExecutionContext) {
+        
+        const request = context.switchToHttp().getRequest();
 
-        const token = context.switchToHttp().getRequest().headers.authorization;
+        const token = request.headers.authorization;
 
         if(token == undefined){
             throw new UnauthorizedException('Missing token');
         }
         
-        var jwtToken = token.split(' ')[1]
-        console.log(jwtToken)
-        
-        this.authService.checkToken(jwtToken)
+        var jwtToken = token.split(' ')[1];
 
-        // console.log(check)
+        try {
+            const token_data = this.authService.checkToken(jwtToken);
+            
+            const user_data =   await this.authService.show_user(token_data.sub)
 
-        return true;
+            request.token_data = token_data;
+            request.user_data = user_data;
+
+            return true
+        }catch(e){
+            return false;
+        }
     }
 }

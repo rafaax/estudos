@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Headers, Param, Post, UnauthorizedException, UseGuards } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Headers, Param, Post, Request, UnauthorizedException, UseGuards } from "@nestjs/common";
 import { AuthLoginDTO } from "./dto/auth-login.dto";
 import { AuthRegisterDTO } from "./dto/auth-register.dto";
 import { AuthForgetDTO } from "./dto/auth-forget.dto";
@@ -36,7 +36,8 @@ export class AuthController {
 
     @UseGuards(AuthGuard)
     @Get()
-    async valida_token(@Headers() headers : any){
-        return 'me';
+    async valida_token(@Request() request){
+        
+        return {token_data: request.token_data, user_data: request.user_data};
     }
 }

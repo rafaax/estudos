@@ -107,4 +107,14 @@ export class AuthService {
 
         return this.createToken(user)
     }
+
+    async show_user(id: number){
+        const user = await this.prisma.users_auth.findFirst({
+            where: {
+                id: id
+            }
+        });
+
+        return user;
+    }
 }
