@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Headers, Param, Post, UnauthorizedException, UseGuards } from "@nestjs/common";
 import { AuthLoginDTO } from "./dto/auth-login.dto";
 import { AuthRegisterDTO } from "./dto/auth-register.dto";
 import { AuthForgetDTO } from "./dto/auth-forget.dto";
 import { AuthResetDTO } from "./dto/auth-reset.dto";
 import { AuthService } from "./auth.service";
+import { AuthGuard } from "src/guards/auth.guard";
 
 @Controller('auth')
 export class AuthController {
@@ -33,8 +34,9 @@ export class AuthController {
         return this.authService.reset(body.password, body.token)
     }
 
-    @Get(':token')
-    async valida_token(@Param() param : any){
-        return this.authService.checkToken(param.token)
+    @UseGuards(AuthGuard)
+    @Get()
+    async valida_token(@Headers() headers : any){
+        return 'me';
     }
 }

@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { users_auth } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
@@ -23,8 +23,7 @@ export class AuthService {
         });
     }
 
-    async checkToken(token: string){
-        console.log(token)
+    checkToken(token: string){
         try {
             const verify = this.jwtService.verify(token, {
                 audience: 'users-auth', 
@@ -33,7 +32,7 @@ export class AuthService {
 
             return verify;
         }catch(e){
-            throw new ForbiddenException(
+            throw new UnauthorizedException(
                 {
                     msg: 'Token inválido',
                     error: e
