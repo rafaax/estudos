@@ -15,13 +15,12 @@ export class AuthController {
 
     @Post('login')
     async login(@Body() body:AuthLoginDTO){
-        return this.authService.login(body.email, body.password);
+        return this.authService.login(body.login, body.password);
     }
 
     @Post('register')
     async register(@Body() body: AuthRegisterDTO){
-        return 'oi';
-        // return this.authService.register(body.email, body.login, body.password);
+        return this.authService.register(body.email, body.login, body.password);
     }
 
     @Post('forget') 

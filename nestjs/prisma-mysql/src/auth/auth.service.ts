@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
+import { users_auth } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
 
 @Injectable()
@@ -9,18 +10,27 @@ export class AuthService {
         private readonly prisma: PrismaService
     ) {}
 
-    async createToken(){
-        // return this.jwtService.sign();
+    async createToken(user: users_auth){
+        return this.jwtService.sign({
+            sub: user.id,
+            name: user.login,
+            email: user.email
+        },
+        {
+            expiresIn: '1 day',
+            issuer: 'Login',
+            audience: 'users-auth'
+        });
     }
 
     async checkToken(){
         // return this.jwtService.verify();
     }
 
-    async login(email: string, password: string){
+    async login(login: string, password: string){
         const  find_user = await this.prisma.users_auth.findFirst({
             where: {
-                email: email, 
+                login: login, 
                 pass: password
             }
         });
@@ -29,7 +39,10 @@ export class AuthService {
             throw new NotFoundException("Usuário invalido...");
         }
 
-        return find_user;
+        return {
+            "access_token": await this.createToken(find_user)
+        }
+            
     }
 
     async reset(password: string, token: string){
@@ -38,7 +51,7 @@ export class AuthService {
 
         const id : number = 0;
 
-        await this.prisma.users_auth.update({
+        const user = await this.prisma.users_auth.update({
             where: {
                 id: id
             },
@@ -47,7 +60,7 @@ export class AuthService {
             }
         })
 
-        return true;
+        return this.createToken(user);
 
     }
 
@@ -69,12 +82,14 @@ export class AuthService {
     }
 
     async register(email: string, login: string, password: string){
-        return await this.prisma.users_auth.create({
+        const user =  await this.prisma.users_auth.create({
             data: {
                 email: email,
                 pass: password, 
                 login: login
             }
         });
+
+        return this.createToken(user)
     }
 }

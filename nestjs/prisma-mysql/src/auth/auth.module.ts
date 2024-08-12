@@ -10,6 +10,7 @@ import { AuthService } from "./auth.service";
         JwtModule.register({
             secret: `G^S05j0HMq&3z,+'N"D~pR+3]2EKHMxb`
         }),
+        
         PrismaModule
     ],
     controllers: [AuthController],
