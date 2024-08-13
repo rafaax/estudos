@@ -10,9 +10,6 @@ import { Roles } from "src/decorators/role.decorator";
 import { Role } from "src/enums/role.enum";
 import { RoleGuard } from "src/guards/role.guard";
 
-
-@UseGuards(AuthGuard, RoleGuard)
-@Roles(Role.Admin)
 @Controller('auth')
 export class AuthController {
 
@@ -41,7 +38,12 @@ export class AuthController {
         return this.authService.reset(body.password, body.token)
     }
 
-    @UseGuards(AuthGuard)
+
+    // usando guardas 
+    // AuthGuard -> validar se esta sendo usado o token para uso da rota
+    // Role guard para validar se o token usado, é de um usuário que tem a permissão(Role) do Enum referente ao decorator @Roles(Role.Admin) 
+    @UseGuards(AuthGuard, RoleGuard)
+    @Roles(Role.Admin)
     @Get()
     async valida_token(@UserAuth() userauth_data : any, @Request() request : any){
         
