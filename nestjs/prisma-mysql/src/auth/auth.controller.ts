@@ -5,6 +5,7 @@ import { AuthForgetDTO } from "./dto/auth-forget.dto";
 import { AuthResetDTO } from "./dto/auth-reset.dto";
 import { AuthService } from "./auth.service";
 import { AuthGuard } from "src/guards/auth.guard";
+import { UserAuth } from "src/decorators/user.decorator";
 
 @Controller('auth')
 export class AuthController {
@@ -36,8 +37,8 @@ export class AuthController {
 
     @UseGuards(AuthGuard)
     @Get()
-    async valida_token(@Request() request){
+    async valida_token(@UserAuth() userauth_data : any, @Request() request : any){
         
-        return {token_data: request.token_data, user_data: request.user_data};
+        return {token_data: request.token_data, user_data: userauth_data};
     }
 }
