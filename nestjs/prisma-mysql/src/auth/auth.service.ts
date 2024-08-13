@@ -47,8 +47,7 @@ export class AuthService {
     async login(login: string, password: string){
         const  find_user = await this.prisma.users_auth.findFirst({
             where: {
-                login: login, 
-                pass: password
+                login: login
             }
         });
 
@@ -56,9 +55,15 @@ export class AuthService {
             throw new NotFoundException("Usuário invalido...");
         }
 
-        return {
-            "access_token": await this.createToken(find_user)
+        if(await bcrypt.compare(password, find_user.pass)){
+            return {
+                "access_token": await this.createToken(find_user)
+            }               
+        }else{
+            throw new NotFoundException("Usuário invalido...");
         }
+
+
             
     }
 
