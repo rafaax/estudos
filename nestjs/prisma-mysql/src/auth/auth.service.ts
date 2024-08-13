@@ -1,6 +1,7 @@
 import { BadRequestException, ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { users_auth } from "@prisma/client";
+import { Role } from "src/enums/role.enum";
 import { PrismaService } from "src/prisma/prisma.service";
 
 @Injectable()
@@ -96,16 +97,23 @@ export class AuthService {
         return true;
     }
 
-    async register(email: string, login: string, password: string){
+    async register(email: string, login: string, password: string, role: any){
+        
+        if(role != undefined){
+            role = parseInt(role);
+        }
+
         const user =  await this.prisma.users_auth.create({
             data: {
                 email: email,
                 pass: password, 
-                login: login
+                login: login,
+                role: role
             }
         });
 
-        return this.createToken(user)
+        this.createToken(user)
+        return {msg: 'Usuário criado com sucesso!'}
     }
 
     async show_user(id: number){
