@@ -3,6 +3,7 @@ import { JwtService } from "@nestjs/jwt";
 import { users_auth } from "@prisma/client";
 import { Role } from "src/enums/role.enum";
 import { PrismaService } from "src/prisma/prisma.service";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -103,10 +104,12 @@ export class AuthService {
             role = parseInt(role);
         }
 
+        let password_hash = await bcrypt.hash(password, await bcrypt.genSalt())
+
         const user =  await this.prisma.users_auth.create({
             data: {
                 email: email,
-                pass: password, 
+                pass: password_hash, 
                 login: login,
                 role: role
             }
