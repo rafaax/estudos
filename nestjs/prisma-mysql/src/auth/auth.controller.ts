@@ -8,9 +8,11 @@ import { AuthGuard } from "src/guards/auth.guard";
 import { UserAuth } from "src/decorators/user.decorator";
 import { Roles } from "src/decorators/role.decorator";
 import { Role } from "src/enums/role.enum";
+import { RoleGuard } from "src/guards/role.guard";
 
 
-@Roles(Role.Admin, Role.User)
+@UseGuards(AuthGuard, RoleGuard)
+@Roles(Role.Admin)
 @Controller('auth')
 export class AuthController {
 
