@@ -6,7 +6,11 @@ import { AuthResetDTO } from "./dto/auth-reset.dto";
 import { AuthService } from "./auth.service";
 import { AuthGuard } from "src/guards/auth.guard";
 import { UserAuth } from "src/decorators/user.decorator";
+import { Roles } from "src/decorators/role.decorator";
+import { Role } from "src/enums/role.enum";
 
+
+@Roles(Role.Admin, Role.User)
 @Controller('auth')
 export class AuthController {
 
