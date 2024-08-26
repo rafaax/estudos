@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { styles }  from './StyleSheet';
-import { sum, div, sub, mult, clear} from '../functions/calculatorFunctions'
 
 export const Body = function() {
 
