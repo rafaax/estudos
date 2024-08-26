@@ -44,6 +44,7 @@ export default function App() {
         placeholderTextColor='rgba(150,1,1,0.5)'
         keyboardType='numeric'
         style={styles.input}
+        value={num1 !== 0 ? num1.toString() : ''}
         onChangeText={text => setNum1(parseFloat(text))} 
         
       />
@@ -53,6 +54,7 @@ export default function App() {
         placeholderTextColor='rgba(1,1,255,0.5)'
         keyboardType='numeric'
         style={styles.input}
+        value={num2 !== 0 ? num2.toString() : ''}
         onChangeText={text => setNum2(parseFloat(text))}
       
       />
