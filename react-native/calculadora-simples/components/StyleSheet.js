@@ -35,13 +35,23 @@ export const styles = StyleSheet.create({
     },
 
     viewButtons: {
-
+        flexDirection: 'row',
+        alignItems: "center", 
+        justifyContent: 'center'
     },
 
     buttons: {
-        
+        backgroundColor: 'purple', 
+        width: 80, 
+        height: 80, 
+        borderRadius: 40, 
+        margin: 5, 
+        justifyContent: 'center'
     }, 
     textButtons: {
-
+        color: 'white',
+        fontWeight: 'bold', 
+        fontSize: 25,
+        textAlign: 'center'
     }
 })

@@ -34,15 +34,15 @@ export default function App() {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.buttons}>
-          <Text>-</Text>
+          <Text style={styles.textButtons}>-</Text>
         </TouchableOpacity> 
 
         <TouchableOpacity style={styles.buttons}>
-          <Text>*</Text>
+          <Text style={styles.textButtons}>*</Text>
         </TouchableOpacity> 
 
         <TouchableOpacity style={styles.buttons}>
-          <Text>/</Text>
+          <Text style={styles.textButtons}>/</Text>
         </TouchableOpacity> 
         
       </View>
