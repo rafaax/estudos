@@ -5,28 +5,31 @@ import { styles }  from './components/StyleSheet'
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text> Calculadora</Text>
+      <View style={styles.header}>
+        <Text> Calculadora</Text> 
+      </View>
+      
 
-      <TextInput placeholder='Informe o primeiro número' />
-      <TextInput placeholder='Informe o segundo número' />
+      <TextInput placeholder='Informe o primeiro número' style={styles.input} />
+      <TextInput placeholder='Informe o segundo número' style={styles.input} />
 
-      <Text>Resultado</Text>
+      <Text style={styles.result}> Resultado</Text>
 
-      <View>
+      <View style={styles.viewButtons}>
 
-        <TouchableOpacity>
+        <TouchableOpacity style={styles.buttons}>
           <Text>+</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity style={styles.buttons}>
           <Text>-</Text>
         </TouchableOpacity> 
 
-        <TouchableOpacity>
+        <TouchableOpacity style={styles.buttons}>
           <Text>*</Text>
         </TouchableOpacity> 
-        
-        <TouchableOpacity>
+
+        <TouchableOpacity style={styles.buttons}>
           <Text>/</Text>
         </TouchableOpacity> 
         
