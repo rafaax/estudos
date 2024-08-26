@@ -6,7 +6,7 @@ export default function App() {
 
   const [num1, setNum1] = useState(0);
   const [num2, setNum2] = useState(0);
-  const [result, setResult] = useState();
+  const [result, setResult] = useState(0);
 
   function sum(){
     setResult(num1 + num2);
@@ -22,6 +22,12 @@ export default function App() {
 
   function div(){
     setResult(num1 / num2);
+  }
+
+  function clear(){
+    setResult(0);
+    setNum2(0);
+    setNum1(0);
   }
 
   return (
@@ -51,7 +57,7 @@ export default function App() {
       
       />
 
-      <Text style={styles.result}> Resultado: {result} </Text>
+      <Text style={styles.result}> Resultado: {result.toFixed(2)} </Text>
 
       <View style={styles.viewButtons}>
 
@@ -69,9 +75,22 @@ export default function App() {
 
         <TouchableOpacity style={styles.buttons}>
           <Text style={styles.textButtons} onPress={div} > / </Text>
-        </TouchableOpacity> 
+        </TouchableOpacity>
         
       </View>
+
+      <View style={{alignItems: 'center'}}>
+        <TouchableOpacity 
+          style={{
+            ...styles.buttons,
+            width: 350
+          }}>
+          
+          <Text style={styles.textButtons} onPress={clear}> Limpar </Text>
+
+        </TouchableOpacity>
+      </View>
+
     </View>
   );
 }
