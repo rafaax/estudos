@@ -6,19 +6,31 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text> Calculadora</Text> 
+        <Text style={styles.headerText}> Calculadora</Text> 
       </View>
       
 
-      <TextInput placeholder='Informe o primeiro número' style={styles.input} />
-      <TextInput placeholder='Informe o segundo número' style={styles.input} />
+      <TextInput 
+        placeholder='Informe o primeiro número' 
+        placeholderTextColor='rgba(150,1,1,0.5)'
+        keyboardType='numeric'
+        style={styles.input} 
+        
+      />
+      <TextInput 
+        placeholder='Informe o segundo número'
+        placeholderTextColor='rgba(1,1,255,0.5)'
+        keyboardType='numeric'
+        style={styles.input} 
+      
+      />
 
       <Text style={styles.result}> Resultado</Text>
 
       <View style={styles.viewButtons}>
 
         <TouchableOpacity style={styles.buttons}>
-          <Text>+</Text>
+          <Text style={styles.textButtons}>+</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.buttons}>
