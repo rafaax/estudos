@@ -1,7 +1,10 @@
+import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, TextInput } from 'react-native';
-import { styles }  from './StyleSheet'
+import { styles }  from './StyleSheet';
 
 export const Body = function() {
+    
+
     return (
         <>
             <TextInput 
