@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, TextInput } from 'react-native';
-import { styles }  from './components/StyleSheet' 
+import { styles }  from './src/components/StyleSheet'
+import  { Header } from './src/components/Header'
 
 export default function App() {
 
@@ -33,11 +34,7 @@ export default function App() {
   return (
     <View style={styles.container}>
 
-
-      <View style={styles.header}>
-        <Text style={styles.headerText}> Calculadora</Text> 
-      </View>
-      
+      <Header />
 
       <TextInput 
         placeholder='Informe o primeiro número' 
