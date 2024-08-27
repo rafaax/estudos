@@ -12,12 +12,14 @@ import { RoleGuard } from "src/guards/role.guard";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { writeFile } from 'fs/promises'
 import { join } from "path";
+import { FileService } from "src/file/file.service";
 
 @Controller('auth')
 export class AuthController {
 
     constructor(
-        private readonly authService: AuthService
+        private readonly authService: AuthService,
+        private readonly fileService: FileService
     ) {}
     
 
@@ -57,8 +59,8 @@ export class AuthController {
     @UseGuards(AuthGuard)
     @Post('photo')
     async upload_photo(@UserAuth() userauth_data : any, @UploadedFile() photo : Express.Multer.File){
-        const file_write = await writeFile(join(__dirname, "..", "..", 'storage', 'photo-teste.png'), photo.buffer);
-        return {photo};
+        
+        return this.fileService.upload(photo);
     }
 
 
