@@ -4,12 +4,15 @@ import { users_auth } from "@prisma/client";
 import { Role } from "src/enums/role.enum";
 import { PrismaService } from "src/prisma/prisma.service";
 import * as bcrypt from 'bcrypt';
+import { MailerService } from "@nestjs-modules/mailer";
+import { find } from "rxjs";
 
 @Injectable()
 export class AuthService {
     constructor(
         private readonly jwtService: JwtService,
-        private readonly prisma: PrismaService
+        private readonly prisma: PrismaService,
+        private readonly mailer: MailerService
     ) {}
 
     async createToken(user: users_auth){
@@ -89,6 +92,7 @@ export class AuthService {
     }
 
     async forget(email:string){
+
         const find_email = await this.prisma.users_auth.findFirst({
             where: {
                 email: email
@@ -99,10 +103,19 @@ export class AuthService {
             throw new BadRequestException("Email incorreto!");
         }
 
+        console.log(find_email);
 
         // enviar o email para troca de senha
+        await this.mailer.sendMail({
+            subject: 'Recuperacao de senha', 
+            to: 'rafavfx1@gmail.com',
+            template: 'forget',
+            context: {
+                name: find_email.login,
+            }
+        });
         
-        return true;
+        // return true;
     }
 
     async register(email: string, login: string, password: string, role: any){
