@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Headers, Param, Post, Request, UnauthorizedException, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, Controller, FileTypeValidator, Get, Headers, MaxFileSizeValidator, Param, ParseFilePipe, Post, Request, UnauthorizedException, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { AuthLoginDTO } from "./dto/auth-login.dto";
 import { AuthRegisterDTO } from "./dto/auth-register.dto";
 import { AuthForgetDTO } from "./dto/auth-forget.dto";
@@ -58,7 +58,14 @@ export class AuthController {
     @UseInterceptors(FileInterceptor('file'))
     @UseGuards(AuthGuard)
     @Post('photo')
-    async upload_photo(@UserAuth() userauth_data : any, @UploadedFile() photo : Express.Multer.File){
+    async upload_photo(
+        @UserAuth() userauth_data : any, 
+        @UploadedFile(new ParseFilePipe({
+            validators: [
+                new FileTypeValidator({fileType: 'image/png'}),
+                new MaxFileSizeValidator({maxSize: 1024 * 20})
+            ]
+        })) photo : Express.Multer.File){
         
         try {
             await this.fileService.upload(photo);
