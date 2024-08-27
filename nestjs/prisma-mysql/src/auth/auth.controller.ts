@@ -60,7 +60,13 @@ export class AuthController {
     @Post('photo')
     async upload_photo(@UserAuth() userauth_data : any, @UploadedFile() photo : Express.Multer.File){
         
-        return this.fileService.upload(photo);
+        try {
+            await this.fileService.upload(photo);
+        } catch (e) {
+            throw new BadRequestException(e)
+        }
+
+        return {"success": true}
     }
 
 
