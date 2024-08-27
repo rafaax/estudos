@@ -1,8 +1,9 @@
-import {Controller, Post, Body, Get, Param, Put, Patch, Delete, ParseIntPipe, UseInterceptors} from "@nestjs/common"
+import {Controller, Post, Body, Get, Param, Put, Patch, Delete, ParseIntPipe, UseInterceptors, UseGuards} from "@nestjs/common"
 import { CreateUserDTO } from "./dto/create-user.dto"
 import { UpdatePatchUserDTO } from "./dto/update-patch.dto"
 import { UserService } from "./user.service"
 import { ParamId } from "src/decorators/param-id.decorator"
+import { SkipThrottle, ThrottlerGuard } from "@nestjs/throttler"
 
 @Controller('users')
 export class UserController {
@@ -13,7 +14,7 @@ export class UserController {
     async create_user(@Body() body: CreateUserDTO){
         return this.userService.create(body)
     }
-    
+
     @Get()
     async get_users_list(){
         return this.userService.read_all_users();

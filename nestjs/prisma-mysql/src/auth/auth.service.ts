@@ -54,11 +54,13 @@ export class AuthService {
         if(find_user == undefined){
             throw new NotFoundException("Usuário invalido...");
         }
+        
 
+        // faz a comparação da string decryptada com a senha passada pelo user no post
         if(await bcrypt.compare(password, find_user.pass)){
             return {
                 "access_token": await this.createToken(find_user)
-            }               
+            }
         }else{
             throw new NotFoundException("Usuário invalido...");
         }
