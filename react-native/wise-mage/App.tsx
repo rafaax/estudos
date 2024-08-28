@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { TouchableOpacity, Text, View, ImageBackground, StyleSheet, StatusBar } from 'react-native';
-import { Constants } from 'expo-constants';
+import Constants from 'expo-constants';
 
 
 export default function App() {
@@ -28,7 +28,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingTop: Constants.statusBarHeight
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#000'
   },  
   textHeader: {
     fontSize: 30,
