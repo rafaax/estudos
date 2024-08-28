@@ -1,9 +1,16 @@
-import { TouchableOpacity, Text, StyleSheet} from "react-native";
+import { TouchableOpacity, Text, StyleSheet, TouchableOpacityProps} from "react-native";
 
-export function Botao() {
+interface BotaoProps extends TouchableOpacityProps {
+    titulo:  string
+}
+
+export function Botao({titulo, ...rest} : BotaoProps) {
     return (
-        <TouchableOpacity style={styles.botao}>
-            <Text style={styles.legenda}>Botão</Text>  
+        <TouchableOpacity 
+            style={styles.botao}
+            {...rest}
+        >
+            <Text style={styles.legenda}>{titulo}</Text>  
         </TouchableOpacity>
     )
 }
