@@ -1,20 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState, useEffect} from 'react'
+import { TouchableOpacity, Text, View, ImageBackground, StyleSheet, StatusBar } from 'react-native';
+import { Constants } from 'expo-constants';
+
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.textHeader}>Faça sua pergunta!</Text>
+      
+      <ImageBackground style={styles.image}>
+        <Text style={styles.textResult}></Text>
+        
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.textButton}>Responder</Text>
+        </TouchableOpacity>
+
+      </ImageBackground>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  
+})
