@@ -1,12 +1,46 @@
-import React from 'react'
-import { View, StyleSheet} from "react-native";
+import React, { useEffect, useState } from 'react'
+import { View, StyleSheet, Text, FlatList} from "react-native";
 import { Botao } from '@/components/Botao';
+import { ibgeAPI } from '@/services/ibge.api';
+
+interface Estado {
+  id: number;
+  nome: string;
+  sigla: string;
+  regiao: string
+}
 
 export default function Index() {
+
+  const [estados, setEstados] = useState<Estado[]>([]);
+
+  async function loadEstados(){
+    const response = await ibgeAPI.get('?orderBy=nome')
+    setEstados(response.data)
+  }
+
+  useEffect(() => {
+    loadEstados();
+  }, [])
+
   return (
     <View style={styles.container}>
-      <Botao titulo='+' />
-      <Botao titulo='-' />
+      <FlatList<Estado>
+        style={{flex: 1}}
+        data={estados}
+        keyExtractor={(estado) => String(estado.id)}
+        renderItem={({item}) => {
+          return(
+            <View style={styles.itemEstado}> 
+              <View style={styles.avatarSigla}>
+                <Text> {item.sigla} </Text>
+              </View>
+              <Text> {item.nome}</Text>
+            </View>
+          )
+        }} 
+        ></FlatList>
+
     </View>
   );
 }
@@ -14,8 +48,24 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    backgroundColor: 'white',
+    backgroundColor: '#eee',
+    padding: 20,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  itemEstado: {
+    paddingVertical: 10, 
+    marginTop: 5,
+    backgroundColor: 'white',
+    flexDirection: 'row', 
+    borderRadius: 10,
+  },
+  avatarSigla: {
+    width: 60,
+    height: 60,
+    backgroundColor: '#E76F51',
+    borderRadius: 30, 
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
