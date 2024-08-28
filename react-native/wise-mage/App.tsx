@@ -13,12 +13,13 @@ export default function App() {
           source={require('./assets/wizarddd.png')} 
           style={styles.image}
         >
-        <Text style={styles.textResult}></Text>
-        
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.textButton}>Responder</Text>
-        </TouchableOpacity>
-
+        <View style={styles.conteudoInferior}>
+          <Text style={styles.textResult}></Text>
+          
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.textButton}>Responder</Text>
+          </TouchableOpacity>
+        </View>
       </ImageBackground>
     </View>
   );
@@ -40,7 +41,10 @@ const styles = StyleSheet.create({
     flex: 1, 
   },
   textResult: {
-
+    fontSize: 100, 
+    fontWeight: 'bold', 
+    color: 'rgb(255, 200, 30)',
+    padding: 30
   }, 
   button: {
     backgroundColor: 'rgba(255, 200, 30, 0.5)',
@@ -53,6 +57,12 @@ const styles = StyleSheet.create({
   textButton: {
     fontSize: 40, 
     fontWeight: 'bold'
+  },
+  conteudoInferior: {
+    flex: 1, 
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: 60
   }
 
 })
