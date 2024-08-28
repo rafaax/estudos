@@ -33,9 +33,9 @@ export default function Index() {
           return(
             <View style={styles.itemEstado}> 
               <View style={styles.avatarSigla}>
-                <Text> {item.sigla} </Text>
+                <Text style={styles.sigla}> {item.sigla} </Text>
               </View>
-              <Text> {item.nome}</Text>
+              <Text style={styles.estado}> {item.nome}</Text>
             </View>
           )
         }} 
@@ -67,5 +67,18 @@ const styles = StyleSheet.create({
     borderRadius: 30, 
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  sigla : {
+    fontSize: 20, 
+    fontWeight: 'bold', 
+    color: 'white',
+    marginHorizontal: 10
+  },
+  estado : {
+    fontSize: 20, 
+    fontWeight: 'bold', 
+    color: '#254653',
+    marginLeft: 10,
+    alignSelf: 'center'
   }
 })
