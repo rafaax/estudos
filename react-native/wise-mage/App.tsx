@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react';
 import { TouchableOpacity, Text, View, ImageBackground, StatusBar } from 'react-native';
-import { styles } from './components/StyleSheet' 
+import { styles } from './components/StyleSheet' ;
+import { Header } from './components/Header';
 
 
 export default function App() {
@@ -31,8 +32,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle='dark-content'></StatusBar>
-      <Text style={styles.textHeader}>Faça sua pergunta!</Text>
+      <Header></Header>
       
       <ImageBackground 
           source={require('./assets/wizarddd.png')} 
