@@ -4,6 +4,31 @@ import Constants from 'expo-constants';
 
 
 export default function App() {
+
+  const [result, setResult] = useState <string>();
+
+  function showResult(){
+    let num : number = Math.floor(Math.random() * 6);
+
+    switch (num) {
+      case 0:
+        setResult("SIM...");
+        break;
+      case 1:
+        setResult("NAO...");
+        break;
+      case 2:
+        setResult("TALVEZ SIM");
+        break;
+      case 3:
+        setResult("TALVEZ NÃO");
+        break;
+      case 4:
+        setResult("JAMAIS!");
+        break;
+    }
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle='dark-content'></StatusBar>
@@ -14,10 +39,13 @@ export default function App() {
           style={styles.image}
         >
         <View style={styles.conteudoInferior}>
-          <Text style={styles.textResult}></Text>
+          <Text style={styles.textResult}> { result } </Text>
           
           <TouchableOpacity style={styles.button}>
-            <Text style={styles.textButton}>Responder</Text>
+            <Text style={styles.textButton} onPress={showResult
+
+
+            }>Responder</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -42,10 +70,11 @@ const styles = StyleSheet.create({
     flex: 1, 
   },
   textResult: {
-    fontSize: 100, 
+    fontSize: 60, 
     fontWeight: 'bold', 
     color: 'rgb(255, 200, 30)',
-    padding: 30
+    padding: 30,
+    textAlign: 'center'
   }, 
   button: {
     backgroundColor: 'rgba(255, 200, 30, 0.5)',
