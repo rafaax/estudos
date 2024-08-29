@@ -1,22 +1,15 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, TouchableOpacityProps } from "react-native";
-import { Estado } from "./pages/Home";
+import { Municipios } from "./pages/Municipios";
 
-interface ItemEstadoProps extends TouchableOpacityProps {
-    item: Estado
+interface ItemMunicipioProps extends TouchableOpacityProps {
+    item: Municipios
 }
 
-export function ItemEstado({item, ...rest} : ItemEstadoProps){
+export function ItemMunicipio({item, ...rest} : ItemMunicipioProps){
     return (
-        <TouchableOpacity 
-            style={styles.itemEstado}
-            {...rest}
-            
-        > 
-            <View style={styles.avatarSigla}>
-                <Text style={styles.sigla}> {item.sigla} </Text>
-            </View>
-            <Text style={styles.estado}> {item.nome}</Text>
+        <TouchableOpacity style={styles.itemEstado} {...rest}> 
+          <Text style={styles.estado}> {item.nome}</Text>
         </TouchableOpacity>
     );
 }
