@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, Text, FlatList} from "react-native";
-import { Botao } from '@/components/Botao';
-import { ibgeAPI } from '@/services/ibge.api';
+import { Botao } from './Botao';
+import { ibgeAPI } from '../services/ibge.api';
 
 interface Estado {
   id: number;
