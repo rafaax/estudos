@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, FlatList, TouchableOpacity} from "react-native"
 import { ibgeAPI } from '../../services/ibge.api';
 import { useNavigation } from '@react-navigation/native';
 import { ItemEstado } from '../ItemEstado';
+import { Municipios } from './Municipios';
 
 export interface Estado {
   id: number;
@@ -14,7 +15,7 @@ export interface Estado {
 export function Home() {
 
   const [estados, setEstados] = useState<Estado[]>([]);
-  const navigation = useNavigation();
+  const navigation : any = useNavigation();
 
   async function loadEstados(){
     const response = await ibgeAPI.get('?orderBy=nome')
