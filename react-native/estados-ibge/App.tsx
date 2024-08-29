@@ -1,12 +1,14 @@
 import React from "react";
-import { Home } from "./components/Home";
-import { Municipios } from "./components/Municipios"
+import { Home } from "./components/pages/Home";
+import { Municipios } from "./components/pages/Municipios"
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 
 
 
 const Stack = createStackNavigator();
 
-function Index() {
+export default function App() {
     return(
         <NavigationContainer>
             <Stack.Navigator>

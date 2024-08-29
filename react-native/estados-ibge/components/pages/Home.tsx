@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, Text, FlatList} from "react-native";
-import { Botao } from './Botao';
-import { ibgeAPI } from '../services/ibge.api';
+import { View, StyleSheet, Text, FlatList, TouchableOpacity} from "react-native";
+import { ibgeAPI } from '../../services/ibge.api';
+import { useNavigation } from '@react-navigation/native';
+import { ItemEstado } from '../ItemEstado';
 
-interface Estado {
+export interface Estado {
   id: number;
   nome: string;
   sigla: string;
   regiao: string
 }
 
-export default function Home() {
+export function Home() {
 
   const [estados, setEstados] = useState<Estado[]>([]);
+  const navigation = useNavigation();
 
   async function loadEstados(){
     const response = await ibgeAPI.get('?orderBy=nome')
     setEstados(response.data)
+  }
+
+  function handleToMunicipios(item: Estado){
+    navigation.navigate("Municipios", { estado: item })
   }
 
   useEffect(() => {
@@ -30,16 +36,9 @@ export default function Home() {
         showsVerticalScrollIndicator={false}
         data={estados}
         keyExtractor={(estado) => String(estado.id)}
-        renderItem={({item}) => {
-          return(
-            <View style={styles.itemEstado}> 
-              <View style={styles.avatarSigla}>
-                <Text style={styles.sigla}> {item.sigla} </Text>
-              </View>
-              <Text style={styles.estado}> {item.nome}</Text>
-            </View>
-          )
-        }} 
+        renderItem={({item}) => (
+          <ItemEstado item={item} onPress={() => handleToMunicipios(item)} /> 
+        )} 
         ></FlatList>
 
     </View>
