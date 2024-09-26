@@ -25,5 +25,17 @@ $.ajax({
             centerMode: true,
             infinite: true,
         });
+
+        // $('.cats').on('swipe', function(event, slick, direction){
+        //     console.log('Swipe direction: ' + direction);
+        // });
+        
+        // $('.cats').on('click', '.slick-prev', function() {
+        //     console.log('Arrow previous clicked!');
+        // });
+        
+        // $('.cats').on('click', '.slick-next', function() {
+        //     console.log('Arrow next clicked!');
+        // });
     }
 });
