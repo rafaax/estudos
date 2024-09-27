@@ -19,6 +19,16 @@ $(document).ready(function(){
                         
                         $(`#cat_gifs-${key}`).append(cat_img)
                     })
+                    
+                    $('.cats-gifs').slick({
+                        dots: true,
+                        infinite: true,
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        centerMode: true,
+                        autoplay: true,
+                        autoplaySpeed: 2000,
+                    });
                 }
             });
         })
