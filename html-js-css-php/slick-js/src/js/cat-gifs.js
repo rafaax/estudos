@@ -29,8 +29,22 @@ $(document).ready(function(){
                         autoplay: true,
                         autoplaySpeed: 2000,
                     });
+
+                    resolve()
+                },
+                error: function(){
+                    reject();
                 }
-            });
+            });   
         })
     }
+
+    slickRenderGif().then( () => {
+        console.log('ok')
+    }).catch(()=> {
+        console.log('erro na request')
+    });
+
 });
+
+
