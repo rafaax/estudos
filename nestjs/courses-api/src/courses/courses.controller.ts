@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 
 
@@ -11,6 +11,13 @@ export class CoursesController {
     @Get()
     async getCourses() {
         const courses = await this.coursesService.getCourses();
+        return courses;
+    }
+
+
+    @Get(':courseId')
+    async getCourse(@Param('courseId') courseId :  number) {
+        const courses = await this.coursesService.getCourse(Number(courseId));
         return courses;
     }
 }
