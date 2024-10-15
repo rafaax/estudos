@@ -1,9 +1,17 @@
-void criaCliente()
 
-void editaCliente()
+extern int id_cliente;
+extern char nome_cliente[];
+extern char cpf_cliente[];
+extern int ativo;
+extern char data_nascimento_cliente[];
+extern char criado_em_cliente[];
 
-void deletaCliente()
+void criaCliente();
 
-void listarClientes()
+void editaCliente();
 
-void verCliente()
+void deletaCliente();
+
+void listarClientes();
+
+void verCliente();
