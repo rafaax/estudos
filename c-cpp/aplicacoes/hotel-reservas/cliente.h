@@ -1,4 +1,7 @@
 
+#ifndef CLIENTE_H
+#define CLIENTE_H
+
 extern int id_cliente;
 extern char nome_cliente[];
 extern char cpf_cliente[];
@@ -15,3 +18,5 @@ void deletaCliente();
 void listarClientes();
 
 void verCliente();
+
+#endif
