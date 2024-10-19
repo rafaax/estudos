@@ -9,8 +9,6 @@ long tamanho_bytes;
 long ler_bytes(FILE *fptr)
 {
 	long file_size;
-	char *buffer;
-	
     
 	fseek(fptr, 0, SEEK_END);
 	file_size = ftell(fptr);
@@ -22,28 +20,31 @@ long ler_bytes(FILE *fptr)
 void readFile(char fileName[15])
 {	
 	fptr = fopen(fileName, "r");
-	tamanho_bytes = ler_bytes(fptr);
-	char file_text[tamanho_bytes];
 	
-	buffer = (char*) malloc(sizeof(char) * file_size);
-		if (buffer == NULL)
-		{
-			printf("Erro de memoria! \n");
-			fclose(fptr);
-		return 1;
+	if (fptr == NULL) {
+		printf("Erro ao abrir o arquivo!\n");
+		return;
 	}
 	
-	rewind(fptr);
+	long tamanho_bytes = ler_bytes(fptr);
+	
+	char *file_text = (char*) malloc(sizeof(char) * (tamanho_bytes + 1));
+	if (file_text == NULL)
+	{
+		printf("Erro de memoria!\n");
+		fclose(fptr);
+		return;
+	}
 	
 	fread(file_text, sizeof(char), tamanho_bytes, fptr);
-    file_text[tamanho_bytes] = '\0';
+	file_text[tamanho_bytes] = '\0';
 	
 	printf("%s", file_text);
-    printf("Tamanho do arquivo: %ld\n", tamanho_bytes);
     
 	free(file_text);
     fclose(fptr);
 }
+
 
 void writeFile(char fileName[15], char text[10])
 {
