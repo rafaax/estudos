@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include "utils.h"
+
 int main() {
-   
-   printf("Hello, World!");
+   	readFile("servicos.json");
+   	writeFile("servicos.json", "teste \n");
+   	readFile("servicos.json");
    return 0;
 }
