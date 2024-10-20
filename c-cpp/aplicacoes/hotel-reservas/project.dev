@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000000000000
-UnitCount=12
+UnitCount=15
 
 [VersionInfo]
 Major=1
@@ -131,7 +131,7 @@ BuildCmd=
 CompileCpp=0
 
 [Unit12]
-FileName=json.c
+FileName=fs.c
 CompileCpp=0
 Folder=src
 Compile=1
@@ -141,7 +141,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit15]
-FileName=utils.h
+FileName=fs.h
 CompileCpp=0
 Folder=include
 Compile=1
@@ -172,6 +172,26 @@ BuildCmd=
 
 [Unit11]
 FileName=utils.h
+CompileCpp=0
+Folder=include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit13]
+FileName=cJSON.c
+CompileCpp=0
+Folder=src
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit14]
+FileName=cJSON.h
 CompileCpp=0
 Folder=include
 Compile=1
