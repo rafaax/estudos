@@ -1,15 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "utils.h"
 
-FILE *fptr;
+long ler_bytes(FILE *fptr){
 
-long tamanho_bytes;
-
-
-long ler_bytes(FILE *fptr)
-{
-	long file_size;
-    
 	fseek(fptr, 0, SEEK_END);
 	file_size = ftell(fptr);
 	rewind(fptr);
@@ -17,8 +11,7 @@ long ler_bytes(FILE *fptr)
 	return file_size;
 }
 
-void readFile(char fileName[15])
-{	
+void readFile(char fileName[15]){	
 	fptr = fopen(fileName, "r");
 	
 	if (fptr == NULL) {
@@ -26,11 +19,10 @@ void readFile(char fileName[15])
 		return;
 	}
 	
-	long tamanho_bytes = ler_bytes(fptr);
+	tamanho_bytes = ler_bytes(fptr);
 	
 	char *file_text = (char*) malloc(sizeof(char) * (tamanho_bytes + 1));
-	if (file_text == NULL)
-	{
+	if (file_text == NULL){
 		printf("Erro de memoria!\n");
 		fclose(fptr);
 		return;
@@ -46,8 +38,7 @@ void readFile(char fileName[15])
 }
 
 
-void writeFile(char fileName[15], char text[10])
-{
+void writeFile(char fileName[15], char text[10]){
 	
 	fptr = fopen(fileName, "a+");
 	fprintf(fptr, text);
