@@ -2,6 +2,7 @@
 #include "utils.h"
 
 int main() {
+	/*
 	int i = 0;
 	
 	printf("arquivo inicial \n");
@@ -16,6 +17,9 @@ int main() {
 	
 	printf("arquivo final \n");
 	readFile("servicos.json");
+	*/
+	
+	
 	
 	return 0;
 }

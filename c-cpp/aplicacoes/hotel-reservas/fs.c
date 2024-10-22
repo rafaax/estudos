@@ -1,7 +1,12 @@
 #include <stdio.h> 
 #include "cJSON.h"
 
+
+
+
 void cliente_to_json(struct cliente){
+	
+	cJSON *json = cJSON_CreateObject();
 		
    	cJSON_AddStringToObject(json, "name", "John Doe"); 
    	cJSON_AddNumberToObject(json, "age", 30); 
@@ -10,7 +15,7 @@ void cliente_to_json(struct cliente){
    	// convert the cJSON object to a JSON string 
    	char *json_str = cJSON_Print(json); 
   
-   // write the JSON string to a file 
+   	// write the JSON string to a file 
    	FILE *fp = fopen("data.json", "w"); 
    	if (fp == NULL) { 
        printf("Error: Unable to open the file.\n"); 
@@ -24,7 +29,3 @@ void cliente_to_json(struct cliente){
    	cJSON_free(json_str); 
 	cJSON_Delete(json); 
 }
-
-
-
-  
