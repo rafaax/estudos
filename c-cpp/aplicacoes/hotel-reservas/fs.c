@@ -1,5 +1,6 @@
 #include <stdio.h> 
 #include "cJSON.h"
+#include "cliente.c"
 
 void cliente_to_json(struct cliente){
 		
