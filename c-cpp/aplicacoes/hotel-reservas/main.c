@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "utils.h"
+#include "cliente.c"
 
 int main() {
 	int i = 0;

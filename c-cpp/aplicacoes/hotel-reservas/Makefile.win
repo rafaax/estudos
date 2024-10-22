@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o cliente.o reserva.o quarto.o servico.o utils.o json.o cJSON.o
-LINKOBJ  = main.o cliente.o reserva.o quarto.o servico.o utils.o json.o cJSON.o
+OBJ      = main.o cliente.o reserva.o quarto.o servico.o utils.o fs.o cJSON.o
+LINKOBJ  = main.o cliente.o reserva.o quarto.o servico.o utils.o fs.o cJSON.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -42,8 +42,8 @@ servico.o: servico.c
 utils.o: utils.c
 	$(CC) -c utils.c -o utils.o $(CFLAGS)
 
-json.o: json.c
-	$(CC) -c json.c -o json.o $(CFLAGS)
+fs.o: fs.c
+	$(CC) -c fs.c -o fs.o $(CFLAGS)
 
 cJSON.o: cJSON.c
 	$(CC) -c cJSON.c -o cJSON.o $(CFLAGS)
