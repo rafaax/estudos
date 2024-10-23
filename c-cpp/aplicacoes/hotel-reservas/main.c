@@ -17,7 +17,7 @@ int main() {
 		printf("Erro ao escrever o json");
 	}
 	
-	readFile("clientesss.json");
+	readFile("clientes.json");
 
 	return 0;
 }
