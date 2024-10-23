@@ -38,11 +38,3 @@ void readFile(char fileName[15]){
     fclose(fptr);
 }
 
-
-void writeFile(char fileName[15], char text[10]){
-	
-	fptr = fopen(fileName, "a+");
-	fprintf(fptr, text);
-	
-	fclose(fptr);
-}

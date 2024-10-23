@@ -1,13 +1,13 @@
 #ifndef QUARTOS.H
 #define QUARTOS.H
 
-extern int id_quarto;
-extern int numero;
-extern char tipo_quarto[15];
-extern float preco;
-extern int disponibilidade;
-extern int capacidade;
-extern char data_reserva[10];
+
+struct Quarto {
+    int id;
+    int numero;
+    char nivel_quarto[100];
+    float preco;
+};
 
 void adicionarQuarto();
 
@@ -22,3 +22,5 @@ void limparQuarto();
 void listarServico();
 
 void listarQuartosDisponiveis();
+
+#endif
