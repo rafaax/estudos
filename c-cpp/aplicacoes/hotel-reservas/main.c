@@ -4,23 +4,6 @@
 #include "cliente.h"
 
 int main() {
-	/*
-	int i = 0;
-	
-	printf("arquivo inicial \n");
-	
-	readFile("servicos.json");
-	
-	while(i < 10){
-		writeFile("servicos.json", "teste \n");
-		printf("%d ", i);
-		i++;
-	}
-	
-	printf("arquivo final \n");
-	readFile("servicos.json");
-	*/
-	
 	
 	struct Cliente cliente;
 	
@@ -30,10 +13,11 @@ int main() {
     cliente.ativo = 1;
     
     
-	cliente_to_json(cliente);
+	if(cliente_to_json(cliente) !=  1){
+		printf("Erro ao escrever o json");
+	}
 	
-	
-	
-	
+	readFile("clientesss.json");
+
 	return 0;
 }

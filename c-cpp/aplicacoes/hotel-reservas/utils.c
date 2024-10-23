@@ -15,13 +15,14 @@ void readFile(char fileName[15]){
 	fptr = fopen(fileName, "r");
 	
 	if (fptr == NULL) {
-		printf("Erro ao abrir o arquivo!\n");
+		printf("Erro ao abrir o arquivo %s !\n", fileName );
 		return;
 	}
 	
 	tamanho_bytes = ler_bytes(fptr);
 	
 	char *file_text = (char*) malloc(sizeof(char) * (tamanho_bytes + 1));
+	
 	if (file_text == NULL){
 		printf("Erro de memoria!\n");
 		fclose(fptr);
