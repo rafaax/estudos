@@ -1,12 +1,16 @@
 #ifndef CLIENTE_H
 #define CLIENTE_H
 
-extern int id_cliente;
-extern char nome_cliente[];
-extern char cpf_cliente[];
-extern int ativo;
-extern char data_nascimento_cliente[];
-extern char criado_em_cliente[];
+struct Cliente {
+    int id;
+    char nome[50];
+    char cpf[20];
+    int ativo;
+    char data_nascimento[11];
+    char data_criacao[11];
+};
+
+void cliente_to_json(struct Cliente cliente);
 
 void criaCliente();
 
