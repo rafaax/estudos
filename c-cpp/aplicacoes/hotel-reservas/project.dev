@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000000000000
-UnitCount=15
+UnitCount=14
 
 [VersionInfo]
 Major=1
@@ -134,16 +134,6 @@ CompileCpp=0
 FileName=fs.c
 CompileCpp=0
 Folder=src
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit15]
-FileName=fs.h
-CompileCpp=0
-Folder=include
 Compile=1
 Link=1
 Priority=1000
