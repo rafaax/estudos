@@ -10,7 +10,7 @@ struct Cliente {
     char data_criacao[11];
 };
 
-void cliente_to_json(struct Cliente cliente);
+int cliente_to_json(struct Cliente cliente);
 
 void criaCliente();
 
