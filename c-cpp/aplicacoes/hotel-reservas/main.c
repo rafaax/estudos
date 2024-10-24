@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
 #include <string.h>
-#include "utils.h"
-#include "cliente.h"
+#include "headers/utils.h"
+#include "headers/cliente.h"
 
 int main() {
 	
@@ -13,11 +15,12 @@ int main() {
     cliente.ativo = 1;
     
     
-	if(cliente_to_json(cliente) !=  1){
+	if(clienteToJson(cliente) !=  1){
 		printf("Erro ao escrever o json");
 	}
 	
-	readFile("clientes.json");
+	sleep(2);
+	readFile("storage/clientes.json");
 
 	return 0;
-}	
+}

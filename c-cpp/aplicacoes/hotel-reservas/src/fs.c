@@ -1,39 +1,34 @@
 #include <stdio.h> 
-#include "cJSON.h"
-#include "cliente.h"
-#include "servico.h"
-#include "quarto.h"
-#include "reserva.h"
+#include "../headers/cJSON.h"
+#include "../headers/cliente.h"
+#include "../headers/servico.h"
+#include "../headers/quarto.h"
+#include "../headers/reserva.h"
+#include "../headers/utils.h"
 
-int clienteToJson(struct Cliente cliente){
+int clienteToJson(struct Cliente cliente) {
 	
-	cJSON *json = cJSON_CreateObject();
-	cJSON_AddNumberToObject(json, "id", cliente.id); 
-	cJSON_AddStringToObject(json, "nome", cliente.nome); 
-	cJSON_AddStringToObject(json, "cpf", cliente.cpf); 
-	cJSON_AddNumberToObject(json, "ativo", cliente.ativo); 
-	cJSON_AddStringToObject(json, "data_nascimento", cliente.data_nascimento); 
-	cJSON_AddStringToObject(json, "data_criacao", cliente.data_criacao );
+    FILE *fp = fopen("storage/clientes.json", "r+");
+    
+    long file_size = ler_bytes(fp);
+    cJSON *json_array = getJsonArray(fp, file_size);
+    
+    cJSON *new_cliente = cJSON_CreateObject();
+    
+    cJSON_AddNumberToObject(new_cliente, "id", cliente.id);
+    cJSON_AddStringToObject(new_cliente, "nome", cliente.nome);
+    cJSON_AddStringToObject(new_cliente, "cpf", cliente.cpf);
+    cJSON_AddNumberToObject(new_cliente, "ativo", cliente.ativo);
+    cJSON_AddStringToObject(new_cliente, "data_nascimento", cliente.data_nascimento);
+    cJSON_AddItemToArray(json_array, new_cliente);
 	
-	// convert the cJSON object to a JSON string 
-	char *json_str = cJSON_Print(json);
-	
-	// write the JSON string to a file
-	
-	FILE *fp = fopen("clientes.json", "a+"); 
-	
-	// valida se o arquivo foi aberto para escrita
-	if (fp == NULL) {
-		printf("Error: Unable to open the file.\n"); 
-		return 0; 
-	}
-	
-	fputs(json_str, fp); 
-	fclose; 
-	cJSON_free(json_str);  // free the JSON string and 
-	cJSON_Delete(json);  // free the cJSON object 
-	
-	return 1;
+	char *updated_json = appendJson(fp, json_array);
+
+    fclose(fp);
+    cJSON_free(updated_json);
+    cJSON_Delete(json_array);
+
+    return 1;
 }
 
 int servicoToJson(struct Servico servico){

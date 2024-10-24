@@ -7,10 +7,9 @@ struct Cliente {
     char cpf[20];
     int ativo;
     char data_nascimento[11];
-    char data_criacao[11];
 };
 
-int cliente_to_json(struct Cliente cliente);
+int clienteToJson(struct Cliente cliente);
 
 void criaCliente();
 
