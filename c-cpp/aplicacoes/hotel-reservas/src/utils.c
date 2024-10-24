@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "utils.h"
+#include "../headers/cJSON.h"
+#include "../headers/utils.h"
 
 long ler_bytes(FILE *fptr){
 
@@ -37,4 +38,27 @@ void readFile(char fileName[15]){
 	free(file_text);
     fclose(fptr);
 }
+
+cJSON *getJsonArray(FILE *fp, long file_size){
+	char *file_content = (char *)malloc(file_size + 1);
+    
+    fread(file_content, 1, file_size, fp);
+    file_content[file_size] = '\0';
+
+    cJSON *json_array = cJSON_Parse(file_content);
+    free(file_content);
+    
+    return json_array;
+}
+
+char *appendJson(FILE *fp, cJSON *json_array){
+	fseek(fp, 0, SEEK_SET);
+    char *updated_json_str = cJSON_Print(json_array);
+    fwrite(updated_json_str, sizeof(char), strlen(updated_json_str), fp);
+    ftruncate(fileno(fp), strlen(updated_json_str));
+    
+    return updated_json_str;
+}
+
+
 

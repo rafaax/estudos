@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <time.h>
-#include "cliente.h"
+#include "../headers/cliente.h"
 
 
 void criaCliente(){
