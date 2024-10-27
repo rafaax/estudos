@@ -33,7 +33,13 @@ int clienteToJson(struct Cliente cliente) {
 
 int servicoToJson(struct Servico servico){
 	
-	cJSON *json_array = cJSON_CreateArray();
+	
+	FILE *fp = fopen("storage/servicos.json", "r+");
+    
+    long file_size = ler_bytes(fp);
+    cJSON *json_array = getJsonArray(fp, file_size);
+	
+	cJSON *json_services_array = cJSON_CreateArray();
 	
 	int i = 0;
 	
@@ -41,87 +47,73 @@ int servicoToJson(struct Servico servico){
 	   cJSON_AddItemToArray(json_array, cJSON_CreateString(servico.nivel_servico[i]));
 	}
 	
-	cJSON *json = cJSON_CreateObject();
-	cJSON_AddNumberToObject(json, "id", servico.id); 
-	cJSON_AddStringToObject(json, "descricao", servico.descricao); 
-	cJSON_AddItemToObject(json, "nivel_servico", json_array);
+	cJSON *new_servico = cJSON_CreateObject();
+	cJSON_AddNumberToObject(new_servico, "id", servico.id); 
+	cJSON_AddStringToObject(new_servico, "descricao", servico.descricao); 
+	cJSON_AddItemToObject(new_servico, "nivel_servico", json_service_array);
 	
-	// convert the cJSON object to a JSON string 
-	char *json_str = cJSON_Print(json);
+	cJSON_AddItemToArray(json_array, new_servico);
 	
-	// write the JSON string to a file
-	
-	FILE *fp = fopen("servico.json", "a+"); 
-	
-	// valida se o arquivo foi aberto para escrita
-	if (fp == NULL) {
-		printf("Error: Unable to open the file.\n"); 
-		return 0; 
-	}
-	
-	fputs(json_str, fp); 
+	char *updated_json = appendJson(fp, json_array);
+
+
 	fclose; 
-	cJSON_free(json_str);  // free the JSON string and 
-	cJSON_Delete(json);  // free the cJSON object 
+	cJSON_free(updated_json);
+	cJSON_Delete(json_service_array); 
+	cJSON_Delete(json);  
 	
 	return 1;
 }
 
 int quartoToJson(struct Quarto quarto){
 	
-	cJSON *json = cJSON_CreateObject();
-	cJSON_AddNumberToObject(json, "id", quarto.id); 
-	cJSON_AddNumberToObject(json, "numero", quarto.numero); 
-	cJSON_AddStringToObject(json, "nivel_quarto", quarto.nivel_quarto); 
-	cJSON_AddNumberToObject(json, "valor_diaria", quarto.preco); 
+	FILE *fp = fopen("storage/quartos.json", "r+");
+    
+    long file_size = ler_bytes(fp);
+    cJSON *json_array = getJsonArray(fp, file_size);
+    
+    cJSON *new_quarto = cJSON_CreateObject();
 	
-	// convert the cJSON object to a JSON string 
-	char *json_str = cJSON_Print(json);
+	cJSON_AddNumberToObject(new_quarto, "id", quarto.id); 
+	cJSON_AddNumberToObject(new_quarto, "numero", quarto.numero); 
+	cJSON_AddStringToObject(new_quarto, "nivel_quarto", quarto.nivel_quarto); 
+	cJSON_AddNumberToObject(new_quarto, "valor_diaria", quarto.preco); 
 	
-	// write the JSON string to a file
+	cJSON_AddItemToArray(json_array, new_quarto);
 	
-	FILE *fp = fopen("quarto.json", "a+"); 
-	
-	// valida se o arquivo foi aberto para escrita
-	if (fp == NULL) {
-		printf("Error: Unable to open the file.\n"); 
-		return 0; 
-	}
-	
-	fputs(json_str, fp); 
+	char *updated_json = appendJson(fp, json_array);
+
+
 	fclose; 
-	cJSON_free(json_str);  // free the JSON string and 
-	cJSON_Delete(json);  // free the cJSON object 
+	cJSON_free(updated_json);  
+	cJSON_Delete(json); 
 	
 	return 1;
 }
 
 int reservaToJson(struct Reserva reserva){
 		
-	cJSON *json = cJSON_CreateObject();
-	cJSON_AddNumberToObject(json, "id", reserva.id); 
-	cJSON_AddNumberToObject(json, "id_quarto", reserva.id_quarto);
-	cJSON_AddNumberToObject(json, "id_cliente", reserva.id_cliente);  
-	cJSON_AddStringToObject(json, "data_check_in", reserva.data_check_in);
-	cJSON_AddStringToObject(json, "data_check_out", reserva.data_check_out); 
+	FILE *fp = fopen("storage/reservas.json", "r+");
+    
+    long file_size = ler_bytes(fp);
+    cJSON *json_array = getJsonArray(fp, file_size);
+    
+    cJSON *new_reserva = cJSON_CreateObject();
 	
-	// convert the cJSON object to a JSON string 
-	char *json_str = cJSON_Print(json);
+	cJSON_AddNumberToObject(new_reserva, "id", reserva.id); 
+	cJSON_AddNumberToObject(new_reserva, "id_quarto", reserva.id_quarto);
+	cJSON_AddNumberToObject(new_reserva, "id_cliente", reserva.id_cliente);  
+	cJSON_AddStringToObject(new_reserva, "data_check_in", reserva.data_check_in);
+	cJSON_AddStringToObject(new_reserva, "data_check_out", reserva.data_check_out); 
+
+	cJSON_AddItemToArray(json_array, new_quarto);
 	
-	// write the JSON string to a file
-	
-	FILE *fp = fopen("reserva.json", "a+"); 
-	
-	// valida se o arquivo foi aberto para escrita
-	if (fp == NULL) {
-		printf("Error: Unable to open the file.\n"); 
-		return 0; 
-	}
-	
-	fputs(json_str, fp); 
+	char *updated_json = appendJson(fp, json_array);
+
+
 	fclose; 
-	cJSON_free(json_str);  // free the JSON string and 
-	cJSON_Delete(json);  // free the cJSON object 
+	cJSON_free(updated_json);  
+	cJSON_Delete(json); 
 	
 	return 1;
 }
