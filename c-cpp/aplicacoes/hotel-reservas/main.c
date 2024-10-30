@@ -9,18 +9,20 @@ int main() {
 	
 	struct Cliente cliente;
 	
-	strcpy(cliente.nome, "Guilherme");
-    strcpy(cliente.cpf, "47500059833");
-    strcpy(cliente.data_nascimento, "02-07-2004");
-    cliente.ativo = 1;
+	strcpy(cliente.nome, "Henry");
+    strcpy(cliente.cpf, "123456789");
+    strcpy(cliente.data_nascimento, "20-12-2005");
+    cliente.ativo = 0;
     
     
-	if(clienteToJson(cliente) !=  1){
-		printf("Erro ao escrever o json");
-	}
+    editaCliente(cliente, 2);
+    
+//	if(criarCliente(cliente) !=  1){
+//		printf("Erro ao escrever o json");
+//	}
 	
 	sleep(2);
-	readFile("storage/clientes.json");
+//	readFile("storage/clientes.json");
 
 	return 0;
 }

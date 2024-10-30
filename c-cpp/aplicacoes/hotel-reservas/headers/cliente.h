@@ -9,11 +9,9 @@ struct Cliente {
     char data_nascimento[11];
 };
 
-int clienteToJson(struct Cliente cliente);
+int criarCliente(struct Cliente cliente);
 
-void criaCliente();
-
-void editaCliente();
+int editaCliente(struct Cliente cliente, int id);
 
 void deletaCliente();
 
