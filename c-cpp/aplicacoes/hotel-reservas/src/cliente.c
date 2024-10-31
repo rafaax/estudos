@@ -64,9 +64,36 @@ int editaCliente(struct Cliente cliente, int id_find){
     return 1;
 }
     
-void deletaCliente(){
-	
+int deletaCliente(struct Cliente cliente, int id_find) {
+    FILE *fp = fopen("storage/clientes.json", "r");
+    
+    long file_size = ler_bytes(fp);
+    cJSON *json_array = getJsonArray(fp, file_size);
+    fclose(fp);
+
+    int index = 0;
+    cJSON *item = NULL;
+    cJSON_ArrayForEach(item, json_array) {
+        cJSON *id = cJSON_GetObjectItem(item, "id");
+        if (cJSON_IsNumber(id) && id->valueint == id_find) {
+            cJSON_DeleteItemFromArray(json_array, index);
+            break;
+        }
+        index++;
+    }
+
+    char *updated_content = cJSON_Print(json_array);
+
+    fp = fopen("storage/clientes.json", "w");
+    fputs(updated_content, fp);
+    fclose(fp);
+
+    cJSON_free(updated_content);
+    cJSON_Delete(json_array);
+
+    return 1;
 }
+
 
 void listarClientes(){
 	

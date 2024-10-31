@@ -13,7 +13,7 @@ int criarCliente(struct Cliente cliente);
 
 int editaCliente(struct Cliente cliente, int id);
 
-void deletaCliente();
+int deletaCliente(struct Cliente cliente, int id);
 
 void listarClientes();
 

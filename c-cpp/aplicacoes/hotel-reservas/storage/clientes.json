@@ -1,19 +1,13 @@
 [{
 		"id":	1,
-		"nome":	"Guilherme",
-		"cpf":	"47500059833",
-		"ativo":	1,
-		"data_nascimento":	"02-07-2004"
+		"nome":	"guigui milgras",
+		"cpf":	"2315621123",
+		"ativo":	0,
+		"data_nascimento":	"20-08-2004"
 	}, {
 		"id":	2,
 		"nome":	"Henry",
 		"cpf":	"123456789",
 		"ativo":	0,
 		"data_nascimento":	"20-12-2005"
-	}, {
-		"id":	3,
-		"nome":	"Guilherme",
-		"cpf":	"47500059833",
-		"ativo":	1,
-		"data_nascimento":	"02-07-2004"
 	}]
