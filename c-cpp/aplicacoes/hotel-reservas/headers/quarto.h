@@ -1,5 +1,5 @@
-#ifndef QUARTOS.H
-#define QUARTOS.H
+#ifndef QUARTOS_H
+#define QUARTOS_H
 
 
 struct Quarto {
