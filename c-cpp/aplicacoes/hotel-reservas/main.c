@@ -31,6 +31,7 @@ int main() {
             case 1:
             	system("cls");
                 while(menu_quarto != 5){
+                	system("cls");
                 	printf("\n Aqui voce fica a parte de tudo sobre os nossos quartos! \n");
 			        printf("==================================== \n");
 			        printf("1. Cadastrar novo quarto \n");
@@ -64,6 +65,7 @@ int main() {
 							quarto.disponivel = 1;
 									
 			        		adicionarQuarto(quarto);
+			        		
 			        		sleep(2);
 			        		printf("Quarto cadastrado com sucesso!");
 			        		system("pause");
@@ -87,13 +89,12 @@ int main() {
 			        		atualizarQuarto(quarto, quarto_editado);
 			        		
 			        		sleep(2);
-			        		printf("Quarto atualizado com sucesso!");
-										        		
+			        		printf("Quarto atualizado com sucesso! \n");
 			        		system("pause");
 			        		break;
 			        	case 3: 
 			        		system("cls");
-			        		printf("teste3... \n");
+			        		readFile("storage/quartos.json");
 			        		system("pause");
 			        		break;
 			        	case 4:
