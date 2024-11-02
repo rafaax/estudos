@@ -8,7 +8,9 @@
 
 int main() {
 	
-	int menu, menu_quarto, menu_servicos, menu_clientes, menu_reservas,quarto_disponibilidade = 0;
+	int menu, menu_quarto, menu_servicos, menu_clientes, menu_reservas  = 0;
+	int quarto_editado;
+	
 	
 	struct Cliente cliente;
 	struct Quarto quarto;
@@ -30,7 +32,7 @@ int main() {
             	system("cls");
                 while(menu_quarto != 5){
                 	printf("\n Aqui voce fica a parte de tudo sobre os nossos quartos! \n");
-			        printf("==================================== \n ");
+			        printf("==================================== \n");
 			        printf("1. Cadastrar novo quarto \n");
 			        printf("2. Editar quarto existente \n");
 			        printf("3. Listar todos quartos \n");
@@ -42,25 +44,51 @@ int main() {
 			        switch(menu_quarto){
 			        	case 1: 
 			        		system("cls");
+			        		
 							printf("\n Adicionando um quarto \n");
 							printf("============================ \n");
+							
+							quarto.id = gerarIdAleatorio();
+							
 							printf("Digite o numero do quarto: \n");
 							scanf("%d", &quarto.numero);
+							
 							printf("Digite o valor da diaria: \n");
 							scanf("%f", &quarto.preco_diaria);
+							
 							printf("Digite o ID dos servicos referente ao quarto: \n");
 							scanf("%d", &quarto.servicos_id);
-							printf("Ao cadastrar o novo quarto, ele estara disponivel por padrao! \n");
-							quarto.disponivel = 1;
 							
+							printf("Ao cadastrar o novo quarto, ele estara disponivel por padrao! \n");
+							
+							quarto.disponivel = 1;
+									
 			        		adicionarQuarto(quarto);
 			        		sleep(2);
 			        		printf("Quarto cadastrado com sucesso!");
 			        		system("pause");
 			        		break;
-			        	case 2: 
+			        	case 2:
 			        		system("cls");
-			        		printf("teste2... \n");
+			        		printf("\n Atualizar um quarto \n");
+			        		printf("============================ \n");
+			        		printf("Digite o ID do quarto a ser editado \n");
+			        		scanf("%d", &quarto_editado);
+			        		
+			        		printf("Digite o numero do quarto: \n");
+							scanf("%d", &quarto.numero);
+							
+							printf("Digite o valor da diaria: \n");
+							scanf("%f", &quarto.preco_diaria);
+							
+							printf("Digite o ID dos servicos referente ao quarto: \n");
+							scanf("%d", &quarto.servicos_id);
+							
+			        		atualizarQuarto(quarto, quarto_editado);
+			        		
+			        		sleep(2);
+			        		printf("Quarto atualizado com sucesso!");
+										        		
 			        		system("pause");
 			        		break;
 			        	case 3: 
