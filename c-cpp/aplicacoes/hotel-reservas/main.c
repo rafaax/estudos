@@ -9,7 +9,7 @@
 int main() {
 	
 	int menu, menu_quarto, menu_servicos, menu_clientes, menu_reservas  = 0;
-	int quarto_editado;
+	int quarto_editado, quarto_busca;
 	
 	
 	struct Cliente cliente;
@@ -30,7 +30,7 @@ int main() {
         switch (menu) {
             case 1:
             	system("cls");
-                while(menu_quarto != 5){
+                while(menu_quarto != 6){
                 	system("cls");
                 	printf("\n Aqui voce fica a parte de tudo sobre os nossos quartos! \n");
 			        printf("==================================== \n");
@@ -38,7 +38,8 @@ int main() {
 			        printf("2. Editar quarto existente \n");
 			        printf("3. Listar todos quartos \n");
 			        printf("4. Listar quartos disponiveis \n");
-			        printf("5. Sair \n");
+			        printf("5. Visualizar informacoes de um quarto especifico \n");
+			        printf("6. Sair \n");
 			        printf("Escolha uma opcao para continuar: ");
 			        scanf("%d", &menu_quarto);
 			        
@@ -94,15 +95,22 @@ int main() {
 			        		break;
 			        	case 3: 
 			        		system("cls");
-			        		readFile("storage/quartos.json");
+			        		listarQuartos();
 			        		system("pause");
 			        		break;
 			        	case 4:
 			        		system("cls");
-			        		printf("teste4... \n");
+			        		listarQuartosDisponiveis();
 			        		system("pause");
 			        		break;
 			        	case 5:
+			        		system("cls");
+			        		printf("Digite o ID de um quarto para saber mais sobre ele! \n");
+			        		scanf("%d", &quarto_busca);
+			        		visualizarQuarto(quarto_busca);
+			        		system("pause");
+							break;
+						case 6:
 			        		system("cls");
 			        		printf("Saindo... \n");
 			        		system("pause");

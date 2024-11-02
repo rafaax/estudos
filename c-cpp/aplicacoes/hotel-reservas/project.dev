@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000000000000
-UnitCount=14
+UnitCount=13
 
 [VersionInfo]
 Major=1
@@ -120,18 +120,8 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit10]
-FileName=src\fs.c
-Folder=src
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-CompileCpp=0
-
 [Unit12]
-FileName=src\reserva.c
+FileName=src\servico.c
 CompileCpp=0
 Folder=src
 Compile=1
@@ -161,7 +151,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit11]
-FileName=src\quarto.c
+FileName=src\reserva.c
 CompileCpp=0
 Folder=src
 Compile=1
@@ -171,7 +161,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit13]
-FileName=src\servico.c
+FileName=src\utils.c
 CompileCpp=0
 Folder=src
 Compile=1
@@ -182,6 +172,16 @@ BuildCmd=
 
 [Unit14]
 FileName=src\utils.c
+CompileCpp=0
+Folder=src
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit10]
+FileName=src\quarto.c
 CompileCpp=0
 Folder=src
 Compile=1
