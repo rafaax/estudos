@@ -14,8 +14,10 @@ void adicionarQuarto(struct Quarto);
 
 void atualizarQuarto(struct Quarto, int);
 
-//void listarQuarto(int id);
-//
-//void listarQuartosDisponiveis();
+void listarQuartos();
+
+void visualizarQuarto(int id);
+
+void listarQuartosDisponiveis();
 
 #endif

@@ -13,12 +13,12 @@ long ler_bytes(FILE *fptr){
 	return file_size;
 }
 
-void readFile(char fileName[15]){	
+char* readFile(char fileName[15]){	
 	fptr = fopen(fileName, "r");
 	
 	if (fptr == NULL) {
 		printf("Erro ao abrir o arquivo %s !\n", fileName );
-		return;
+		return NULL;
 	}
 	
 	tamanho_bytes = ler_bytes(fptr);
@@ -28,16 +28,15 @@ void readFile(char fileName[15]){
 	if (file_text == NULL){
 		printf("Erro de memoria!\n");
 		fclose(fptr);
-		return;
+		return NULL ;
 	}
 	
 	fread(file_text, sizeof(char), tamanho_bytes, fptr);
 	file_text[tamanho_bytes] = '\0';
-	
-	printf("%s", file_text);
-    
-	free(file_text);
+
     fclose(fptr);
+    
+    return file_text;
 }
 
 cJSON *getJsonArray(FILE *fp, long file_size){

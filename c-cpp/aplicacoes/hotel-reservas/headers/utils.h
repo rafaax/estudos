@@ -7,7 +7,7 @@ FILE *fptr;
 
 
 long ler_bytes();
-void readFile();
+char* readFile();
 void writeFile();
 int gerarIdAleatorio();
 
