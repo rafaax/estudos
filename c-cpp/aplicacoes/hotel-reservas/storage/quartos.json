@@ -1,13 +1,1 @@
-[{
-		"id":	4225920,
-		"nome":	7,
-		"servicos_id":	1,
-		"preco_diaria":	100,
-		"disponivel":	1
-	}, {
-		"id":	4225920,
-		"nome":	1,
-		"servicos_id":	4,
-		"preco_diaria":	300,
-		"disponivel":	1
-	}]
+[]
