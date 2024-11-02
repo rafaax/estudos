@@ -46,16 +46,17 @@ int editaCliente(struct Cliente cliente, int id_find){
             cJSON_SetValuestring(cpf, cliente.cpf);
             cJSON_SetNumberValue(ativo, cliente.ativo);
             cJSON_SetValuestring(data_nascimento, cliente.data_nascimento);
-         	break;   
+			break;
 		}
 	}
 	
 	char *updated_content = cJSON_Print(json_array);
 	
 	if(updated_content){
-    fp = fopen("storage/clientes.json", "w");
-    fputs(updated_content, fp);
+	    fp = fopen("storage/clientes.json", "w");
+	    fputs(updated_content, fp);
 	}
+	
     fclose(fp);
 
     cJSON_free(updated_content);

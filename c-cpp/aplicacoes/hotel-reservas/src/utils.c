@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "../headers/cJSON.h"
 #include "../headers/utils.h"
 
@@ -60,5 +61,7 @@ char *appendJson(FILE *fp, cJSON *json_array){
     return updated_json_str;
 }
 
-
-
+int gerarIdAleatorio() {
+    srand(time(NULL));
+    return rand();
+}

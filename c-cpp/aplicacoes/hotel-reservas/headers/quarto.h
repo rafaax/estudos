@@ -10,12 +10,12 @@ struct Quarto {
     int disponivel;
 };
 
-void adicionarQuarto(struct Quarto quarto);
+void adicionarQuarto(struct Quarto);
 
-void atualizarQuarto(struct Quarto quarto, int id);
+void atualizarQuarto(struct Quarto, int);
 
-void listarQuarto(int id);
-
-void listarQuartosDisponiveis();
+//void listarQuarto(int id);
+//
+//void listarQuartosDisponiveis();
 
 #endif

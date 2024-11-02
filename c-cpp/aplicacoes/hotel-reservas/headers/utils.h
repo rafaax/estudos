@@ -9,5 +9,6 @@ FILE *fptr;
 long ler_bytes();
 void readFile();
 void writeFile();
+int gerarIdAleatorio();
 
 #endif
