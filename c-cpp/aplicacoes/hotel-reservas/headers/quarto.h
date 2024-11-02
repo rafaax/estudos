@@ -5,21 +5,16 @@
 struct Quarto {
     int id;
     int numero;
-    char nivel_quarto[100];
-    float preco;
+    float preco_diaria;
+    int servicos_id;
+    int disponivel;
 };
 
-void adicionarQuarto();
+void adicionarQuarto(struct Quarto quarto);
 
-void atualizarQuarto();
+void atualizarQuarto(struct Quarto quarto, int id);
 
-void editarQuarto();
-
-void listarQuarto();
-
-void limparQuarto();
-
-void listarServico();
+void listarQuarto(int id);
 
 void listarQuartosDisponiveis();
 

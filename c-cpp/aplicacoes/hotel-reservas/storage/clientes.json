@@ -4,10 +4,4 @@
 		"cpf":	"2315621123",
 		"ativo":	0,
 		"data_nascimento":	"20-08-2004"
-	}, {
-		"id":	2,
-		"nome":	"Henry",
-		"cpf":	"123456789",
-		"ativo":	0,
-		"data_nascimento":	"20-12-2005"
 	}]
