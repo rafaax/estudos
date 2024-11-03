@@ -4,9 +4,16 @@
 struct Servico {
     int id;
     char descricao[50];
-    char nivel_servico[5][100];
 };
 
-int cliente_to_servico(struct Cliente cliente);
+void adicionarServico(struct Servico);
+
+void atualizarServico(struct Servico, int);
+
+void listarServico();
+
+void visualizarServico(int id);
+
+void menuQuarto(int menu_servico);
 
 #endif

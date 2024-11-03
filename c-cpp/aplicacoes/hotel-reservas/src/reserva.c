@@ -20,3 +20,6 @@ void removerReserva(){
 	
 }
 
+void menuReservas(int menu_reservas){
+	
+}

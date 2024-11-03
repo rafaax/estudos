@@ -1,30 +1,37 @@
-[
-  {
-    "id": 1,
-    "numero": 500,
-    "servicos_id": 1,
-    "preco_diaria": 30,
-    "disponivel": 1
-  },
-  {
-    "id": 2,
-    "numero": 300,
-    "servicos_id": 2,
-    "preco_diaria": 100,
-    "disponivel": 1
-  },
-  {
-    "id": 3,
-    "numero": 232,
-    "servicos_id": 3,
-    "preco_diaria": 600,
-    "disponivel": 0
-  },
-  {
-    "id": 4,
-    "numero": 157,
-    "servicos_id": 4,
-    "preco_diaria": 500,
-    "disponivel": 0
-  }
-]
+[{
+		"id":	1,
+		"numero":	500,
+		"servicos_id":	1,
+		"preco_diaria":	30,
+		"disponivel":	1
+	}, {
+		"id":	2,
+		"numero":	300,
+		"servicos_id":	2,
+		"preco_diaria":	100,
+		"disponivel":	1
+	}, {
+		"id":	3,
+		"numero":	232,
+		"servicos_id":	3,
+		"preco_diaria":	600,
+		"disponivel":	0
+	}, {
+		"id":	4,
+		"numero":	157,
+		"servicos_id":	4,
+		"preco_diaria":	500,
+		"disponivel":	0
+	}, {
+		"id":	29925,
+		"numero":	1,
+		"servicos_id":	1,
+		"preco_diaria":	1,
+		"disponivel":	1
+	}, {
+		"id":	29990,
+		"numero":	3,
+		"servicos_id":	3,
+		"preco_diaria":	3,
+		"disponivel":	1
+	}]
