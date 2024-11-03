@@ -20,4 +20,6 @@ void visualizarQuarto(int id);
 
 void listarQuartosDisponiveis();
 
+void menuQuarto(int menu_quarto);
+
 #endif

@@ -19,4 +19,6 @@ void listarClientes();
 
 void verCliente();
 
+void menuClientes(int menu_clientes);
+
 #endif
