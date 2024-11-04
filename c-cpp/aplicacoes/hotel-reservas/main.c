@@ -13,6 +13,7 @@ int main() {
 	
 	struct Cliente cliente;
 	struct Quarto quarto;
+
     
     while (menu != 5) {
     	system("cls");
@@ -40,6 +41,7 @@ int main() {
             	system("cls");
             	break;
             case 4:
+            	menuReservas(menu_reservas);
             	system("cls");
                 break;
             case 5:

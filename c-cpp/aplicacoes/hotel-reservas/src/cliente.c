@@ -188,6 +188,8 @@ void menuClientes(int menu_clientes){
 				
 				cliente.id = gerarIdAleatorio();
 				
+				cliente.ativo = 1;
+				
 				printf("Digite o nome do cliente: ");
 				fflush(stdin);
 				fgets(cliente.nome, sizeof(cliente.nome), stdin);
@@ -210,13 +212,8 @@ void menuClientes(int menu_clientes){
         		system("cls");
         		printf("\n Atualizar um cliente \n");
         		printf("============================ \n");
-        		printf("Digite o ID do servico a ser editado ");
+        		printf("Digite o ID do cliente a ser editado ");
         		scanf("%d", &cliente_editado);
-        		
-        		printf("\n Cadastrando um cliente \n");
-				printf("============================ \n");
-				
-				cliente.id = gerarIdAleatorio();
 				
 				printf("Digite o nome do cliente: ");
 				fflush(stdin);
@@ -241,7 +238,7 @@ void menuClientes(int menu_clientes){
         		printf("Digite o ID de um cliente para deletar seu registro! \n");
         		scanf("%d", &cliente_delete);
         		deletaCliente(cliente, cliente_delete);
-        		printf("Cliente deletado com sucesso!")
+        		printf("Cliente deletado com sucesso!");
         		system("pause");
         		break;
         	case 4:
@@ -253,7 +250,7 @@ void menuClientes(int menu_clientes){
         		system("cls");
         		printf("Digite o ID de um cliente para saber mais sobre ele! \n");
         		scanf("%d", &cliente_busca);
-        		visualizarServico(cliente_busca);
+        		visualizarClientes(cliente_busca);
         		system("pause");
 				break;
 			case 6:
