@@ -19,3 +19,9 @@ TouchScreen ts = TouchScreen(8, A3, A2, 9, 300);
 
 uint32_t bmp_offset;
 bool mensagemRecebida =  false;
+
+void setup(){
+  Serial.begin(9600);
+  SD.begin(10);
+  mylcd.Init_LCD();
+}
