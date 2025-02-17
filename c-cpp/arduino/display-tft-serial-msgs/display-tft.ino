@@ -25,3 +25,12 @@ void setup(){
   SD.begin(10);
   mylcd.Init_LCD();
 }
+
+void loop(){
+
+  if (Serial.available() > 0) {
+    mylcd.Fill_Screen(0x0000);
+    mensagemRecebida = true;
+    String mensagem = Serial.readStringUntil('\n');
+  }
+}
