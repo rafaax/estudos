@@ -19,6 +19,18 @@ TouchScreen ts = TouchScreen(8, A3, A2, 9, 300);
 
 uint32_t bmp_offset;
 bool mensagemRecebida =  false;
+void sendMessageToDisplay(String mensagem) {
+  int mensagemLength = mensagem.length();
+  int x = 20;
+  int y = 40;
+  int linha = 0;
+
+  if (mensagemLength > 120) {
+    mensagem = mensagem.substring(0, 120);
+    mensagemLength = mensagem.length();
+  }
+}
+
 
 void setup(){
   Serial.begin(9600);
