@@ -29,6 +29,22 @@ void sendMessageToDisplay(String mensagem) {
     mensagem = mensagem.substring(0, 120);
     mensagemLength = mensagem.length();
   }
+
+  // Apaga somente a área da mensagem
+  mylcd.Set_Draw_color(0x0000);
+  mylcd.Fill_Rectangle(10, 40, 100, 100);  // Apenas apaga a área da mensagem
+  
+  mylcd.Set_Text_Size(2.0);  
+  mylcd.Set_Text_Back_colour(0x0000);
+  mylcd.Set_Text_colour(0xFFFF);
+
+  for (int i = 0; i < mensagemLength; i += 22) {
+    if (linha >= 3) break;
+      String linhaTexto = mensagem.substring(i, i + 22);
+      mylcd.Print_String(linhaTexto.c_str(), x, y + (linha * 30));
+      mylcd.Set_Text_colour(0xFFFF);
+      linha++;
+  }
 }
 
 
