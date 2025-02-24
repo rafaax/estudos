@@ -60,5 +60,14 @@ void loop(){
     mylcd.Fill_Screen(0x0000);
     mensagemRecebida = true;
     String mensagem = Serial.readStringUntil('\n');
+    mylcd.Set_Rotation(1);
+    int btnX = (mylcd.Get_Display_Width() - 150) / 1.85; // Centralizado horizontalmente
+    int btnY = (mylcd.Get_Display_Height() - 60) / 1; // Centralizado verticalmente
+    mylcd.Set_Text_Size(1.75);
+    mylcd.Fill_Rect(btnX, btnY, 150, 60, 0xF800);
+    mylcd.Set_Text_colour(0xFFFF);
+    mylcd.Print_String("Confirmar Mensagem", btnX + 20, btnY + 20);
+    
+
   }
 }
