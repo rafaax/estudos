@@ -69,5 +69,15 @@ void loop(){
     mylcd.Print_String("Confirmar Mensagem", btnX + 20, btnY + 20);
     
 
+    while(mensagemRecebida == true){
+      
+      sendMessageToDisplay(mensagem);
+      delay(10000);
+      mylcd.Fill_Screen(0x0000);
+      mylcd.Set_Rotation(0);
+      mensagemRecebida = false;
+      break;
+
+    }
   }
 }
