@@ -19,6 +19,26 @@ TouchScreen ts = TouchScreen(8, A3, A2, 9, 300);
 
 uint32_t bmp_offset;
 bool mensagemRecebida =  false;
+
+uint16_t read_16(File &fp) {
+  return fp.read() | (fp.read() << 8);
+}
+
+uint32_t read_32(File &fp) {
+  return read_16(fp) | ((uint32_t)read_16(fp) << 16);
+}
+
+bool analysis_bmp_header(File &fp) {
+  if (read_16(fp) != 0x4D42) return false;
+  read_32(fp); read_32(fp);
+  bmp_offset = read_32(fp);
+  read_32(fp);
+  if (read_32(fp) != 240 || read_32(fp) != 320) return false;
+  if (read_16(fp) != 1) return false;
+  read_16(fp);
+  return read_32(fp) == 0;
+}
+
 void sendMessageToDisplay(String mensagem) {
   int mensagemLength = mensagem.length();
   int x = 20;
