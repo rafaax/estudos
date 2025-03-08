@@ -39,6 +39,15 @@ bool analysis_bmp_header(File &fp) {
   return read_32(fp) == 0;
 }
 
+void draw_bmp_from_sd(const char *filename, int16_t x_pos, int16_t y_pos) {
+  File bmp_file = SD.open(filename);
+  if (!bmp_file) return;
+  bmp_file.seek(bmp_offset);
+
+  uint8_t bmp_data[180];
+  uint16_t bmp_color[60];
+}
+
 void sendMessageToDisplay(String mensagem) {
   int mensagemLength = mensagem.length();
   int x = 20;
