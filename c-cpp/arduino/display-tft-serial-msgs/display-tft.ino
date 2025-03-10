@@ -46,6 +46,20 @@ void draw_bmp_from_sd(const char *filename, int16_t x_pos, int16_t y_pos) {
 
   uint8_t bmp_data[180];
   uint16_t bmp_color[60];
+
+  for (uint16_t i = 0; i < 320; i++) {
+    for (uint16_t j = 0; j < 4; j++) {
+      bmp_file.read(bmp_data, 180);
+      for (int k = 0, m = 0; k < 60; k++, m += 3) {
+        bmp_color[k] = mylcd.Color_To_565(bmp_data[m + 2], bmp_data[m + 1], bmp_data[m]);
+      }
+      for (uint16_t l = 0; l < 60; l++) {
+        mylcd.Set_Draw_color(bmp_color[l]);
+        mylcd.Draw_Pixel(x_pos + j * 60 + l, y_pos + i);
+      }
+    }
+  }
+  bmp_file.close();
 }
 
 void sendMessageToDisplay(String mensagem) {
