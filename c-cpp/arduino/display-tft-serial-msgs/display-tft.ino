@@ -98,6 +98,7 @@ void setup(){
 }
 
 void loop(){
+  draw_bmp_from_sd("krai.bmp", 0, 0);
 
   if (Serial.available() > 0) {
     mylcd.Fill_Screen(0x0000);
