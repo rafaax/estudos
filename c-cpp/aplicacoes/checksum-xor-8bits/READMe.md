@@ -17,3 +17,5 @@ Como o XOR Funciona?
 O XOR (^) é uma operação bit a bit que "toggleia" os bits do resultado conforme os bits dos caracteres.
 
 Se um caractere se repete duas vezes, ele é cancelado (ex: 'a' ^ 'a' = 0).
+
+![image](https://github.com/user-attachments/assets/d25f1109-f544-47c3-a041-e2186ffc2b43)
