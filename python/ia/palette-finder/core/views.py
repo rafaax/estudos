@@ -15,6 +15,7 @@ def upload_imagem(request):
             caminho = instancia.imagem.path
 
             cores_predominantes = get_cores_predominantes(caminho, n_cores=5)
+            cores_rgb_css = [f"rgb({cor[0]},{cor[1]},{cor[2]})" for cor in cores_predominantes]
             cores_predominantes = [tuple(int(x) for x in cor) for cor in cores_predominantes]
 
             cores_hex = [rgb_to_hex(cor) for cor in cores_predominantes]
@@ -24,6 +25,7 @@ def upload_imagem(request):
                 'uploaded': True,
                 'imagem_url': instancia.imagem.url,
                 'cores': cores_predominantes,
+                'cores_rgb_css': cores_rgb_css,
                 'cores_hex': cores_hex,
             })
     else:
