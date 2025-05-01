@@ -1,6 +1,7 @@
 Aplicação Django para upload de imagens e extração automática das cores predominantes e suas porcentagens.
 
 > para execução do codigo, recomendo utilizaçao de um venv e rodar no terminal $ python manage.py runserver
+> além de fazer a importação do banco de dados que está na raiz "db.sqlite3" ou rodar o "manage.py makemigrations" e depois "manage.py migrate" 
 
 ## Funcionalidades
 
