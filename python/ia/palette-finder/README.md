@@ -1,5 +1,7 @@
 Aplicação Django para upload de imagens e extração automática das cores predominantes e suas porcentagens.
 
+> para execução do codigo, recomendo utilizaçao de um venv e rodar no terminal $ python manage.py runserver
+
 ## Funcionalidades
 
 - Upload de imagens diretamente pela interface web.  
