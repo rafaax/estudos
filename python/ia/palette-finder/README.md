@@ -1,4 +1,4 @@
-Aplicação Django para upload de imagens e extração automática das cores predominantes.
+Aplicação Django para upload de imagens e extração automática das cores predominantes e suas porcentagens.
 
 ## Funcionalidades
 
@@ -6,6 +6,7 @@ Aplicação Django para upload de imagens e extração automática das cores pre
 - Extração das **5 cores predominantes** da imagem, exibidas em **RGB**, **HEX** e **CSS**.  
 - Visualização da imagem enviada junto com sua paleta de cores.  
 - Interface responsiva com **Bootstrap**.
+- Identificação de qual cor é mais predominante dentre 5, tendo a informação de porcentagem do valor Hexadecimal presente na imagem. 
 
 
 ## Estrutura do projeto
