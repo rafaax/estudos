@@ -34,4 +34,5 @@ O projeto utiliza SQLite (db.sqlite3) e eu prefiro utilizar o DBeaver para visua
 
 ## Demonstração de resultado
 
-![image](https://github.com/user-attachments/assets/c8abf6ce-ce1d-4ddf-a6e8-262ac32e47dd)
+![image](https://github.com/user-attachments/assets/79376d33-7036-407f-b84a-8858d7c1a148)
+
