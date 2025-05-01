@@ -34,14 +34,18 @@ def upload_imagem(request):
                 imagem_url = instancia.imagem.url
 
                 cores_predominantes = get_cores_predominantes(caminho, n_cores=5)
-                cores_predominantes = [tuple(int(x) for x in cor) for cor in cores_predominantes]
 
-                for cor in cores_predominantes:
+                for cor_dict in cores_predominantes:
+                    cor = cor_dict['rgb']
+                    porcentagem = cor_dict['porcentagem']
                     cores_info.append({
                         'rgb': cor,
                         'hex': rgb_to_hex(cor),
-                        'css': f"rgb({cor[0]}, {cor[1]}, {cor[2]})"
-                })
+                        'css': f"rgb({cor[0]}, {cor[1]}, {cor[2]})",
+                        'porcentagem': porcentagem
+                    })
+
+                    cores_info.sort(key=lambda x: x['porcentagem'], reverse=True)
             else: 
                 error_message = "Arquivo não encontrado."
         except Imagem.DoesNotExist:

@@ -35,13 +35,18 @@
                     <div class="text-center my-4">
                         <img src="{{ imagem_url }}" class="img-fluid rounded shadow-sm" style="max-width: 320px;">
                     </div>
-                    <div class="paleta justify-content-center" style="display: flex;">
+                    <div class="paleta row row-cols-1 row-cols-sm-2 row-cols-md-4 g-2 justify-content-center">
                         {% for cor in cores_info %}
-                            <div style="text-align:center; margin: 0 10px;">
-                                <div class="cor-paleta"
+                            <div class="col d-flex align-items-center paleta-item">
+                                <span 
+                                    class="paleta-cor me-3"
                                     style="background: {{ cor.css }};"
-                                    title="{{ cor.hex }}"></div>
-                                <small>{{ cor.hex }}</small>
+                                    title="{{ cor.hex }}">
+                                </span>
+                                <div>
+                                    <span class="paleta-hex d-block">{{ cor.hex }}</span>
+                                    <span class="paleta-pct">({{ cor.porcentagem|floatformat:1 }}%)</span>
+                                </div>
                             </div>
                         {% endfor %}
                     </div>

@@ -13,13 +13,27 @@ def get_cores_predominantes(filepath, n_cores=5, resize=100):
     
     if resize: 
         img = img.resize((resize, resize)) # reduz tamanho para acelerar processamento
+    
     arr = np.array(img).reshape(-1, 3)
     
     kmeans = KMeans(n_clusters=n_cores, random_state=42, n_init=10) # Usa KMeans para encontrar as cores principais
 
     kmeans.fit(arr)
-    cores = kmeans.cluster_centers_.astype(int)
-    
-    resultado = [tuple(cor) for cor in cores] # Transforma para lista de tuplas [(R,G,B), ...]
 
-    return resultado 
+    cores = kmeans.cluster_centers_.astype(int)
+
+    labels = kmeans.labels_
+    
+      # Calcula as porcentagens de cada cor
+    counts = np.bincount(labels)
+    total = counts.sum()
+    porcentagens = counts / total * 100
+
+    result = []
+    for cor, perc in zip(cores, porcentagens):
+        result.append({
+            'rgb': tuple(cor),
+            'porcentagem': perc
+        })
+    
+    return result
