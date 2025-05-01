@@ -31,3 +31,9 @@ Aplicação Django para upload de imagens e extração automática das cores pre
 ## Banco de dados
 
 O projeto utiliza SQLite (db.sqlite3) e eu prefiro utilizar o DBeaver para visualizar as informações. 
+
+![image](https://github.com/user-attachments/assets/230933c6-f9ce-4122-9368-3f791677997b)
+
+## Demonstração de resultado
+
+![image](https://github.com/user-attachments/assets/c8abf6ce-ce1d-4ddf-a6e8-262ac32e47dd)
