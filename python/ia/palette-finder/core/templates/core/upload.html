@@ -15,6 +15,13 @@
         <div class="col-md-7 col-lg-6">
             <div class="card p-4">
                 <h2 class="text-center mb-4 text-primary">Suba uma imagem e pegue as cores predominantes dela!</h2>
+
+                {% if error_message %}
+                    <div class="alert alert-warning text-center mb-3">
+                        {{ error_message }}
+                    </div>
+                {% endif %}
+                
                 <form method="post" enctype="multipart/form-data" class="mb-3">
                     {% csrf_token %}
                     {{ form.as_p }}
