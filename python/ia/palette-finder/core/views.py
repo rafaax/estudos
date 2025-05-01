@@ -15,7 +15,7 @@ def upload_imagem(request):
                     'form': ImagemForm(),
                     'uploaded': True,
                     'imagem_url': instancia.imagem.url,
-                    'cores': cores_predominantes,  
+                    'cores': cores_predominantes,
                 }
             )
     else:
