@@ -7,7 +7,7 @@ def rgb_to_hex(rgb):
 
 def upload_imagem(request):
     cores_predominantes = []
-    cores_hex = []
+    cores_info = []
     if request.method == 'POST':
         form = ImagemForm(request.POST, request.FILES)
         if form.is_valid():
@@ -15,25 +15,35 @@ def upload_imagem(request):
             caminho = instancia.imagem.path
 
             cores_predominantes = get_cores_predominantes(caminho, n_cores=5)
-            cores_rgb_css = [f"rgb({cor[0]},{cor[1]},{cor[2]})" for cor in cores_predominantes]
-            cores_predominantes = [tuple(int(x) for x in cor) for cor in cores_predominantes]
+            
+            cores_normalizadas = []
+            
+            for cor in cores_predominantes:
+                cor_rgb = tuple(int(x) for x in cor)
+                cores_normalizadas.append(cor_rgb)
+                
+            cores_predominantes = cores_normalizadas
 
-            cores_hex = [rgb_to_hex(cor) for cor in cores_predominantes]
+            
+            for cor in cores_predominantes:
+                cores_info.append({
+                    'rgb': cor,
+                    'hex': rgb_to_hex(cor),
+                    'css': f"rgb({cor[0]}, {cor[1]}, {cor[2]})"
+                })
             
             return render(request, 'core/upload.html', {
                 'form': ImagemForm(),
                 'uploaded': True,
                 'imagem_url': instancia.imagem.url,
-                'cores': cores_predominantes,
-                'cores_rgb_css': cores_rgb_css,
-                'cores_hex': cores_hex,
+                'cores_info': cores_info,
             })
+        
     else:
         form = ImagemForm()
 
 
     return render(request, 'core/upload.html', {
-        'form': form,
-        'cores': [],
-        'cores_hex': [],
-    })
+    'form': form,
+    'cores_info': [],
+})

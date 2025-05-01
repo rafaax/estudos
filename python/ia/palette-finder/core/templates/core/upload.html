@@ -28,17 +28,15 @@
                     <div class="text-center my-4">
                         <img src="{{ imagem_url }}" class="img-fluid rounded shadow-sm" style="max-width: 320px;">
                     </div>
-                    {% if cores %}
+                    {% if cores_info %}
                         <h5 class="text-center mt-4 mb-2 text-secondary">Cores Predominantes:</h5>
                         <div class="paleta justify-content-center">
-                            {% for cor in cores %}
+                            {% for cor in cores_info %}
                                 <div style="text-align:center; margin: 0 10px;">
                                     <div class="cor-paleta"
-                                         style="background: rgb({{ cor.0 }}, {{ cor.1 }}, {{ cor.2 }});"
-                                         title="rgb({{ cor.0 }}, {{ cor.1 }}, {{ cor.2 }})"></div>
-                                    <small>
-                                        {{ cores_hex|index:forloop.counter0 }}
-                                    </small>
+                                         style="background: {{ cor.css }};"
+                                         title="{{ cor.css }}"></div>
+                                    <small>{{ cor.hex }}</small>
                                 </div>
                             {% endfor %}
                         </div>
