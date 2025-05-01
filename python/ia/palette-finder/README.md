@@ -1,8 +1,6 @@
-# PaletteFinder
-
 Aplicação Django para upload de imagens e extração automática das cores predominantes.
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 - Upload de imagens diretamente pela interface web.  
 - Extração das **5 cores predominantes** da imagem, exibidas em **RGB**, **HEX** e **CSS**.  
@@ -22,13 +20,13 @@ Aplicação Django para upload de imagens e extração automática das cores pre
 
 - core/color_utils.py – Algoritmo para extração das cores predominantes.
 
-## 📦 Dependências
+## Dependências
 
 - Django >= 3.2
 
 - Pillow
 
-## Banco de dados
+## DB
 
 O projeto utiliza SQLite (db.sqlite3) e eu prefiro utilizar o DBeaver para visualizar as informações. 
 
