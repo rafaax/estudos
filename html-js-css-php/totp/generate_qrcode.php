@@ -26,3 +26,31 @@ if(!$user) exit(json_encode(array('erro' => true, 'msg' => 'Usuário não existe
 if($user['totp_enabled'] == 1) exit(json_encode(array('erro' => true, 'msg' => 'Usuário já tem 2FA habilitado...')));
 
 $user_id = $user['id'];
+
+$otp = TOTP::create(null, 30, 'sha1', 6);
+$otp->setLabel($userEmail);
+$otp->setIssuer('Vetron');
+$secret = $otp->getSecret();
+
+DB::update('users', ['temp_totp_secret' => $secret], ['id' => $user_id]);
+
+$provisioningUri = $otp->getProvisioningUri();
+
+$qrCode = new QrCode(
+    data: $provisioningUri,
+    encoding: new Encoding('UTF-8'),
+    roundBlockSizeMode: RoundBlockSizeMode::Margin,
+    errorCorrectionLevel: ErrorCorrectionLevel::High,
+    size: 300,
+    margin: 10,
+);
+
+
+$writer = new PngWriter();
+$qrCodeResult = $writer->write($qrCode);
+
+$dataUri = $qrCodeResult->getDataUri();
+
+exit(json_encode(['erro' => false, 'msg' => 'QR Code gerado com sucesso!', 'qrcodebase64' => $dataUri]));
+
+?>
