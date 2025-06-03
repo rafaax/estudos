@@ -1,0 +1,41 @@
+-- --------------------------------------------------------
+-- Servidor:                     127.0.0.1
+-- Versão do servidor:           10.4.24-MariaDB - mariadb.org binary distribution
+-- OS do Servidor:               Win64
+-- HeidiSQL Versão:              12.0.0.6468
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+-- Copiando estrutura do banco de dados para totp
+CREATE DATABASE IF NOT EXISTS `totp` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `totp`;
+
+-- Copiando estrutura para tabela totp.users
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(250) NOT NULL,
+  `totp_enabled` tinyint(4) NOT NULL DEFAULT 0,
+  `temp_totp_secret` longtext DEFAULT NULL,
+  `totp_secret` longtext DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- Copiando dados para a tabela totp.users: ~0 rows (aproximadamente)
+INSERT INTO `users` (`id`, `email`, `totp_enabled`, `temp_totp_secret`, `totp_secret`) VALUES
+	(1, 'raphael.meireles@vetorian.com', 1, 'EPAF7MBBADBVDVUJUFCCTVO3AO5LDTZ47E26IKV7BD2SA6CVZR7UAOTPYUZH7HN7WFQPSACNAPWFSBCMB6PODJQQZKRBJPBWRFI3W2Y', 'EPAF7MBBADBVDVUJUFCCTVO3AO5LDTZ47E26IKV7BD2SA6CVZR7UAOTPYUZH7HN7WFQPSACNAPWFSBCMB6PODJQQZKRBJPBWRFI3W2Y'),
+	(2, 'guilherme.ribeiro@vetorian.com', 1, 'AXFDP6IQP5EIB33QRBKK7VZCMU7X2DAZYU4HZHKZU2J5K4LPFOWY3JDNEPMSZUXEPXWDX2YEHNPPFPQEYSCWZS3B5Y44VKUKQGVQRPQ', 'AXFDP6IQP5EIB33QRBKK7VZCMU7X2DAZYU4HZHKZU2J5K4LPFOWY3JDNEPMSZUXEPXWDX2YEHNPPFPQEYSCWZS3B5Y44VKUKQGVQRPQ');
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
