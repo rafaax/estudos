@@ -82,4 +82,53 @@ $(document).ready(function() {
             }
         });
     });
+
+    
+    $('#verifyOtpForm').on('submit', function(event) { // Evento para verificar o código OTP
+        event.preventDefault();
+        const otpCode = $otpCodeInput.val().trim();
+
+        if (!otpCode || otpCode.length !== 6 || !/^\d{6}$/.test(otpCode)) {
+            $verificationMessage.text('Por favor, insira um código OTP válido de 6 dígitos.').removeClass('success').addClass('error').show();
+            return;
+        }
+
+        $loadingVerificationMessage.show();
+        $verifyOtpButton.prop('disabled', true);
+        $verificationMessage.hide().text('');
+
+        
+        $.ajax({
+            url: `verify_otp.php`, 
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ email: currentUserEmail, otp_code: otpCode }),
+            dataType: 'json',
+            success: function(response) {
+                $loadingVerificationMessage.hide();
+                $verifyOtpButton.prop('disabled', false);
+
+                if (response.erro) {
+                    $verificationMessage.text(`Erro: ${response.msg}`).removeClass('success').addClass('error').show();
+                    $otpCodeInput.focus().select();
+                } else {
+                    $verificationMessage.text(response.msg || '2FA ativado com sucesso!').removeClass('error').addClass('success').show();
+                    $otpVerificationSection.find('input, button').prop('disabled', true);
+                    alert('2FA ativado com sucesso!');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $loadingVerificationMessage.hide();
+                $verifyOtpButton.prop('disabled', false);
+                let errorMsg = `Falha ao verificar OTP: ${textStatus}`;
+                if (jqXHR.responseJSON && jqXHR.responseJSON.msg) {
+                    errorMsg = `Erro: ${jqXHR.responseJSON.msg}`;
+                } else if (errorThrown) {
+                    errorMsg += ` (${errorThrown})`;
+                }
+                $verificationMessage.text(errorMsg).removeClass('success').addClass('error').show();
+                console.error('Erro ao verificar OTP:', textStatus, errorThrown, jqXHR.responseText);
+            }
+        });
+    });
 });
