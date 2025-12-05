@@ -56,10 +56,9 @@ export default function App() {
     }
     try {
       setLoadingHistory(true);
-      // Busca detalhes (debug)
+
       axios.get(`http://localhost:3001/api/skins/details/${skinSuggestion.id}`).catch(()=>{});
       
-      // Busca histórico
       const response = await axios.get(`http://localhost:3001/api/skins/history/${skinSuggestion.id}`);
       const realHistory = response.data;
       const newSkin: Skin = {
@@ -79,13 +78,7 @@ export default function App() {
     <div className="app-container">
       <div className="main-content">
         
-        {/* Header com Botão de Moeda */}
         <div className="header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-          <div>
-            <h1>CS2 Skin Price Monitor</h1>
-            <p className="text-muted">Busque e selecione skins para monitorar vendas reais.</p>
-          </div>
-          
           <button 
             onClick={toggleCurrency}
             className="btn"
