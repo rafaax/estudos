@@ -29,8 +29,45 @@ authenticator.options = {
 };
 
 const generateAuthToken = () => {
-    const token = authenticator.generate(BITSKINS_SECRET);
-    return token;
+    return authenticator.generate(BITSKINS_SECRET);
+};
+
+let SKIN_IMAGE_MAP = {};
+
+const loadSkinDatabase = async () => {
+    console.log("[SYSTEM] Baixando banco de imagens atualizado do CS2...");
+    try {
+        
+        const response = await axios.get('https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/skins.json');
+        
+        const items = response.data;
+        items.forEach(item => {
+            if (item.name && item.image) {
+                SKIN_IMAGE_MAP[item.name] = item.image;
+            }
+        });
+        console.log(`[SYSTEM] Banco de imagens carregado! ${Object.keys(SKIN_IMAGE_MAP).length} skins mapeadas.`);
+    } catch (error) {
+        console.error("[SYSTEM] Erro ao baixar banco de imagens:", error.message);
+        console.log("[SYSTEM] O servidor vai rodar, mas as imagens podem falhar.");
+    }
+};
+
+loadSkinDatabase();
+
+// --- HELPER: Pega imagem do cache ou usa fallback ---
+const getSkinImage = (skinName) => {
+    // Tenta nome exato
+    if (SKIN_IMAGE_MAP[skinName]) return SKIN_IMAGE_MAP[skinName];
+    
+    // Fallback: Tenta encontrar sem o estado de uso (ex: remove " (Factory New)")
+    // Útil se a API retornar nomes ligeiramente diferentes
+    const BaseName = skinName.split('(')[0].trim();
+    const key = Object.keys(SKIN_IMAGE_MAP).find(k => k.startsWith(BaseName));
+    if (key) return SKIN_IMAGE_MAP[key];
+
+    // Último recurso: Placeholder
+    return `https://placehold.co/600x400/1a1a1f/FFF?text=${encodeURIComponent(skinName.substring(0, 20))}`;
 };
 
 // --- ROTA 1: BUSCA (SEARCH) ---
@@ -85,18 +122,16 @@ app.get('/api/skins/search', async (req, res) => {
             console.log(`[DEBUG SEARCH] Estrutura desconhecida ou vazia:`, JSON.stringify(response.data));
         }
 
-        // console.log(`[DEBUG SEARCH] Itens encontrados: ${rawItems.length}`);
-
-
         const formattedSkins = rawItems.map(item => {
             const rawPrice = item.suggested_price || item.price || 0;
             const finalPrice = Number(rawPrice) / 1000;
+            const skinName = item.name || item.market_hash_name;
 
             return {
                 id: String(item.id),
-                name: item.name || item.market_hash_name,
+                name: skinName,
                 price: Number(finalPrice.toFixed(2)),
-                imageUrl: item.image || `https://placehold.co/600x400/1a1a1f/FFF?text=${encodeURIComponent((item.name || 'Skin').substring(0, 20))}`,
+                imageUrl: getSkinImage(skinName),
                 priceHistory: []
             };
         });
