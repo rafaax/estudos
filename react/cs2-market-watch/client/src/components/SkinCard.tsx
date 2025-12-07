@@ -30,6 +30,14 @@ export function SkinCard({ name, prices, ids, priceHistory, imageUrl, currency, 
     if (val === null) return null;
     return currency === 'BRL' ? val * rate : val;
   };
+  
+  const displayHistory = useMemo(() => {
+    return graphData.map(p => ({
+      ...p,
+      price: Number((currency === 'BRL' ? p.price * rate : p.price).toFixed(2))
+    }));
+  }, [graphData, currency, rate]);
+
 
   const currencySymbol = currency === 'BRL' ? 'R$' : '$';
 
@@ -39,14 +47,14 @@ export function SkinCard({ name, prices, ids, priceHistory, imageUrl, currency, 
 
   const validPrices = [bsPrice, csPrice, stPrice].filter(p => p !== null) as number[];
   const bestPrice = validPrices.length > 0 ? Math.min(...validPrices) : 0;
+  const currentMainPrice = bsPrice || csPrice || 0;
+  const firstPrice = displayHistory[0]?.price || currentMainPrice;
+  const lastPrice = displayHistory[displayHistory.length - 1]?.price || currentMainPrice;
+  const priceChange = lastPrice - firstPrice;
+  const priceChangePercent = firstPrice !== 0 ? ((priceChange / firstPrice) * 100).toFixed(2) : '0.00';
+  const isPositive = priceChange >= 0;
 
-  const displayHistory = useMemo(() => {
-    return graphData.map(p => ({
-      ...p,
-      price: Number((currency === 'BRL' ? p.price * rate : p.price).toFixed(2))
-    }));
-  }, [graphData, currency, rate]);
-
+  
 
 
   const fetchHistory = async (provider: 'steam' | 'bitskins') => {
@@ -70,21 +78,18 @@ export function SkinCard({ name, prices, ids, priceHistory, imageUrl, currency, 
     }
   };
   
-  
-
-
-  const currentMainPrice = bsPrice || csPrice || 0;
-  const firstPrice = displayHistory[0]?.price || currentMainPrice;
-  const lastPrice = displayHistory[displayHistory.length - 1]?.price || currentMainPrice;
-  const priceChange = lastPrice - firstPrice;
-  const priceChangePercent = firstPrice !== 0 ? ((priceChange / firstPrice) * 100).toFixed(2) : '0.00';
-  const isPositive = priceChange >= 0;
-
   const formatDateTick = (dateStr: string) => {
     if (!dateStr) return '';
     const dateObj = new Date(dateStr);
     return `${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth() + 1).toString().padStart(2, '0')}`;
   };
+
+  const trendBadge = (
+    <div className={`trend-badge ${isPositive ? 'trend-up' : 'trend-down'}`}>
+        {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
+        <span>{priceChangePercent}%</span>
+    </div>
+  );
 
   return (
     <div 
@@ -109,44 +114,45 @@ export function SkinCard({ name, prices, ids, priceHistory, imageUrl, currency, 
       <div className="card-info">
         <h3 title={name} style={{marginBottom: '10px'}}>{name}</h3>
         
-        {/* --- ÁREA DE PREÇOS DUPLA --- */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             
-            {/* Linha BitSkins */}
+            {/* --- Linha BitSkins --- */}
             {bsPrice && (
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '6px', border: bsPrice === bestPrice ? '1px solid #ef4444' : '1px solid transparent' }}>
                     <div style={{display: 'flex', alignItems: 'center', gap: '6px'}}>
                         <span style={{ fontSize: '10px', fontWeight: 'bold', background: '#ef4444', color: 'white', padding: '2px 4px', borderRadius: '4px', minWidth: '22px', textAlign: 'center'}}>BS</span>
                         <span className="price-value" style={{fontSize: '1.1rem'}}>{currencySymbol}{bsPrice.toFixed(2)}</span>
                     </div>
-                    <div className={`trend-badge ${isPositive ? 'trend-up' : 'trend-down'}`}>
-                        {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
-                        <span>{priceChangePercent}%</span>
-                    </div>
+                    
+                    {/* SÓ MOSTRA AQUI SE A FONTE ATUAL FOR BITSKINS */}
+                    {currentSource === 'bitskins' && trendBadge}
                 </div>
             )}
 
-            {/* Linha CSFloat */}
+            {/* --- Linha CSFloat --- */}
             {csPrice && (
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px', background: 'rgba(234, 179, 8, 0.1)', borderRadius: '6px', border: csPrice === bestPrice ? '1px solid #eab308' : '1px solid transparent' }}>
                     <div style={{display: 'flex', alignItems: 'center', gap: '6px'}}>
                         <span style={{ fontSize: '10px', fontWeight: 'bold', background: '#eab308', color: 'black', padding: '2px 4px', borderRadius: '4px', minWidth: '22px', textAlign: 'center'}}>CS</span>
                         <span className="price-value" style={{fontSize: '1.1rem', color: '#eab308'}}>{currencySymbol}{csPrice.toFixed(2)}</span>
                     </div>
+                    {/* CSFloat não tem histórico implementado ainda, então sem badge */}
                 </div>
             )}
 
-            {/* --- LINHA STEAM (NOVO) --- */}
+            {/* --- Linha Steam --- */}
             {stPrice && (
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '6px', border: stPrice === bestPrice ? '1px solid #3b82f6' : '1px solid transparent' }}>
                     <div style={{display: 'flex', alignItems: 'center', gap: '6px'}}>
                         <span style={{ fontSize: '10px', fontWeight: 'bold', background: '#3b82f6', color: 'white', padding: '2px 4px', borderRadius: '4px', minWidth: '22px', textAlign: 'center'}}>ST</span>
                         <span className="price-value" style={{fontSize: '1.1rem', color: '#3b82f6'}}>{currencySymbol}{stPrice.toFixed(2)}</span>
                     </div>
+
+                    {/* SÓ MOSTRA AQUI SE A FONTE ATUAL FOR STEAM */}
+                    {currentSource === 'steam' && trendBadge}
                 </div>
             )}
         </div>
-        {/* ----------------------------- */}
       </div>
       
       {showGraph && (

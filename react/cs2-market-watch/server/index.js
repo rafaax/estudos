@@ -26,14 +26,10 @@ if (!BITSKINS_API_KEY || !BITSKINS_SECRET) {
     process.exit(1); 
 }
 
-authenticator.options = { 
-    window: [2, 2],
-    step: 30,
-    digits: 6
-};
-
-const generateAuthToken = () => {
-    return authenticator.generate(BITSKINS_SECRET);
+const generateAuthToken = (shift = 0) => {
+    const now = Math.floor(Date.now() / 1000);
+    const epoch = now + (shift * 30);
+    return authenticator.generate(BITSKINS_SECRET, { epoch });
 };
 
 const updateExchangeRate = async () => {
@@ -238,33 +234,53 @@ app.get('/api/skins/search', async (req, res) => {
 
 app.get('/api/skins/history/:skinId', async (req, res) => {
     const { skinId } = req.params;
-    const { source, name, forceProvider } = req.query; // Novo param: forceProvider
+    const { source, name, forceProvider } = req.query;
 
-    authenticator.options = { window: [2, 2], step: 30 };
-
-    // Função interna para buscar no BitSkins
     const tryBitskins = async () => {
-        try {
-            const authToken = generateAuthToken();
-            const response = await axios.post(
-                `${BITSKINS_API_URL}/market/pricing/list`,
-                { app_id: 730, skin_id: Number(skinId), limit: 20 },
-                { headers: { 'content-type': 'application/json', 'x-api-key': BITSKINS_API_KEY, 'x-auth-token': authToken } }
-            );
-            
-            let list = [];
-            if (Array.isArray(response.data)) list = response.data;
-            else if (response.data?.list) list = response.data.list;
-            
-            if (!list || list.length === 0) return null;
+        
+        const shiftsToTry = [0, -1, 1]; // Lista de tentativas: [0 (Atual), -1 (Passado), 1 (Futuro)]
 
-            return list.map(sale => {
-                const dateObj = new Date(sale.created_at || sale.sold_at || Date.now());
-                let p = Number(sale.price || sale.amount || 0);
-                if (p > 1000) p = p / 1000;
-                return { date: dateObj.toISOString().split('T')[0], price: Number(p.toFixed(2)) };
-            }).reverse();
-        } catch (e) { return null; }
+        for (const shift of shiftsToTry) {
+            try {
+                const authToken = generateAuthToken(shift);
+                
+                const response = await axios.post(
+                    `${BITSKINS_API_URL}/market/pricing/list`,
+                    { app_id: 730, skin_id: Number(skinId), limit: 20 },
+                    { headers: { 'content-type': 'application/json', 'x-apikey': BITSKINS_API_KEY, 'x-auth-token': authToken } }
+                );
+                
+                console.log(`[HISTORY] Sucesso no BitSkins com shift ${shift}!`);
+                
+                let list = [];
+                if (Array.isArray(response.data)) list = response.data;
+                else if (response.data?.list) list = response.data.list;
+                
+                if (!list || list.length === 0) return null;
+
+                return list.map(sale => {
+                    const dateObj = new Date(sale.created_at || sale.sold_at || Date.now());
+                    let p = Number(sale.price || sale.amount || 0);
+                    if (p > 1000) p = p / 1000;
+                    return { date: dateObj.toISOString().split('T')[0], price: Number(p.toFixed(2)) };
+                }).reverse();
+
+            } catch (e) {
+                // Se o erro for Token Incorreto (GLO_005) ou Rate Limit, tentamos o próximo shift
+                const errorCode = e.response?.data?.code;
+                if (e.response?.status === 401 || errorCode === 'GLO_005') {
+                    console.warn(`[HISTORY] Shift ${shift} falhou (Token usado/inválido). Tentando próximo...`);
+                    continue; // Pula para o próximo loop (próximo shift)
+                }
+                
+                // Se for outro erro (ex: 500, 404), paramos
+                console.error(`[HISTORY] Erro fatal BitSkins: ${e.message}`);
+                return null;
+            }
+        }
+        
+        console.error("[HISTORY] Todas as tentativas de token falharam.");
+        return null;
     };
 
     let historyData = [];
@@ -304,48 +320,6 @@ app.get('/api/skins/history/:skinId', async (req, res) => {
         source: usedSource || 'none',
         history: historyData || []
     });
-});
-
-
-app.get('/api/skins/details/:id', async (req, res) => {
-    const { id } = req.params;
-
-    // --- CORREÇÃO AQUI ---
-    // Se o ID começar com 'csfloat_', não tentamos chamar a API do BitSkins
-    if (String(id).startsWith('csfloat_')) {
-        console.log(`[DEBUG DETAILS] Ignorando item CSFloat (ID: ${id})`);
-        return res.json({ info: "Item do CSFloat - Detalhes BitSkins não disponíveis." });
-    }
-    // ---------------------
-
-    console.log(`\n[DEBUG DETAILS] Buscando detalhes brutos para o ID: ${id}`);
-    authenticator.options = { window: [2, 2], step: 30 };
-
-    try {
-        const authToken = generateAuthToken();
-        const requestBody = { app_id: 730, id: String(id) };
-
-        const response = await axios.post(
-            `${BITSKINS_API_URL}/market/search/get`,
-            requestBody,
-            { headers: { 'content-type': 'application/json', 'x-api-key': BITSKINS_API_KEY, 'x-auth-token': authToken } }
-        );
-
-        console.log("↓↓↓↓↓↓ DADOS BRUTOS BITSKINS ↓↓↓↓↓↓");
-        console.log(JSON.stringify(response.data, null, 2));
-        console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
-
-        res.json(response.data);
-
-    } catch (error) {
-        // Log simplificado para evitar poluição
-        if (error.response?.data?.code === 'GLO_003') {
-            console.warn(`[DEBUG DETAILS] ID inválido para BitSkins: ${id}`);
-        } else {
-            console.error(`[DEBUG DETAILS ERROR]`, error.message);
-        }
-        res.status(500).json({ error: "Falha ao pegar detalhes" });
-    }
 });
 
 app.get('/api/skins/price/steam', async (req, res) => {
