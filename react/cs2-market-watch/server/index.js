@@ -131,7 +131,7 @@ const fetchSteamHistory = async (marketHashName) => {
             };
         });
 
-        return fullHistory.slice(-90); 
+        return fullHistory;
 
     } catch (error) {
         
@@ -288,17 +288,13 @@ app.get('/api/skins/history/:skinId', async (req, res) => {
 
     // --- LÓGICA DE SELEÇÃO DA FONTE ---
     
-    // 1. Se o usuário FORÇOU uma fonte (clicou no botão), tentamos só ela
     if (forceProvider === 'steam' && name) {
         historyData = await fetchSteamHistory(name);
         usedSource = 'steam';
     } else if (forceProvider === 'bitskins' && !String(skinId).startsWith('csfloat')) {
         historyData = await tryBitskins();
         usedSource = 'bitskins';
-    } 
-    // 2. Comportamento Automático (Padrão)
-    else {
-        // Tenta BitSkins primeiro se for compatível
+    } else {
         if (source === 'bitskins' && !String(skinId).startsWith('csfloat')) {
             const bsData = await tryBitskins();
             if (bsData) {
@@ -306,8 +302,7 @@ app.get('/api/skins/history/:skinId', async (req, res) => {
                 usedSource = 'bitskins';
             }
         }
-        
-        // Se falhou ou não era bitskins, cai no Fallback da Steam
+
         if ((!historyData || historyData.length === 0) && name) {
             console.log("[HISTORY] Fallback para Steam...");
             historyData = await fetchSteamHistory(name);
@@ -315,7 +310,6 @@ app.get('/api/skins/history/:skinId', async (req, res) => {
         }
     }
 
-    // Retorna objeto com dados E a fonte usada
     res.json({
         source: usedSource || 'none',
         history: historyData || []
