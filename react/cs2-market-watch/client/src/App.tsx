@@ -5,7 +5,21 @@ import { Search, Loader2, ArrowRightLeft, DollarSign } from 'lucide-react'; // �
 import './App.css';
 
 interface PricePoint { date: string; price: number; }
-interface Skin { id: string; name: string; price: number; priceHistory: PricePoint[]; imageUrl: string; }
+
+interface Skin { 
+  id: string; 
+  name: string; 
+  prices: { 
+    bitskins: number | null, 
+    csfloat: number | null
+  };
+  ids: { 
+    bitskins: string | null, 
+    csfloat: string | null
+  };
+  priceHistory: PricePoint[]; 
+  imageUrl: string;
+}
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -64,25 +78,39 @@ export default function App() {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  const handleSelectSkin = async (skinSuggestion: Skin) => {
-    if (trackedSkins.find(s => s.id === skinSuggestion.id)) {
+  const handleSelectSkin = async (skinSuggestion: any) => {
+    // Usa o ID do bitskins como chave primária, ou o do csfloat se não tiver bitskins
+    const primaryId = skinSuggestion.ids.bitskins || skinSuggestion.ids.csfloat;
+
+    // Verifica duplicata
+    if (trackedSkins.find(s => s.ids.bitskins === skinSuggestion.ids.bitskins)) {
       setSearchQuery(''); setSuggestions([]); return;
     }
+
     try {
       setLoadingHistory(true);
-
-      axios.get(`http://localhost:3001/api/skins/details/${skinSuggestion.id}`).catch(()=>{});
       
-      const response = await axios.get(`http://localhost:3001/api/skins/history/${skinSuggestion.id}`);
-      const realHistory = response.data;
+      let realHistory = [];
+
+      // Só busca histórico se tiver ID do BitSkins (pois é o único que temos API de histórico funcionando)
+      if (skinSuggestion.ids.bitskins) {
+          const response = await axios.get(`http://localhost:3001/api/skins/history/${skinSuggestion.ids.bitskins}`);
+          realHistory = response.data;
+      }
+
       const newSkin: Skin = {
-        ...skinSuggestion,
+        id: primaryId, // ID para o React Key
+        name: skinSuggestion.name,
+        imageUrl: skinSuggestion.imageUrl,
+        prices: skinSuggestion.prices, // Passa os dois preços
+        ids: skinSuggestion.ids,       // Passa os dois IDs
         priceHistory: Array.isArray(realHistory) ? realHistory : []
       };
+
       setTrackedSkins(prev => [...prev, newSkin]);
+
     } catch (error) {
       console.error(error);
-      setTrackedSkins(prev => [...prev, skinSuggestion]);
     } finally {
       setLoadingHistory(false); setSearchQuery(''); setSuggestions([]);
     }
@@ -135,14 +163,17 @@ export default function App() {
 
             {suggestions.length > 0 && searchQuery.length > 0 && !loadingHistory && (
               <div className="suggestions-list">
-                {suggestions.map((skin) => (
+                {suggestions.map((skin: any) => (
                   <div 
-                    key={skin.id} 
+                    key={skin.name} // Use nome como key na sugestão
                     className="suggestion-item"
                     onClick={() => handleSelectSkin(skin)}
                   >
                     <span className="suggestion-name">{skin.name}</span>
-                    <span className="suggestion-price">${skin.price.toFixed(2)}</span>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2px' }}>
+                        {skin.prices.bitskins && <span className="suggestion-price" style={{color: '#ef4444'}}>BS: ${skin.prices.bitskins}</span>}
+                        {skin.prices.csfloat && <span className="suggestion-price" style={{color: '#eab308'}}>CS: ${skin.prices.csfloat}</span>}
+                    </div>
                   </div>
                 ))}
               </div>

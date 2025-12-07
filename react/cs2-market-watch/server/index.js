@@ -12,6 +12,8 @@ app.use(express.json());
 
 const BITSKINS_API_KEY = (process.env.BITSKINS_API_KEY || "").trim();
 const BITSKINS_SECRET = (process.env.BITSKINS_SECRET || "").trim();
+const CSFLOAT_API_KEY = process.env.CSFLOAT_API_KEY;
+const CSFLOAT_API_URL = 'https://csfloat.com/api/v1';
 const BITSKINS_API_URL = 'https://api.bitskins.com';
 
 if (!BITSKINS_API_KEY || !BITSKINS_SECRET) {
@@ -74,91 +76,99 @@ const getSkinImage = (skinName) => {
     return `https://placehold.co/600x400/1a1a1f/FFF?text=${encodeURIComponent(skinName.substring(0, 20))}`;
 };
 
-// --- ROTA 1: BUSCA (SEARCH) ---
 app.get('/api/skins/search', async (req, res) => {
     const searchQuery = req.query.q;
-    
-    console.log(`\n--- [DEBUG SEARCH] Iniciando busca por: "${searchQuery}" ---`);
-
     if (!searchQuery) return res.json([]);
+
+    console.log(`\n[SEARCH] Buscando e Agrupando: "${searchQuery}"...`);
 
     try {
         const authToken = generateAuthToken();
+        const formattedQuery = `%${searchQuery.replace(/[^\w\s]/gi, '').split(' ').join('%')}%`;
 
-        const cleanInput = searchQuery.replace(/[^\w\s]/gi, '');
-        const terms = cleanInput.split(' ').filter(t => t.length > 0);
-        
-        const formattedQuery = `%${terms.join('%')}%`;
-
-        const requestBody = {
-            where: { app_id: 730, skin_name: formattedQuery },
-            limit: 10
-        };
-
-        console.log(`[DEBUG SEARCH] Token Gerado: ${authToken}`);
-        console.log(`[DEBUG SEARCH] Body Enviado:`, JSON.stringify(requestBody));
-
-        const response = await axios.post(
+        // 1. Busca Base no BitSkins
+        const bitSkinsResponse = await axios.post(
             `${BITSKINS_API_URL}/market/search/skin_name`,
-            requestBody,
-            {
-                headers: {
-                    'content-type': 'application/json',
-                    'x-api-key': BITSKINS_API_KEY,
-                    'x-auth-token': authToken
-                }
-            }
+            { where: { app_id: 730, skin_name: formattedQuery }, limit: 10 },
+            { headers: { 'content-type': 'application/json', 'x-api-key': BITSKINS_API_KEY, 'x-auth-token': authToken } }
         );
 
-        console.log(`[DEBUG SEARCH] Status Code: ${response.status}`);
+        let bitskinsItems = [];
+        if (Array.isArray(bitSkinsResponse.data)) bitskinsItems = bitSkinsResponse.data;
+        else if (bitSkinsResponse.data?.data?.items) bitskinsItems = bitSkinsResponse.data.data.items;
+        else if (bitSkinsResponse.data?.items) bitskinsItems = bitSkinsResponse.data.items;
 
-        // console.log(`[DEBUG SEARCH] Resposta BRUTA:`, JSON.stringify(response.data, null, 2));
+        // --- LÓGICA DE AGRUPAMENTO ---
+        // Usaremos um objeto onde a CHAVE é o nome da skin
+        const skinsMap = {};
 
-        let rawItems = [];
-        // Tenta identificar onde está a lista no JSON retornado
-        if (Array.isArray(response.data)) {
-            console.log(`[DEBUG SEARCH] Retornou Array direto.`);
-            rawItems = response.data;
-        } else if (response.data?.data?.items) {
-            console.log(`[DEBUG SEARCH] Retornou data.items.`);
-            rawItems = response.data.data.items;
-        } else if (response.data?.items) {
-            console.log(`[DEBUG SEARCH] Retornou items.`);
-            rawItems = response.data.items;
-        } else {
-            console.log(`[DEBUG SEARCH] Estrutura desconhecida ou vazia:`, JSON.stringify(response.data));
-        }
-
-        const formattedSkins = rawItems.map(item => {
-            const rawPrice = item.suggested_price || item.price || 0;
+        // 2. Processa BitSkins e coloca no Mapa
+        bitskinsItems.forEach(item => {
+            const name = item.name || item.market_hash_name;
+            const rawPrice = item.suggested_price || item.price || item.lowest_price || 0;
             const finalPrice = Number(rawPrice) / 1000;
-            const skinName = item.name || item.market_hash_name;
 
-            return {
-                id: String(item.id),
-                name: skinName,
-                price: Number(finalPrice.toFixed(2)),
-                imageUrl: getSkinImage(skinName),
-                priceHistory: []
+            if (finalPrice <= 0) return; // Pula itens sem preço
+
+            skinsMap[name] = {
+                name: name,
+                imageUrl: getSkinImage(name),
+                // Guardamos IDs e Preços separados por loja
+                ids: { bitskins: String(item.id), csfloat: null },
+                prices: { bitskins: Number(finalPrice.toFixed(2)), csfloat: null }
             };
         });
 
-        res.json(formattedSkins);
+        // 3. Busca Preços no CSFloat (Para cada item encontrado no BitSkins)
+        const namesToSearch = Object.keys(skinsMap);
+        
+        await Promise.all(namesToSearch.map(async (name) => {
+            try {
+                const response = await axios.get(`${CSFLOAT_API_URL}/listings`, {
+                    params: { market_hash_name: name, limit: 1, sort_by: 'lowest_price' },
+                    headers: { Authorization: process.env.CSFLOAT_API_KEY }
+                });
+
+                const listings = response.data.data || response.data || [];
+                const cheapest = listings[0];
+
+                if (cheapest) {
+                    // Se achou no CSFloat, atualiza o objeto existente no Mapa
+                    skinsMap[name].ids.csfloat = `csfloat_${cheapest.id}`;
+                    skinsMap[name].prices.csfloat = Number((cheapest.price / 100).toFixed(2));
+                }
+            } catch (err) {
+                // Silencia erro do CSFloat
+            }
+        }));
+
+        // 4. Converte o Mapa de volta para Array
+        const groupedSkins = Object.values(skinsMap);
+
+        // Ordena pelo menor preço encontrado (seja bit ou float)
+        groupedSkins.sort((a, b) => {
+            const minA = Math.min(a.prices.bitskins || 99999, a.prices.csfloat || 99999);
+            const minB = Math.min(b.prices.bitskins || 99999, b.prices.csfloat || 99999);
+            return minA - minB;
+        });
+
+        console.log(`[SEARCH] Retornando ${groupedSkins.length} skins agrupadas.`);
+        res.json(groupedSkins);
 
     } catch (error) {
-        // 3. Log detalhado em caso de erro
-        if (error.response) {
-            console.error(`[DEBUG SEARCH] ERRO API (${error.response.status}):`, JSON.stringify(error.response.data, null, 2));
-        } else {
-            console.error(`[DEBUG SEARCH] ERRO INTERNO:`, error.message);
-        }
-        res.status(500).json({ error: "Erro ao buscar sugestões" });
+        console.error("[SEARCH ERROR]", error.message);
+        res.status(500).json([]);
     }
 });
 
-// --- ROTA 2: HISTÓRICO (HISTORY) ---
 app.get('/api/skins/history/:skinId', async (req, res) => {
     const { skinId } = req.params;
+    const { source } = req.query; 
+
+    if (source === 'csfloat') {
+        console.log("[HISTORY] Histórico CSFloat ainda não implementado (API pública limitada).");
+        return res.json([]); 
+    }
 
     // Aumentamos a tolerância para evitar GLO_005
     authenticator.options = { window: 2, step: 30 };
@@ -245,44 +255,39 @@ app.get('/api/skins/history/:skinId', async (req, res) => {
 app.get('/api/skins/details/:id', async (req, res) => {
     const { id } = req.params;
 
-    // console.log(`\n[DEBUG DETAILS] Buscando detalhes brutos para o ID: ${id}`);
+    // --- CORREÇÃO AQUI ---
+    // Se o ID começar com 'csfloat_', não tentamos chamar a API do BitSkins
+    if (String(id).startsWith('csfloat_')) {
+        console.log(`[DEBUG DETAILS] Ignorando item CSFloat (ID: ${id})`);
+        return res.json({ info: "Item do CSFloat - Detalhes BitSkins não disponíveis." });
+    }
+    // ---------------------
 
-    // Configuração de tolerância de tempo (MANTENHA ISSO)
+    console.log(`\n[DEBUG DETAILS] Buscando detalhes brutos para o ID: ${id}`);
     authenticator.options = { window: [2, 2], step: 30 };
 
     try {
         const authToken = generateAuthToken();
-
-        // Schema conforme sua documentação
-        const requestBody = {
-            app_id: 730,
-            id: String(id) // O schema diz que 'id' é string
-        };
+        const requestBody = { app_id: 730, id: String(id) };
 
         const response = await axios.post(
             `${BITSKINS_API_URL}/market/search/get`,
             requestBody,
-            {
-                headers: {
-                    'content-type': 'application/json',
-                    'x-api-key': BITSKINS_API_KEY,
-                    'x-auth-token': authToken
-                }
-            }
+            { headers: { 'content-type': 'application/json', 'x-api-key': BITSKINS_API_KEY, 'x-auth-token': authToken } }
         );
 
-        // --- AQUI ESTÁ O QUE VOCÊ QUER ---
-        console.log("↓↓↓↓↓↓ DADOS BRUTOS (/market/search/get) ↓↓↓↓↓↓");
+        console.log("↓↓↓↓↓↓ DADOS BRUTOS BITSKINS ↓↓↓↓↓↓");
         console.log(JSON.stringify(response.data, null, 2));
-        console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
+        console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
 
         res.json(response.data);
 
     } catch (error) {
-        if (error.response) {
-            console.error(`[DEBUG DETAILS ERROR] API:`, JSON.stringify(error.response.data, null, 2));
+        // Log simplificado para evitar poluição
+        if (error.response?.data?.code === 'GLO_003') {
+            console.warn(`[DEBUG DETAILS] ID inválido para BitSkins: ${id}`);
         } else {
-            console.error(`[DEBUG DETAILS ERROR] Interno:`, error.message);
+            console.error(`[DEBUG DETAILS ERROR]`, error.message);
         }
         res.status(500).json({ error: "Falha ao pegar detalhes" });
     }
