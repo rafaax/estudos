@@ -9,19 +9,29 @@ interface Skin { id: string; name: string; price: number; priceHistory: PricePoi
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [trackedSkins, setTrackedSkins] = useState<Skin[]>([]);
+  const [trackedSkins, setTrackedSkins] = useState<Skin[]>(() => {
+    const saved = localStorage.getItem('cs2-monitor-skins');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error("Erro ao ler cache", e);
+        return [];
+      }
+    }
+    return [];
+  });
   const [suggestions, setSuggestions] = useState<Skin[]>([]);
   
-  // --- NOVOS ESTADOS PARA MOEDA ---
   const [currency, setCurrency] = useState<'USD' | 'BRL'>('USD');
-  const [brlRate, setBrlRate] = useState<number>(6.00); // Valor padrão de segurança
-  // -------------------------------
+  const [brlRate, setBrlRate] = useState<number>(5.50);
 
   const [loadingSearch, setLoadingSearch] = useState(false);
   const [loadingHistory, setLoadingHistory] = useState(false);
 
-  // Busca cotação do Dólar ao iniciar
+  
   useEffect(() => {
+    // cotação do Dólar
     axios.get('https://economia.awesomeapi.com.br/last/USD-BRL')
       .then(res => {
         const rate = parseFloat(res.data.USDBRL.bid);
@@ -31,11 +41,15 @@ export default function App() {
       .catch(err => console.error("Erro ao buscar cotação:", err));
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('cs2-monitor-skins', JSON.stringify(trackedSkins));
+  }, [trackedSkins]);
+
   const toggleCurrency = () => {
     setCurrency(prev => prev === 'USD' ? 'BRL' : 'USD');
   };
 
-  // ... (Funções searchSkins e handleSelectSkin MANTENHA IGUAL AO ANTERIOR) ...
+
   const searchSkins = async (query: string) => {
     if (!query || query.length < 3) { setSuggestions([]); return; }
     try {
@@ -72,6 +86,10 @@ export default function App() {
     } finally {
       setLoadingHistory(false); setSearchQuery(''); setSuggestions([]);
     }
+  };
+
+  const handleRemoveSkin = (skinId: string) => {
+    setTrackedSkins(prev => prev.filter(s => s.id !== skinId));
   };
 
   return (
@@ -140,6 +158,7 @@ export default function App() {
                 {...skin} 
                 currency={currency} 
                 rate={brlRate} 
+                onRemove={() => handleRemoveSkin(skin.id)}
               />
             ))}
           </div>

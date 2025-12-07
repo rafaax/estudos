@@ -1,6 +1,6 @@
 import  { useMemo } from 'react';
 import { LineChart, Line, ResponsiveContainer, YAxis, Tooltip } from 'recharts';
-import { TrendingUp, TrendingDown } from 'lucide-react';
+import { TrendingUp, TrendingDown, X } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 interface PricePoint {
@@ -11,22 +11,21 @@ interface PricePoint {
 interface SkinCardProps {
   id: string;
   name: string;
-  price: number; // Preço base sempre em USD
+  price: number;
   priceHistory: PricePoint[];
   imageUrl: string;
-  currency: 'USD' | 'BRL'; // Nova prop
-  rate: number;            // Nova prop
+  currency: 'USD' | 'BRL';
+  rate: number;
+  onRemove?: () => void;
 }
 
-export function SkinCard({ name, price, priceHistory, imageUrl, currency, rate }: SkinCardProps) {
-  // Converte valores baseado na moeda selecionada
+export function SkinCard({ name, price, priceHistory, imageUrl, currency, rate, onRemove}: SkinCardProps) {
   const convert = (val: number) => (currency === 'BRL' ? val * rate : val);
   
-  // Memoiza os dados convertidos para não recalcular a cada render
   const displayData = useMemo(() => {
     const currentPrice = convert(price);
     
-    // Converte o histórico
+
     const history = priceHistory.map(p => ({
       ...p,
       price: Number(convert(p.price).toFixed(2))
@@ -47,11 +46,39 @@ export function SkinCard({ name, price, priceHistory, imageUrl, currency, rate }
   const currencySymbol = currency === 'BRL' ? 'R$' : '$';
 
   return (
-    <div className="skin-card">
+    <div className="skin-card" style={{ position: 'relative' }}>
+      {onRemove && (
+        <button 
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove();
+          }}
+          style={{
+            position: 'absolute',
+            top: '-8px',
+            right: '-8px',
+            background: '#ef4444',
+            border: '2px solid #fff',
+            color: '#ffffff',
+            borderRadius: '50%',
+            width: '26px',
+            height: '26px',
+            padding: 0,
+            cursor: 'pointer',
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            zIndex: 50,
+            boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
+          }}
+          title="Remover skin"
+        >
+          <X size={14} color="#ffffff" strokeWidth={3} /> 
+        </button>
+      )}
       <div className="card-image-container">
         <ImageWithFallback src={imageUrl} alt={name} className="card-image" />
       </div>
-
       <div className="card-info">
         <h3 title={name}>{name}</h3>
         
