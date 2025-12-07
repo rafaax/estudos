@@ -54,12 +54,22 @@ const loadSkinDatabase = async () => {
 loadSkinDatabase();
 
 const getSkinImage = (skinName) => {
-
     if (SKIN_IMAGE_MAP[skinName]) return SKIN_IMAGE_MAP[skinName];
     
-    const BaseName = skinName.split('(')[0].trim();
-    const key = Object.keys(SKIN_IMAGE_MAP).find(k => k.startsWith(BaseName));
-    if (key) return SKIN_IMAGE_MAP[key];
+    let baseName = skinName.split('(')[0].trim();
+    if (SKIN_IMAGE_MAP[baseName]) return SKIN_IMAGE_MAP[baseName];
+
+    const cleanName = baseName
+        .replace(/★/g, '')          // Remove estrelas
+        .replace(/StatTrak™/g, '')  // Remove StatTrak
+        .replace(/Souvenir/g, '')   // Remove Souvenir
+        .replace(/\s\s+/g, ' ')     // Remove espaços duplos que sobraram
+        .trim();                    // Remove espaços nas pontas
+
+    if (SKIN_IMAGE_MAP[cleanName]) return SKIN_IMAGE_MAP[cleanName];
+
+    const fuzzyKey = Object.keys(SKIN_IMAGE_MAP).find(k => k.includes(cleanName));
+    if (fuzzyKey) return SKIN_IMAGE_MAP[fuzzyKey];
 
     return `https://placehold.co/600x400/1a1a1f/FFF?text=${encodeURIComponent(skinName.substring(0, 20))}`;
 };
