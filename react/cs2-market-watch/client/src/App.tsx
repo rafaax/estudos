@@ -93,32 +93,30 @@ export default function App() {
       setLoadingHistory(true);
       const encodedName = encodeURIComponent(skinSuggestion.name);
       
-      // 1. Busca Histórico (BitSkins ou Fallback)
+      // 1. Busca Histórico (BitSkins)
       const historyPromise = axios.get(
         `http://localhost:3001/api/skins/history/${primaryId}?source=${source}&name=${encodedName}`
       );
 
-      // 2. Busca Preço da Steam (NOVO - em paralelo)
+      // 2. Busca Preço da Steam
       const steamPricePromise = axios.get(
         `http://localhost:3001/api/skins/price/steam?name=${encodedName}`
       );
 
-      // Aguarda os dois
       const [historyRes, steamRes] = await Promise.all([historyPromise, steamPricePromise]);
       
       const { history: realHistory, source: historySource } = historyRes.data;
-      const steamPrice = steamRes.data.price; // O preço que veio da nova rota
+      const steamPrice = steamRes.data.price; 
 
       const newSkin: Skin = {
         id: primaryId, 
         name: skinSuggestion.name,
         imageUrl: skinSuggestion.imageUrl,
         
-        // --- ATUALIZAÇÃO DOS PREÇOS ---
         prices: { 
-            bitskins: skinSuggestion.prices.bitskins, 
-            csfloat: skinSuggestion.prices.csfloat,
-            steam: steamPrice // Adiciona o preço da Steam aqui
+          bitskins: skinSuggestion.prices.bitskins, 
+          csfloat: skinSuggestion.prices.csfloat,
+          steam: steamPrice 
         },
         // ------------------------------
         
@@ -132,7 +130,6 @@ export default function App() {
     } catch (error) {
       console.error("Erro ao buscar histórico:", error);
       
-      // Opcional: Se der erro, adiciona a skin mesmo assim (sem gráfico) para não frustrar o usuário
       const fallbackSkin: Skin = {
         id: primaryId,
         name: skinSuggestion.name,
@@ -199,14 +196,14 @@ export default function App() {
               <div className="suggestions-list">
                 {suggestions.map((skin: any) => (
                   <div 
-                    key={skin.name} // Use nome como key na sugestão
+                    key={skin.name}
                     className="suggestion-item"
                     onClick={() => handleSelectSkin(skin)}
                   >
                     <span className="suggestion-name">{skin.name}</span>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2px' }}>
-                        {skin.prices.bitskins && <span className="suggestion-price" style={{color: '#ef4444'}}>BS: ${skin.prices.bitskins}</span>}
-                        {skin.prices.csfloat && <span className="suggestion-price" style={{color: '#eab308'}}>CS: ${skin.prices.csfloat}</span>}
+                      {skin.prices.bitskins && <span className="suggestion-price" style={{color: '#ef4444'}}>BS: ${skin.prices.bitskins}</span>}
+                      {skin.prices.csfloat && <span className="suggestion-price" style={{color: '#eab308'}}>CS: ${skin.prices.csfloat}</span>}
                     </div>
                   </div>
                 ))}
