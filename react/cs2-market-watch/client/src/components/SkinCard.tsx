@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { LineChart, Line, ResponsiveContainer, YAxis, XAxis, Tooltip, CartesianGrid } from 'recharts';
-import { TrendingUp, TrendingDown, X, Crown } from 'lucide-react';
+import { TrendingUp, TrendingDown, X } from 'lucide-react';
+import { BestPriceBadge } from './BestPriceBadge';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import axios from 'axios';
 
@@ -62,26 +63,6 @@ export function SkinCard({ name, prices, ids, priceHistory, imageUrl, currency, 
     }));
   }, [graphData, currency, rate, timeRange]);
 
-  const BestPriceBadge = () => (
-    <div style={{ 
-      display: 'flex', 
-      alignItems: 'center', 
-      gap: '3px',
-      marginLeft: '8px',
-      background: '#fbbf24',
-      color: '#000',
-      padding: '2px 6px', 
-      borderRadius: '10px',
-      fontSize: '9px', 
-      fontWeight: '800',
-      boxShadow: '0 0 10px rgba(251, 191, 36, 0.5)' // Glow 
-    }}>
-      <Crown size={10} strokeWidth={3} />
-      <span>MENOR PREÇO </span>
-    </div>
-  );
-
-  // Helper para estilo da linha vencedora (Glow na borda)
   const getRowStyle = (price: number | null, color: string) => {
     const isBest = price === bestPrice;
     return {
