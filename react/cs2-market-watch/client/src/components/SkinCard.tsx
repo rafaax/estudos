@@ -10,7 +10,7 @@ interface PricePoint { date: string; price: number; }
 interface SkinCardProps {
   id: string;
   name: string;
-  prices: { bitskins: number | null, csfloat: number | null };
+  prices: { bitskins: number | null, csfloat: number | null, steam: number | null };
   ids: { bitskins: string | null, csfloat: string | null };
   priceHistory: PricePoint[];
   historySource?: string;
@@ -35,8 +35,10 @@ export function SkinCard({ name, prices, ids, priceHistory, imageUrl, currency, 
 
   const bsPrice = convert(prices.bitskins);
   const csPrice = convert(prices.csfloat);
+  const stPrice = convert(prices.steam);
 
-  const bestPrice = Math.min(bsPrice || 99999, csPrice || 99999);
+  const validPrices = [bsPrice, csPrice, stPrice].filter(p => p !== null) as number[];
+  const bestPrice = validPrices.length > 0 ? Math.min(...validPrices) : 0;
 
   const displayHistory = useMemo(() => {
     return graphData.map(p => ({
@@ -44,6 +46,8 @@ export function SkinCard({ name, prices, ids, priceHistory, imageUrl, currency, 
       price: Number((currency === 'BRL' ? p.price * rate : p.price).toFixed(2))
     }));
   }, [graphData, currency, rate]);
+
+
 
   const fetchHistory = async (provider: 'steam' | 'bitskins') => {
     // Se for BitSkins e não tivermos ID compatível, aborta
@@ -112,10 +116,9 @@ export function SkinCard({ name, prices, ids, priceHistory, imageUrl, currency, 
             {bsPrice && (
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '6px', border: bsPrice === bestPrice ? '1px solid #ef4444' : '1px solid transparent' }}>
                     <div style={{display: 'flex', alignItems: 'center', gap: '6px'}}>
-                        <span style={{ fontSize: '10px', fontWeight: 'bold', background: '#ef4444', color: 'white', padding: '2px 4px', borderRadius: '4px'}}>BS</span>
+                        <span style={{ fontSize: '10px', fontWeight: 'bold', background: '#ef4444', color: 'white', padding: '2px 4px', borderRadius: '4px', minWidth: '22px', textAlign: 'center'}}>BS</span>
                         <span className="price-value" style={{fontSize: '1.1rem'}}>{currencySymbol}{bsPrice.toFixed(2)}</span>
                     </div>
-                    {/* Só mostra variação se tiver histórico (bitskins) */}
                     <div className={`trend-badge ${isPositive ? 'trend-up' : 'trend-down'}`}>
                         {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
                         <span>{priceChangePercent}%</span>
@@ -127,14 +130,21 @@ export function SkinCard({ name, prices, ids, priceHistory, imageUrl, currency, 
             {csPrice && (
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px', background: 'rgba(234, 179, 8, 0.1)', borderRadius: '6px', border: csPrice === bestPrice ? '1px solid #eab308' : '1px solid transparent' }}>
                     <div style={{display: 'flex', alignItems: 'center', gap: '6px'}}>
-                        <span style={{ fontSize: '10px', fontWeight: 'bold', background: '#eab308', color: 'black', padding: '2px 4px', borderRadius: '4px'}}>CS</span>
+                        <span style={{ fontSize: '10px', fontWeight: 'bold', background: '#eab308', color: 'black', padding: '2px 4px', borderRadius: '4px', minWidth: '22px', textAlign: 'center'}}>CS</span>
                         <span className="price-value" style={{fontSize: '1.1rem', color: '#eab308'}}>{currencySymbol}{csPrice.toFixed(2)}</span>
                     </div>
                 </div>
             )}
-            
-            {!bsPrice && !csPrice && <span style={{color: '#666'}}>Sem estoque</span>}
 
+            {/* --- LINHA STEAM (NOVO) --- */}
+            {stPrice && (
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '6px', border: stPrice === bestPrice ? '1px solid #3b82f6' : '1px solid transparent' }}>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '6px'}}>
+                        <span style={{ fontSize: '10px', fontWeight: 'bold', background: '#3b82f6', color: 'white', padding: '2px 4px', borderRadius: '4px', minWidth: '22px', textAlign: 'center'}}>ST</span>
+                        <span className="price-value" style={{fontSize: '1.1rem', color: '#3b82f6'}}>{currencySymbol}{stPrice.toFixed(2)}</span>
+                    </div>
+                </div>
+            )}
         </div>
         {/* ----------------------------- */}
       </div>

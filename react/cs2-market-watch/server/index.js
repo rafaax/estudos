@@ -16,6 +16,9 @@ const CSFLOAT_API_KEY = process.env.CSFLOAT_API_KEY;
 const STEAM_MARKET_URL = 'https://steamcommunity.com/market/pricehistory';
 const CSFLOAT_API_URL = 'https://csfloat.com/api/v1';
 const BITSKINS_API_URL = 'https://api.bitskins.com';
+let SKIN_IMAGE_MAP = {};
+let USD_TO_BRL = 5.50;
+
 
 if (!BITSKINS_API_KEY || !BITSKINS_SECRET) {
     console.error("\n[ERRO CRÍTICO] As chaves BITSKINS_API_KEY ou BITSKINS_SECRET não foram encontradas no arquivo .env");
@@ -33,7 +36,20 @@ const generateAuthToken = () => {
     return authenticator.generate(BITSKINS_SECRET);
 };
 
-let SKIN_IMAGE_MAP = {};
+const updateExchangeRate = async () => {
+    try {
+        const response = await axios.get('https://economia.awesomeapi.com.br/last/USD-BRL');
+        const rate = parseFloat(response.data.USDBRL.bid);
+        if (!isNaN(rate)) {
+            USD_TO_BRL = rate;
+            console.log(`[SYSTEM] Cotação atualizada no Backend: 1 USD = ${USD_TO_BRL} BRL`);
+        }
+    } catch (error) {
+        console.error("[SYSTEM] Falha ao atualizar cotação (usando fallback).");
+    }
+};
+
+
 
 const loadSkinDatabase = async () => {
     console.log("[SYSTEM] Baixando banco de imagens atualizado do CS2...");
@@ -78,32 +94,58 @@ const getSkinImage = (skinName) => {
 };
 
 const fetchSteamHistory = async (marketHashName) => {
-    if (!process.env.STEAM_LOGIN_SECURE) return [];
+    if (!process.env.STEAM_LOGIN_SECURE) {
+        console.warn("[STEAM] Falta configurar STEAM_LOGIN_SECURE no .env");
+        return [];
+    }
 
     try {
-        console.log(`[STEAM] Buscando: ${marketHashName}`);
         const encodedName = encodeURIComponent(marketHashName);
+        const url = `${STEAM_MARKET_URL}?appid=730&market_hash_name=${encodedName}`;
         
-        const response = await axios.get(`${STEAM_MARKET_URL}?appid=730&market_hash_name=${encodedName}`, {
-            headers: { 'Cookie': `steamLoginSecure=${process.env.STEAM_LOGIN_SECURE}` }
+        console.log(`\n--- [DEBUG STEAM] Iniciando Request ---`);
+        console.log(`URL: ${url}`);
+
+        const response = await axios.get(url, {
+            headers: {
+                'Cookie': `steamLoginSecure=${process.env.STEAM_LOGIN_SECURE}`
+            }
         });
 
         if (!response.data || !response.data.prices) return [];
 
+        const isBRL = response.data.price_prefix?.includes('R$');
+
+        if (isBRL) {
+            console.log(`[STEAM] Detectado BRL. Convertendo com taxa: ${USD_TO_BRL}`);
+        }
+
         const fullHistory = response.data.prices.map(item => {
-            const dateStr = item[0].split(': ')[0]; 
+            const dateStr = item[0].split(': ')[0];
+            
+            let rawPrice = item[1];
+            
+            if (isBRL) {
+                rawPrice = rawPrice / USD_TO_BRL;
+            }
+
             return {
                 date: new Date(dateStr).toISOString().split('T')[0],
-                price: Number(item[1].toFixed(2))
+                price: Number(rawPrice.toFixed(2))
             };
         });
 
-        // --- CORREÇÃO 1: PEGAR APENAS OS ÚLTIMOS 90 DIAS ---
-        // Se quiser menos, mude o número (ex: 30)
         return fullHistory.slice(-90); 
 
     } catch (error) {
-        if (error.response?.status === 429) console.warn(">>> [STEAM 429] Rate Limit.");
+        
+        if (error.response) {
+            console.error(`[DEBUG STEAM ERROR] Status: ${error.response.status}`);
+            console.error(`[DEBUG STEAM ERROR] Data:`, error.response.data);
+            if (error.response?.status === 429) console.warn(">>> [STEAM 429] Rate Limit.");
+        } else {
+            console.error(`[DEBUG STEAM ERROR]`, error.message);
+        }
         return [];
     }
 };
@@ -306,6 +348,29 @@ app.get('/api/skins/details/:id', async (req, res) => {
     }
 });
 
+app.get('/api/skins/price/steam', async (req, res) => {
+    const { name } = req.query;
+    
+    if (!name) return res.json({ price: null });
+
+    try {
+        const history = await fetchSteamHistory(name);
+        
+        if (history && history.length > 0) {
+            const latest = history[history.length - 1];
+            res.json({ price: latest.price });
+        } else {
+            res.json({ price: null });
+        }
+    } catch (error) {
+        console.error("[STEAM PRICE ERROR]", error.message);
+        res.json({ price: null });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor DEBUG rodando em http://localhost:${PORT}`);
 });
+
+updateExchangeRate();
+setInterval(updateExchangeRate, 1000 * 60 * 60);

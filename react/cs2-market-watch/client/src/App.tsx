@@ -11,7 +11,8 @@ interface Skin {
   name: string; 
   prices: { 
     bitskins: number | null, 
-    csfloat: number | null
+    csfloat: number | null, 
+    steam: number | null
   };
   ids: { 
     bitskins: string | null, 
@@ -80,48 +81,50 @@ export default function App() {
   }, [searchQuery]);
 
   const handleSelectSkin = async (skinSuggestion: any) => {
-    // 1. Define ID e Fonte
-    // Se tiver ID do BitSkins, usamos ele. Se não, usamos o do CSFloat.
     const bitskinsId = skinSuggestion.ids.bitskins;
     const csfloatId = skinSuggestion.ids.csfloat;
-    
     const primaryId = bitskinsId || csfloatId;
     const source = bitskinsId ? 'bitskins' : 'csfloat';
 
-    // 2. Verifica Duplicatas (Checa se já tem pelo ID do BitSkins ou CSFloat)
-    const isDuplicate = trackedSkins.find(s => 
-      (bitskinsId && s.ids.bitskins === bitskinsId) || 
-      (csfloatId && s.ids.csfloat === csfloatId)
-    );
-
-    if (isDuplicate) {
-      setSearchQuery(''); 
-      setSuggestions([]); 
-      return;
-    }
+    const isDuplicate = trackedSkins.find(s => s.id === primaryId);
+    if (isDuplicate) { setSearchQuery(''); setSuggestions([]); return; }
 
     try {
       setLoadingHistory(true);
-      
-      // EncodeURIComponent é vital para nomes com "|", "™", "★"
       const encodedName = encodeURIComponent(skinSuggestion.name);
       
-      // Chamada unificada: Manda ID, Source e Nome
-      const response = await axios.get(
+      // 1. Busca Histórico (BitSkins ou Fallback)
+      const historyPromise = axios.get(
         `http://localhost:3001/api/skins/history/${primaryId}?source=${source}&name=${encodedName}`
       );
-      
-      const { history: realHistory, source: historySource } = response.data;
 
-      // 4. Cria o objeto
+      // 2. Busca Preço da Steam (NOVO - em paralelo)
+      const steamPricePromise = axios.get(
+        `http://localhost:3001/api/skins/price/steam?name=${encodedName}`
+      );
+
+      // Aguarda os dois
+      const [historyRes, steamRes] = await Promise.all([historyPromise, steamPricePromise]);
+      
+      const { history: realHistory, source: historySource } = historyRes.data;
+      const steamPrice = steamRes.data.price; // O preço que veio da nova rota
+
       const newSkin: Skin = {
         id: primaryId, 
         name: skinSuggestion.name,
         imageUrl: skinSuggestion.imageUrl,
-        prices: skinSuggestion.prices,
+        
+        // --- ATUALIZAÇÃO DOS PREÇOS ---
+        prices: { 
+            bitskins: skinSuggestion.prices.bitskins, 
+            csfloat: skinSuggestion.prices.csfloat,
+            steam: steamPrice // Adiciona o preço da Steam aqui
+        },
+        // ------------------------------
+        
         ids: skinSuggestion.ids,      
         priceHistory: Array.isArray(realHistory) ? realHistory : [],
-        historySource: historySource
+        historySource: historySource 
       };
 
       setTrackedSkins(prev => [...prev, newSkin]);
