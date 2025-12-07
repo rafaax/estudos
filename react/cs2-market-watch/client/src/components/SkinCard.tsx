@@ -1,24 +1,29 @@
 import { useState, useMemo } from 'react';
 import { LineChart, Line, ResponsiveContainer, YAxis, XAxis, Tooltip, CartesianGrid } from 'recharts';
-import { TrendingUp, TrendingDown, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { TrendingUp, TrendingDown, X } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import axios from 'axios';
+
 
 interface PricePoint { date: string; price: number; }
 
 interface SkinCardProps {
   id: string;
   name: string;
-  // Recebe os objetos agrupados
   prices: { bitskins: number | null, csfloat: number | null };
   ids: { bitskins: string | null, csfloat: string | null };
   priceHistory: PricePoint[];
+  historySource?: string;
   imageUrl: string;
   currency: 'USD' | 'BRL';
   rate: number;
   onRemove?: () => void;
 }
 
-export function SkinCard({ name, prices, priceHistory, imageUrl, currency, rate, onRemove }: SkinCardProps) {
+export function SkinCard({ name, prices, ids, priceHistory, imageUrl, currency, rate, onRemove, historySource: initialSource }: SkinCardProps) {
+  const [graphData, setGraphData] = useState(priceHistory);
+  const [currentSource, setCurrentSource] = useState(initialSource || 'none');
+  const [loadingGraph, setLoadingGraph] = useState(false);
   const [showGraph, setShowGraph] = useState(false);
 
   const convert = (val: number | null) => {
@@ -28,22 +33,42 @@ export function SkinCard({ name, prices, priceHistory, imageUrl, currency, rate,
 
   const currencySymbol = currency === 'BRL' ? 'R$' : '$';
 
-  // Lógica de Melhor Preço (Highlight)
   const bsPrice = convert(prices.bitskins);
   const csPrice = convert(prices.csfloat);
-  
-  // Define qual é o menor para destacar
+
   const bestPrice = Math.min(bsPrice || 99999, csPrice || 99999);
 
-  // Lógica do Histórico (Baseado no BitSkins por enquanto)
   const displayHistory = useMemo(() => {
-    return priceHistory.map(p => ({
+    return graphData.map(p => ({
       ...p,
       price: Number((currency === 'BRL' ? p.price * rate : p.price).toFixed(2))
     }));
-  }, [priceHistory, currency, rate]);
+  }, [graphData, currency, rate]);
 
-  // Variação (baseada no histórico do bitskins)
+  const fetchHistory = async (provider: 'steam' | 'bitskins') => {
+    // Se for BitSkins e não tivermos ID compatível, aborta
+    if (provider === 'bitskins' && !ids.bitskins) return;
+
+    setLoadingGraph(true);
+    try {
+        const targetId = ids.bitskins || ids.csfloat; // ID para rota
+        const encodedName = encodeURIComponent(name);
+        
+        // Chama com forceProvider
+        const res = await axios.get(`http://localhost:3001/api/skins/history/${targetId}?name=${encodedName}&forceProvider=${provider}`);
+        
+        setGraphData(res.data.history);
+        setCurrentSource(res.data.source);
+    } catch (error) {
+        console.error("Erro ao trocar fonte", error);
+    } finally {
+        setLoadingGraph(false);
+    }
+  };
+  
+  
+
+
   const currentMainPrice = bsPrice || csPrice || 0;
   const firstPrice = displayHistory[0]?.price || currentMainPrice;
   const lastPrice = displayHistory[displayHistory.length - 1]?.price || currentMainPrice;
@@ -113,11 +138,44 @@ export function SkinCard({ name, prices, priceHistory, imageUrl, currency, rate,
         </div>
         {/* ----------------------------- */}
       </div>
-
+      
       {showGraph && (
         <div className="chart-container" onClick={(e) => e.stopPropagation()}>
-            {displayHistory && displayHistory.length > 0 ? (
-            <ResponsiveContainer width="100%" height="100%">
+            
+            {/* --- BARRA DE FERRAMENTAS DO GRÁFICO --- */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', padding: '0 10px' }}>
+                <span style={{ fontSize: '12px', color: '#888' }}>
+                    Fonte: <b style={{ color: currentSource === 'steam' ? '#3b82f6' : '#ef4444' }}>
+                        {currentSource === 'steam' ? 'Steam Market' : 'BitSkins Sales'}
+                    </b>
+                </span>
+                
+                <div style={{ display: 'flex', gap: '5px' }}>
+                    <button 
+                        onClick={() => fetchHistory('steam')}
+                        disabled={loadingGraph}
+                        style={{ padding: '2px 8px', fontSize: '10px', background: currentSource === 'steam' ? '#3b82f6' : '#333', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', opacity: loadingGraph ? 0.5 : 1 }}
+                    >
+                        Steam
+                    </button>
+                    
+                    {ids.bitskins && (
+                        <button 
+                            onClick={() => fetchHistory('bitskins')}
+                            disabled={loadingGraph}
+                            style={{ padding: '2px 8px', fontSize: '10px', background: currentSource === 'bitskins' ? '#ef4444' : '#333', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', opacity: loadingGraph ? 0.5 : 1 }}
+                        >
+                            BitSkins
+                        </button>
+                    )}
+                </div>
+            </div>
+            {/* --------------------------------------- */}
+
+            {loadingGraph ? (
+                <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>Carregando...</div>
+            ) : (
+                <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={displayHistory} margin={{ top: 20, right: 30, left: 0, bottom: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
                 <XAxis dataKey="date" tickFormatter={formatDateTick} stroke="#9ca3af" tick={{ fontSize: 12 }} tickMargin={10} minTickGap={30} interval="preserveStartEnd" />
@@ -126,8 +184,6 @@ export function SkinCard({ name, prices, priceHistory, imageUrl, currency, rate,
                 <Line type="monotone" dataKey="price" stroke={isPositive ? "#34d399" : "#f87171"} strokeWidth={3} dot={{ r: 3, fill: '#1a1a1f' }} activeDot={{ r: 6, fill: '#fff' }} animationDuration={1000} />
                 </LineChart>
             </ResponsiveContainer>
-            ) : (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#666' }}>Sem histórico BitSkins</div>
             )}
         </div>
       )}

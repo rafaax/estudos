@@ -13,6 +13,7 @@ app.use(express.json());
 const BITSKINS_API_KEY = (process.env.BITSKINS_API_KEY || "").trim();
 const BITSKINS_SECRET = (process.env.BITSKINS_SECRET || "").trim();
 const CSFLOAT_API_KEY = process.env.CSFLOAT_API_KEY;
+const STEAM_MARKET_URL = 'https://steamcommunity.com/market/pricehistory';
 const CSFLOAT_API_URL = 'https://csfloat.com/api/v1';
 const BITSKINS_API_URL = 'https://api.bitskins.com';
 
@@ -76,6 +77,38 @@ const getSkinImage = (skinName) => {
     return `https://placehold.co/600x400/1a1a1f/FFF?text=${encodeURIComponent(skinName.substring(0, 20))}`;
 };
 
+const fetchSteamHistory = async (marketHashName) => {
+    if (!process.env.STEAM_LOGIN_SECURE) return [];
+
+    try {
+        console.log(`[STEAM] Buscando: ${marketHashName}`);
+        const encodedName = encodeURIComponent(marketHashName);
+        
+        const response = await axios.get(`${STEAM_MARKET_URL}?appid=730&market_hash_name=${encodedName}`, {
+            headers: { 'Cookie': `steamLoginSecure=${process.env.STEAM_LOGIN_SECURE}` }
+        });
+
+        if (!response.data || !response.data.prices) return [];
+
+        const fullHistory = response.data.prices.map(item => {
+            const dateStr = item[0].split(': ')[0]; 
+            return {
+                date: new Date(dateStr).toISOString().split('T')[0],
+                price: Number(item[1].toFixed(2))
+            };
+        });
+
+        // --- CORREÇÃO 1: PEGAR APENAS OS ÚLTIMOS 90 DIAS ---
+        // Se quiser menos, mude o número (ex: 30)
+        return fullHistory.slice(-90); 
+
+    } catch (error) {
+        if (error.response?.status === 429) console.warn(">>> [STEAM 429] Rate Limit.");
+        return [];
+    }
+};
+
+
 app.get('/api/skins/search', async (req, res) => {
     const searchQuery = req.query.q;
     if (!searchQuery) return res.json([]);
@@ -126,7 +159,7 @@ app.get('/api/skins/search', async (req, res) => {
             try {
                 const response = await axios.get(`${CSFLOAT_API_URL}/listings`, {
                     params: { market_hash_name: name, limit: 1, sort_by: 'lowest_price' },
-                    headers: { Authorization: process.env.CSFLOAT_API_KEY }
+                    headers: { Authorization: CSFLOAT_API_KEY }
                 });
 
                 const listings = response.data.data || response.data || [];
@@ -163,92 +196,72 @@ app.get('/api/skins/search', async (req, res) => {
 
 app.get('/api/skins/history/:skinId', async (req, res) => {
     const { skinId } = req.params;
-    const { source } = req.query; 
+    const { source, name, forceProvider } = req.query; // Novo param: forceProvider
 
-    if (source === 'csfloat') {
-        console.log("[HISTORY] Histórico CSFloat ainda não implementado (API pública limitada).");
-        return res.json([]); 
-    }
+    authenticator.options = { window: [2, 2], step: 30 };
 
-    // Aumentamos a tolerância para evitar GLO_005
-    authenticator.options = { window: 2, step: 30 };
-
-    console.log(`\n--- [DEBUG HISTORY] Iniciando busca ID: ${skinId} ---`);
-    console.log(`[TIME CHECK] Server Time (Local): ${new Date().toISOString()}`);
-
-    try {
-        const authToken = generateAuthToken();
-
-        // Garante que é Inteiro
-        const idAsNumber = parseInt(skinId, 10);
-
-        const requestBody = {
-            app_id: 730,
-            skin_id: idAsNumber, 
-            limit: 20
-        };
-
-        console.log(`[DEBUG HISTORY] Token: ${authToken}`);
-        console.log(`[DEBUG HISTORY] Body:`, JSON.stringify(requestBody));
-
-        const response = await axios.post(
-            `${BITSKINS_API_URL}/market/pricing/list`,
-            requestBody,
-            {
-                headers: {
-                    'content-type': 'application/json',
-                    'x-apikey': BITSKINS_API_KEY,
-                    'x-auth-token': authToken
-                }
-            }
-        );
-
-        console.log(`[DEBUG HISTORY] SUCESSO! Status: ${response.status}`);
-        console.log("\n[DEBUG HISTORY] === JSON BRUTO DO BITSKINS ===");
-        console.log(JSON.stringify(response.data, null, 2));
-        console.log("============================================\n");
-        // ----------------------------------------------
-        
-        let salesList = [];
-        if (Array.isArray(response.data)) salesList = response.data;
-        else if (response.data?.list) salesList = response.data.list;
-        else if (response.data?.sales) salesList = response.data.sales;
-        else if (response.data?.prices) salesList = response.data.prices;
-
-        if (!salesList) return res.json([]);
-
-        const history = salesList.map(sale => {
-            // Data: Já vem como string ISO ("2025-11-28T..."), o Date() aceita direto
-            const dateObj = new Date(sale.created_at || new Date());
+    // Função interna para buscar no BitSkins
+    const tryBitskins = async () => {
+        try {
+            const authToken = generateAuthToken();
+            const response = await axios.post(
+                `${BITSKINS_API_URL}/market/pricing/list`,
+                { app_id: 730, skin_id: Number(skinId), limit: 20 },
+                { headers: { 'content-type': 'application/json', 'x-api-key': BITSKINS_API_KEY, 'x-auth-token': authToken } }
+            );
             
-            // Preço: Vem como 88000. Precisamos transformar em 88.00
-            // Lógica: Se for maior que 1000, divide por 1000.
-            let finalPrice = Number(sale.price || 0);
-            if (finalPrice > 1000) {
-                finalPrice = finalPrice / 1000;
+            let list = [];
+            if (Array.isArray(response.data)) list = response.data;
+            else if (response.data?.list) list = response.data.list;
+            
+            if (!list || list.length === 0) return null;
+
+            return list.map(sale => {
+                const dateObj = new Date(sale.created_at || sale.sold_at || Date.now());
+                let p = Number(sale.price || sale.amount || 0);
+                if (p > 1000) p = p / 1000;
+                return { date: dateObj.toISOString().split('T')[0], price: Number(p.toFixed(2)) };
+            }).reverse();
+        } catch (e) { return null; }
+    };
+
+    let historyData = [];
+    let usedSource = null;
+
+    // --- LÓGICA DE SELEÇÃO DA FONTE ---
+    
+    // 1. Se o usuário FORÇOU uma fonte (clicou no botão), tentamos só ela
+    if (forceProvider === 'steam' && name) {
+        historyData = await fetchSteamHistory(name);
+        usedSource = 'steam';
+    } else if (forceProvider === 'bitskins' && !String(skinId).startsWith('csfloat')) {
+        historyData = await tryBitskins();
+        usedSource = 'bitskins';
+    } 
+    // 2. Comportamento Automático (Padrão)
+    else {
+        // Tenta BitSkins primeiro se for compatível
+        if (source === 'bitskins' && !String(skinId).startsWith('csfloat')) {
+            const bsData = await tryBitskins();
+            if (bsData) {
+                historyData = bsData;
+                usedSource = 'bitskins';
             }
-
-            return {
-                date: dateObj.toISOString().split('T')[0], // Retorna YYYY-MM-DD
-                price: Number(finalPrice.toFixed(2))       // Retorna número float (88.00)
-            };
-        }).reverse(); // Inverte para o gráfico ficar Cronológico (Antigo -> Novo)
-
-        res.json(history);
-
-    } catch (error) {
-        if (error.response) {
-            console.error(`[DEBUG HISTORY] ERRO API (${error.response.status}):`, JSON.stringify(error.response.data, null, 2));
-
-            if (error.response.data?.code === 'GLO_005') {
-                console.error(">>> DICA: O erro GLO_005 indica que o relógio do seu PC está dessincronizado ou o token expirou.");
-                console.error(">>> Tente aumentar o 'window' no authenticator.options ou sincronizar o relógio do Windows.");
-            }
-        } else {
-            console.error(`[DEBUG HISTORY] ERRO INTERNO:`, error.message);
         }
-        res.json([]);
+        
+        // Se falhou ou não era bitskins, cai no Fallback da Steam
+        if ((!historyData || historyData.length === 0) && name) {
+            console.log("[HISTORY] Fallback para Steam...");
+            historyData = await fetchSteamHistory(name);
+            usedSource = 'steam';
+        }
     }
+
+    // Retorna objeto com dados E a fonte usada
+    res.json({
+        source: usedSource || 'none',
+        history: historyData || []
+    });
 });
 
 

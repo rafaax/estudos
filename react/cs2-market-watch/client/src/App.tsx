@@ -18,6 +18,7 @@ interface Skin {
     csfloat: string | null
   };
   priceHistory: PricePoint[]; 
+  historySource?: string;
   imageUrl: string;
 }
 
@@ -79,40 +80,70 @@ export default function App() {
   }, [searchQuery]);
 
   const handleSelectSkin = async (skinSuggestion: any) => {
-    // Usa o ID do bitskins como chave primária, ou o do csfloat se não tiver bitskins
-    const primaryId = skinSuggestion.ids.bitskins || skinSuggestion.ids.csfloat;
+    // 1. Define ID e Fonte
+    // Se tiver ID do BitSkins, usamos ele. Se não, usamos o do CSFloat.
+    const bitskinsId = skinSuggestion.ids.bitskins;
+    const csfloatId = skinSuggestion.ids.csfloat;
+    
+    const primaryId = bitskinsId || csfloatId;
+    const source = bitskinsId ? 'bitskins' : 'csfloat';
 
-    // Verifica duplicata
-    if (trackedSkins.find(s => s.ids.bitskins === skinSuggestion.ids.bitskins)) {
-      setSearchQuery(''); setSuggestions([]); return;
+    // 2. Verifica Duplicatas (Checa se já tem pelo ID do BitSkins ou CSFloat)
+    const isDuplicate = trackedSkins.find(s => 
+      (bitskinsId && s.ids.bitskins === bitskinsId) || 
+      (csfloatId && s.ids.csfloat === csfloatId)
+    );
+
+    if (isDuplicate) {
+      setSearchQuery(''); 
+      setSuggestions([]); 
+      return;
     }
 
     try {
       setLoadingHistory(true);
       
-      let realHistory = [];
+      // EncodeURIComponent é vital para nomes com "|", "™", "★"
+      const encodedName = encodeURIComponent(skinSuggestion.name);
+      
+      // Chamada unificada: Manda ID, Source e Nome
+      const response = await axios.get(
+        `http://localhost:3001/api/skins/history/${primaryId}?source=${source}&name=${encodedName}`
+      );
+      
+      const { history: realHistory, source: historySource } = response.data;
 
-      // Só busca histórico se tiver ID do BitSkins (pois é o único que temos API de histórico funcionando)
-      if (skinSuggestion.ids.bitskins) {
-          const response = await axios.get(`http://localhost:3001/api/skins/history/${skinSuggestion.ids.bitskins}`);
-          realHistory = response.data;
-      }
-
+      // 4. Cria o objeto
       const newSkin: Skin = {
-        id: primaryId, // ID para o React Key
+        id: primaryId, 
         name: skinSuggestion.name,
         imageUrl: skinSuggestion.imageUrl,
-        prices: skinSuggestion.prices, // Passa os dois preços
-        ids: skinSuggestion.ids,       // Passa os dois IDs
-        priceHistory: Array.isArray(realHistory) ? realHistory : []
+        prices: skinSuggestion.prices,
+        ids: skinSuggestion.ids,      
+        priceHistory: Array.isArray(realHistory) ? realHistory : [],
+        historySource: historySource
       };
 
       setTrackedSkins(prev => [...prev, newSkin]);
 
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao buscar histórico:", error);
+      
+      // Opcional: Se der erro, adiciona a skin mesmo assim (sem gráfico) para não frustrar o usuário
+      const fallbackSkin: Skin = {
+        id: primaryId,
+        name: skinSuggestion.name,
+        imageUrl: skinSuggestion.imageUrl,
+        prices: skinSuggestion.prices,
+        ids: skinSuggestion.ids,
+        priceHistory: []
+      };
+      setTrackedSkins(prev => [...prev, fallbackSkin]);
+
     } finally {
-      setLoadingHistory(false); setSearchQuery(''); setSuggestions([]);
+      setLoadingHistory(false); 
+      setSearchQuery(''); 
+      setSuggestions([]);
     }
   };
 
