@@ -14,16 +14,14 @@ const BITSKINS_API_KEY = (process.env.BITSKINS_API_KEY || "").trim();
 const BITSKINS_SECRET = (process.env.BITSKINS_SECRET || "").trim();
 const BITSKINS_API_URL = 'https://api.bitskins.com';
 
-// Verificação de Segurança ao iniciar
 if (!BITSKINS_API_KEY || !BITSKINS_SECRET) {
     console.error("\n[ERRO CRÍTICO] As chaves BITSKINS_API_KEY ou BITSKINS_SECRET não foram encontradas no arquivo .env");
     console.error("Por favor, crie um arquivo '.env' na pasta server com suas credenciais.\n");
-    process.exit(1); // Encerra o servidor se não tiver chaves
+    process.exit(1); 
 }
 
-// Configura o otplib para aceitar 30s de diferença (caso seu relógio esteja levemente fora)
 authenticator.options = { 
-    window: [2, 2], // [Janelas passadas, Janelas futuras]
+    window: [2, 2],
     step: 30,
     digits: 6
 };
@@ -55,18 +53,14 @@ const loadSkinDatabase = async () => {
 
 loadSkinDatabase();
 
-// --- HELPER: Pega imagem do cache ou usa fallback ---
 const getSkinImage = (skinName) => {
-    // Tenta nome exato
+
     if (SKIN_IMAGE_MAP[skinName]) return SKIN_IMAGE_MAP[skinName];
     
-    // Fallback: Tenta encontrar sem o estado de uso (ex: remove " (Factory New)")
-    // Útil se a API retornar nomes ligeiramente diferentes
     const BaseName = skinName.split('(')[0].trim();
     const key = Object.keys(SKIN_IMAGE_MAP).find(k => k.startsWith(BaseName));
     if (key) return SKIN_IMAGE_MAP[key];
 
-    // Último recurso: Placeholder
     return `https://placehold.co/600x400/1a1a1f/FFF?text=${encodeURIComponent(skinName.substring(0, 20))}`;
 };
 
@@ -80,14 +74,17 @@ app.get('/api/skins/search', async (req, res) => {
 
     try {
         const authToken = generateAuthToken();
-        const formattedQuery = `%${searchQuery}%`;
+
+        const cleanInput = searchQuery.replace(/[^\w\s]/gi, '');
+        const terms = cleanInput.split(' ').filter(t => t.length > 0);
+        
+        const formattedQuery = `%${terms.join('%')}%`;
 
         const requestBody = {
             where: { app_id: 730, skin_name: formattedQuery },
             limit: 10
         };
 
-        // 1. Log do que estamos enviando
         console.log(`[DEBUG SEARCH] Token Gerado: ${authToken}`);
         console.log(`[DEBUG SEARCH] Body Enviado:`, JSON.stringify(requestBody));
 

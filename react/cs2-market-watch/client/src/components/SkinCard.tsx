@@ -68,7 +68,7 @@ export function SkinCard({ name, price, priceHistory, imageUrl, currency, rate, 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'center',
-            zIndex: 50,
+            zIndex: 10,
             boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
           }}
           title="Remover skin"
