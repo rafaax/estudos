@@ -1,0 +1,46 @@
+# Project: project
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = main.o src/cJSON.o src/cliente.o src/quarto.o src/reserva.o src/servico.o src/utils.o
+LINKOBJ  = main.o src/cJSON.o src/cliente.o src/quarto.o src/reserva.o src/servico.o src/utils.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = project.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.c
+	$(CC) -c main.c -o main.o $(CFLAGS)
+
+src/cJSON.o: src/cJSON.c
+	$(CC) -c src/cJSON.c -o src/cJSON.o $(CFLAGS)
+
+src/cliente.o: src/cliente.c
+	$(CC) -c src/cliente.c -o src/cliente.o $(CFLAGS)
+
+src/quarto.o: src/quarto.c
+	$(CC) -c src/quarto.c -o src/quarto.o $(CFLAGS)
+
+src/reserva.o: src/reserva.c
+	$(CC) -c src/reserva.c -o src/reserva.o $(CFLAGS)
+
+src/servico.o: src/servico.c
+	$(CC) -c src/servico.c -o src/servico.o $(CFLAGS)
+
+src/utils.o: src/utils.c
+	$(CC) -c src/utils.c -o src/utils.o $(CFLAGS)
