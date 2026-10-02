@@ -1,0 +1,224 @@
+@import url('https://fonts.cdnfonts.com/css/montserrat');
+.flex {
+    display: flex;
+    width: 22%;
+}
+.iconeChat{
+    display: flex;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    text-align: center;
+    background-image: url('perfil.png');
+    background-size: cover;
+}
+
+.iconeChat:hover{
+    cursor: pointer;
+}
+.textoChat{
+    display:flex;
+    width: 80%;
+    height: 40px;
+    background-color: #018786;
+    margin-left: -30px;
+    align-self: center;
+    justify-content: center;
+    
+}
+.fontOpitions{
+    display: none;
+    align-self: center;
+    font-size: 15px;
+    font-family: "Arial";
+    color: white;
+}
+.chatBot{
+    display: flex;
+    width: 18.1%;
+    height: 85px;
+    margin-left:40px;
+    margin-bottom: -63px;
+    background-color: #03dac530;
+    border-width: 3px;
+    border-style: dotted;
+    border-color:#03dac5;
+}
+.chatBotAberto{
+    display: none;
+    width: 18.1%;
+    height: 450px;
+    margin-left:40px;
+    margin-bottom: -63px;
+    /* background-color: #03dac530; */
+    border-width: 3px;
+    border-color:#03dac5;
+    flex-direction: column;
+}
+.imagemVetorian{
+    width: 75%;
+    height: 35px;
+    margin-left: 30px;
+    margin-top: 3px;
+}
+.logoChat{
+    width: 100% ;
+    height: 50px;
+    background-color: #01878747;
+    border-bottom-left-radius: 15%;
+    border-bottom-right-radius: 15%;
+}
+.chatEspacoMensagens{
+    width: 100% ;
+    height: 20%;
+    /* background-color: #03dac530; */
+    margin-top: 10px;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+::selection{
+    color: #fff;
+    background: #007bff;
+}
+
+::-webkit-scrollbar{
+    width: 3px;
+    border-radius: 25px;
+}
+
+::-webkit-scrollbar-track{
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb{
+    background: #ddd;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background: #ccc;
+}
+
+.wrapper{
+     
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    border-top: 0px;
+}
+
+.wrapper .form{
+    padding: 20px 15px;
+    max-height: 330px;
+    overflow-y: auto;
+}
+.wrapper .form .inbox{
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+}
+.wrapper .form .user-inbox{
+    justify-content: flex-end;
+    margin: 13px 0;
+}
+.wrapper .form .inbox .icon{
+    height: 40px;
+    width: 40px;
+    color: #ffff;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    background: #ffff;
+}
+.wrapper .form .inbox .msg-header{
+    max-width: 60%;
+    margin-left: 10px;
+    text-decoration: none;
+}
+.form .inbox .msg-header p{
+    color: #fff;
+    background: grey;
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 14px;
+}
+.form .user-inbox .msg-header p{
+    color: #333;
+    background: #efefef;
+}
+.wrapper .typing-field{
+    display: flex;
+    height: 60px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    background: #efefef;
+    border-top: 1px solid #d9d9d9;
+    border-radius: 0 0 5px 5px;
+}
+.wrapper .typing-field .input-data{
+    height: 40px;
+    width: 335px;
+    position: absolute;
+}
+.wrapper .typing-field .input-data input{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: 1px solid transparent;
+    padding: 0 80px 0 15px;
+    border-radius: 3px;
+    font-size: 15px;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+.typing-field .input-data input:focus{
+    border-color: rgba(0,123,255,0.8);
+}
+.input-data input::placeholder{
+    color: #999999;
+    transition: all 0.3s ease;
+}
+.input-data input:focus::placeholder{
+    color: #bfbfbf;
+}
+.wrapper .typing-field .input-data button{
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    height: 30px;
+    width: 65px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    opacity: 0;
+    pointer-events: none;
+    border-radius: 3px;
+    background: #007bff;
+    border: 1px solid #007bff;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+}
+.wrapper .typing-field .input-data input:valid ~ button{
+    opacity: 1;
+    pointer-events: auto;
+}
+.typing-field .input-data button:hover{
+    background: #006fef;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+a:hover {
+    color: purple;
+}

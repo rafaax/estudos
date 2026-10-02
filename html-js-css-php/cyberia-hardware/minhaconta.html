@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>CADASTRAMENTO</title>
+<meta charset="utf-8">
+</head>
+<body>
+    <body bgcolor="black">
+    <center>
+    <h1><font color="#00FF00">Cadastre-se</font></h1>
+    </center><p>
+    <form>
+    <fieldset>
+    <legend><font color="#00FF00">Cadastre-se</font></legend>
+    <label for="nome"><font color="#00FF00">Seu nome:</font></label><br>
+	<input type= "text" size="50" id="nome" modelo="nome"><p>
+    <label for="dia"><font color="#00FF00">Sua idade:</font></label> <p>
+    <input type="date" id="dia" name="dia" min="2000-01-01"><p>
+        <label for="marcas"><font color="#00FF00">Você conhecia alguma das três marcas da página principal?</font></label><p>
+        <label for="todas"><font color="#00FF00">Todas</font></label>
+        <input type="radio" id="todas" name="marcas" value="todas">
+        <label for="uma"><font color="#00FF00">Uma ou mais</font></label>
+        <input type="radio" id="uma" name="marcas" value="uma">
+        <label for="nenhuma"><font color="#00FF00">Nenhuma</font></label>
+        <input type="radio" id="nenhuma" name="marcas" value="nenhuma"><p>
+	<label for="marcas"><font color="#00FF00">Ja possuiu algum periférico de tais marcas?</font></label><p>
+        <input type="checkbox" id="razer" name="razer" value="razer"
+        <label for="razer"><font color="#00FF00">Razer</font></label>
+        <input type="checkbox" id="hyperx" name="hyperx" value="hyperx"
+        <label for="hyperx"><font color="#00FF00">Hyperx</font></label>
+        <input type="checkbox" id="redragon" name="redragon" value="redragon"
+        <label for="redragon"><font color="#00FF00">RedDragon</font></label><p>
+        <input type="checkbox" id="nda" name="nda" value="nda"
+        <label for="nda"><font color="#00FF00">Nenhuma opção</font></label><p>
+    <label for="email"><font color="#00FF00">Email para contato:</font></label><p>
+    <input type="email" id="email" name="email"><p>
+    <input type="submit" value="enviar" onclick="alert('Enviado!')">
+    <input type="reset" value="limpar">
+    </fieldset>
+    </form>
+    <center>
+    <a href="paginicial.html"><button><font color="red">Voltar a página inicial</font></button></a>
+    </center>
+</body>
+<html>
