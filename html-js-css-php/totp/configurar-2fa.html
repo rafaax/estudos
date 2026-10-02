@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2fa</title>
+    <link href="assets/index.css" rel="stylesheet">
+</head>
+<body>
+     <div class="container">
+        <h1>Configurar Autenticação de Dois Fatores (2FA)</h1>
+
+        <!-- Seção para Geração do QR Code -->
+        <div id="generateQrSection">
+            <p>Digite seu e-mail para gerar o QR Code e escaneie-o com seu aplicativo autenticador.</p>
+            <div class="input-group">
+                <label for="userEmailInput">Seu E-mail:</label>
+                <input type="email" id="userEmailInput" value="maria@exemplo.com">
+            </div>
+            <button id="generateQrButton">Gerar QR Code</button>
+        </div>
+
+        <div id="qrCodeDisplayArea" style="margin-top: 20px; display: none;">
+            <p>Escaneie o QR Code abaixo com seu aplicativo:</p>
+            <img id="qrCodeImage" src="" alt="QR Code para 2FA">
+        </div>
+
+        <div id="loadingMessage" style="display: none;">Carregando QR Code...</div>
+        <div id="errorMessage" style="display: none;"></div>
+
+        
+        <div id="otpVerificationSection" style="margin-top: 30px; display: none;">
+            <h3>Confirme a Configuração</h3>
+            <p>Insira o código de 6 dígitos exibido no seu aplicativo autenticador para ativar o 2FA.</p>
+            <form id="verifyOtpForm">
+                <div class="input-group">
+                    <label for="otpCodeInput">Código OTP:</label>
+                    <input type="text" id="otpCodeInput" name="otp_code" maxlength="6" pattern="\d{6}" required>
+                </div>
+                <button type="submit" id="verifyOtpButton">Verificar e Ativar 2FA</button>
+            </form>
+            <div id="loadingVerificationMessage" style="display: none;">Verificando código...</div>
+            <div id="verificationMessage" style="margin-top: 10px;"></div>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="assets/index.js"></script>
+</html>

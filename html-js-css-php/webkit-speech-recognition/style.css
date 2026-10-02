@@ -1,0 +1,96 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    text-align: center;
+    background-color: aqua;
+}
+
+header{
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(15, 15, 15);
+    box-shadow: 0 0 1rem yellow;
+}
+
+ul{
+    display: flex;
+    margin: 23px;
+}
+
+li{
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    color: cornflowerblue;
+    cursor: pointer;
+    padding-left: 2rem;
+    font-weight: bold;
+}
+
+.form{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-width: 100vw;
+    margin-top: 5%;
+    margin-right: 20%;
+}
+
+input[type=submit]{
+    font-weight: bold;
+    background-color: rgba(15, 15, 15, 0.8);
+    font-size: 20px;
+    color: #00FFFF;
+    width: 100px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+}
+
+h1{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-name{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-text{
+    font-family: 'Montserrat', sans-serif;
+}
+select{
+    font-weight: bold;
+    margin: auto;
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    background-color: rgba(15, 15, 15, 0.8);
+    color: #00FFFF;
+    text-align: center;
+    width: 300px;
+}
+
+.text-input{
+    width: 300px;
+    height: 400px;
+}
+
+input[type=button]{
+    font-weight: bold;
+    background-color: rgba(15, 15, 15, 0.8);
+    font-size: 20px;
+    color: #00FFFF;
+    width: 100px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+}
