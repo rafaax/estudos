@@ -1,0 +1,4 @@
+pillow
+django
+scikit-learn
+numpy
