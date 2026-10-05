@@ -10,9 +10,6 @@
 <body>
 <div id="particles-js">
   <div class="container tamanho-largura">
-      <div class="d-flex justify-content-center">
-          <img src="../assets/logo.png" width="125px" height="125px" alt="">
-      </div>
       <form action="login.php" method="POST">
           <div class="form-group">
               <label>Login</label>

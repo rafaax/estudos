@@ -13,7 +13,6 @@
             <a style="position:absolute;width:99%;height:-2%;bottom:20%;">
             <div class="chatBotAberto">
                 <div class="logoChat">
-                    <img class="imagemVetorian"src="img/vetorianCorAzulTexto.png" >
                 </div>
                 <div class="form">  
                     <div class="bot-inbox inbox">
