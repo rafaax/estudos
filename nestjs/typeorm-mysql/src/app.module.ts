@@ -22,11 +22,11 @@ import { UserEntity } from './auth/entity/user.entity';
     AuthModule,
     MailerModule.forRoot({
       transport: {
-        host: 'smtp.ethereal.email',
+        host: process.env.MAIL_HOST,
         port: 587,
         auth: {
-          user: 'usuario_do_smtp@ethereal.email',
-          pass: 'senha_do_smtp',
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASS,
         },
       },
       defaults: {

@@ -18,8 +18,8 @@ cp .env.example .env     # apenas prisma-mysql e typeorm-mysql
 npm run start:dev        # sobe em http://localhost:3000
 ```
 
-- **`prisma-mysql`**: defina `DATABASE_URL` e `JWT_SECRET` no `.env` e aplique as migrations do Prisma (`npx prisma migrate deploy`).
-- **`typeorm-mysql`**: defina `DB_*`, `JWT_SECRET` e `ENV` no `.env`. As migrations rodam com `npm run migrate:up`.
+- **`prisma-mysql`**: defina `DATABASE_URL`, `JWT_SECRET` e `MAIL_*` no `.env` e aplique as migrations do Prisma (`npx prisma migrate deploy`).
+- **`typeorm-mysql`**: defina `DB_*`, `JWT_SECRET`, `MAIL_*` e `ENV` no `.env`. As migrations rodam com `npm run migrate:up`.
 - **`courses-api`**: não precisa de variáveis de ambiente.
 
-O envio de e-mail dos projetos de autenticação usa a configuração SMTP definida em `src/app.module.ts`.
+O e-mail de recuperação de senha dos projetos de autenticação usa um servidor SMTP configurado por `MAIL_HOST`, `MAIL_USER` e `MAIL_PASS` no `.env`. Para testar, dá para usar uma conta gratuita do [Ethereal](https://ethereal.email).
