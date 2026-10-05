@@ -6,4 +6,22 @@
   Tela de Login 
 </h1>
 
-Execute o arquivo sql 'particles.sql' para inserir e editar os registros na tabela usuarios
+## Banco de dados
+
+O exemplo usa o banco MySQL `particles` (conexão em `php/login.php`). Crie a tabela de usuários:
+
+```sql
+CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(80) NOT NULL,
+  `sobrenome` varchar(90) NOT NULL,
+  `login` varchar(200) DEFAULT NULL,
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(256) NOT NULL,
+  `nivel` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+```
+
+Depois insira um usuário de teste com `status` igual a `Ativo`. O exemplo compara a senha em texto puro, o que serve apenas para estudo e não deve ser usado em produção.
