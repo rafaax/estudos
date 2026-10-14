@@ -12,4 +12,4 @@ Estudos em PHP.
 | [`phpword`](phpword) | Preenchimento de um modelo `.docx` com a biblioteca PHPWord. |
 | [`totp`](totp) | Autenticação em dois fatores (TOTP) com QR code. |
 
-As páginas e bibliotecas JavaScript que usam PHP só como apoio ficam em [`html-js-css`](../html-js-css).
+As páginas e bibliotecas JavaScript que usam PHP só como apoio ficam em [`javascript`](../javascript).
