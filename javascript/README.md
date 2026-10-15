@@ -6,6 +6,7 @@ Estudos com bibliotecas JavaScript e APIs do navegador.
 |---|---|
 | [`chart-js`](chart-js) | Gráficos com Chart.js alimentados por uma consulta em PHP. |
 | [`cropper-js`](cropper-js) | Recorte de imagens com Cropper.js e alertas com SweetAlert. |
+| [`office-to-html`](office-to-html) | Visualizador de PDF, Word, PowerPoint e Excel no navegador, a partir de um projeto de terceiros. |
 | [`particles-js`](particles-js) | Tela de login com fundo animado do particles.js, em PHP. |
 | [`slick-js`](slick-js) | Carrossel Slick com GIFs de gatos buscados da The Cat API. |
 | [`three-js`](three-js) | Visualizador 3D na web com three.js e modelos glTF. |

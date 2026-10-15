@@ -17,3 +17,13 @@ Integrates other libraries like PPTXjs, mammoth.js, SheetJs Combined with handso
 * xlsx viewer
 * csv viewer
 * image viewer
+
+## Neste repositório
+
+Esta pasta veio do fork `rafaax/officetohtml`, com o histórico preservado. A versão simplificada junta o PPTXjs, o mammoth.js, o SheetJS com handsontable e o PDF.js para exibir arquivos do Office e PDFs no navegador.
+
+- `input_file.html`: escolhe um arquivo no computador e o exibe na página.
+- `static_filepath.html`: exibe um arquivo a partir de um caminho fixo.
+- `include/`: bibliotecas de terceiros, cada uma com a sua licença.
+
+Os arquivos de exemplo (documentos, apresentações, planilhas e PDFs) e os source maps foram removidos do histórico para reduzir o tamanho. Para testar, use arquivos seus.
