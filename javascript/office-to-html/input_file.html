@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Input File</title>
+  <meta charset="utf-8">
+  <link href="./styles/layout.css" rel="stylesheet" type="text/css">
+  
+
+  <!-- ################################ Jquery For files render ###############################-->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <!--PDF-->
+  <link rel="stylesheet" href="./include/pdf/pdf.viewer.css">
+  <script src="./include/pdf/pdf.js"></script>
+  <!--Docs-->
+  <script src="./include/docx/jszip-utils.js"></script>
+  <script src="./include/docx/mammoth.browser.min.js"></script>
+  <!--PPTX-->
+  <link rel="stylesheet" href="./include/PPTXjs/css/pptxjs.css">
+  <link rel="stylesheet" href="./include/PPTXjs/css/nv.d3.min.css">
+  <link rel="stylesheet" href="./include/revealjs/reveal.css">
+
+  <script type="text/javascript" src="./include/PPTXjs/js/filereader.js"></script>
+  <script type="text/javascript" src="./include/PPTXjs/js/d3.min.js"></script>
+  <script type="text/javascript" src="./include/PPTXjs/js/nv.d3.min.js"></script>
+  <script type="text/javascript" src="./include/PPTXjs/js/pptxjs.js"></script>
+  <script type="text/javascript" src="./include/PPTXjs/js/divs2slides.js"></script>
+  <!--All Spreadsheet -->
+  <link rel="stylesheet" href="./include/SheetJS/handsontable.full.min.css">
+  <script type="text/javascript" src="./include/SheetJS/handsontable.full.min.js"></script>
+  <script type="text/javascript" src="./include/SheetJS/xlsx.full.min.js"></script>
+  <!--Image viewer-->
+  <link rel="stylesheet" href="./include/verySimpleImageViewer/css/jquery.verySimpleImageViewer.css">
+  <script type="text/javascript" src="./include/verySimpleImageViewer/js/jquery.verySimpleImageViewer.js"></script>
+  <!--officeToHtml-->
+  <script src="./include/officeToHtml/officeToHtml.js"></script>
+  <link rel="stylesheet" href="./include/officeToHtml/officeToHtml.css">
+</head>
+
+<body id="top">
+    <div class="wrapper row3">
+        <main class="hoc container clear">
+            <div class="content three_quarter">
+                <div class="box bg-light clear">
+                    <h3 class="font-x2" id="head-name">INPUT FILE</h3>
+                    <p id="file_p"> 
+                        File: 
+                        <a href="#" id="a_file"></a>
+                        <input type="file" id="select_file">
+                    </p>
+                </div>
+                <p id="resolte-text" style="display:none">Resolte:</p>
+                <div style="overflow: hidden;width: 800px; ">
+                    <div id="resolte-contaniner" style="width: 100%; height:550px; overflow: auto;"></div>
+                </div>
+            </div>
+        </main>
+  </div>
+</body>
+
+</html>
+
+<script>
+    $( document ).ready(function() {
+        $("#resolte-contaniner").officeToHtml({
+            inputObjId: "select_file",
+            pdfSetting: {
+            setLang: "",
+            setLangFilesPath: ""
+            }
+        });
+    });
+</script>
